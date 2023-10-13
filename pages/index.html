@@ -4,6 +4,96 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>TeamHub</title>
+		<meta name="description" content="KW OSS project - Team Hub" />
+		<meta name="author" content="웅크린불꽃" />
+		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
+		<link rel="stylesheet" href="../styles/index.css" />
+		<script src="../src/index.js" defer></script>
 	</head>
-	<body></body>
+
+	<body>
+		<div id="root">
+			<!-- Header -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="#"
+							><img
+								class="header__logo__img"
+								src="../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = './new-document.html' "
+								class="header__menu__item"
+							>
+								새 글 쓰기→
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__login__btn"
+								type="button"
+								onclick="location.href = '../Login/index.html' "
+								class="header__menu__item"
+							>
+								로그인
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__signup__btn"
+								type="button"
+								onclick="location.href='#'"
+								class="header__menu__item"
+							>
+								회원가입
+							</button>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<!-- 따끈따끈한 팀원모집 글 -->
+			<div class="newPost">
+				<div class="newPost__title">
+					<h2>🔥 따끈따끈한 팀원모집 글</h2>
+					<div class="newPost__title__arrow">
+						<img
+							class="title__left__arrow"
+							src="../public/left-arrow.png"
+							alt="left-arrow"
+						/>
+						<img
+							class="title__right__arrow"
+							src="../public/right-arrow.png"
+							alt="right-arrow"
+						/>
+					</div>
+				</div>
+				<div class="newPost__contents"></div>
+			</div>
+			<!-- 메인 콘텐츠 -->
+			<main class="mainContents">
+				<div class="mainContents__category">
+					<section class="mainContents__category__list">
+						<div class="category__all"></div>
+						<div class="category__project"></div>
+						<div class="category__study"></div>
+					</section>
+					<section class="mainContents__filter">
+						<div class="filter__semester"></div>
+						<div class="filter__department"></div>
+						<div class="filter__subject"></div>
+					</section>
+				</div>
+				<div class="mainContents__main"></div>
+				<div class="mainContents__footer"></div>
+			</main>
+		</div>
+	</body>
 </html>
