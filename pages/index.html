@@ -4,6 +4,126 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>TeamHub</title>
+		<meta name="description" content="KW OSS project - Team Hub" />
+		<meta name="author" content="웅크린불꽃" />
+		<script
+			src="https://kit.fontawesome.com/3bdd1547e6.js"
+			crossorigin="anonymous"
+		></script>
+		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
+		<link rel="stylesheet" href="../styles/index.css" />
+		<!-- <script src="../src/index.js" defer></script> -->
 	</head>
-	<body></body>
+	<body>
+		<div id="root">
+			<!-- Header -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="#"
+							><img
+								class="header__logo__img"
+								src="../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = './new-document.html' "
+								class="header__menu__item"
+							>
+								새 글 쓰기→
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__login__btn"
+								type="button"
+								onclick="location.href = '../Login/index.html' "
+								class="header__menu__item"
+							>
+								로그인
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__signup__btn"
+								type="button"
+								onclick="location.href='#'"
+								class="header__menu__item"
+							>
+								회원가입
+							</button>
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+			<!-- 따끈따끈한 팀원모집 글 -->
+			<div class="newPost">
+				<div class="newPost__container">
+					<span class="newPost__title">🔥따끈따끈한 팀원모집 글</span>
+					<div class="newPost__title__arrow">
+						<div class="arrow__left">
+							<i
+								class="fa-solid fa-circle-chevron-left fa-2x"
+								style="color: #d9d9d9"
+							></i>
+						</div>
+						<div class="arrow__right">
+							<i
+								class="fa-solid fa-circle-chevron-right fa-2x"
+								style="color: #d9d9d9"
+							></i>
+						</div>
+					</div>
+				</div>
+				<ul class="newPost__card"></ul>
+			</div>
+
+			<!-- 메인 콘텐츠 -->
+			<main class="mainContent">
+				<div class="mainContent__category__container">
+					<div class="studyOrProject__category">
+						<div class="studyOrProject__category__item__all">
+							<span class="studyOrProject__text">전체</span>
+						</div>
+						<div class="studyOrProject__category__item__project">
+							<span class="studyOrProject__text">프로젝트</span>
+						</div>
+						<div class="studyOrProject__category__item__study">
+							<span class="studyOrProject__text">스터디</span>
+						</div>
+					</div>
+					<div class="category__container">
+						<div class="category__item__semester">
+							<span class="semester__title">&nbsp진행 학기&nbsp</span>
+							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+						</div>
+						<div class="category__item__department">
+							<span class="department__title"
+								>&nbsp학과 &nbsp&nbsp&nbsp&nbsp&nbsp</span
+							>
+							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+						</div>
+						<div class="category__item__subject">
+							<span class="subject__title"
+								>&nbsp과목 &nbsp&nbsp&nbsp&nbsp&nbsp
+							</span>
+							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+						</div>
+						<div class="category__item__myBookmark">
+							<span>&nbsp🔖내 북마크 보기&nbsp&nbsp&nbsp</span>
+						</div>
+						<div class="category__item__recruit">
+							<span>&nbsp👀모집 중인 글만 보기&nbsp</span>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</body>
 </html>
