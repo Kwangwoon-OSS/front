@@ -27,14 +27,8 @@ body {
 	margin: 0;
 }
 
-h1,
-ul {
-	margin: 0;
-}
-
 ul {
 	list-style: none;
-	padding: 0;
 }
 
 li {
@@ -154,7 +148,7 @@ button {
 
 .newPost {
 	width: 100%;
-	max-width: 1300px;
+	max-width: 1180px;
 	padding: 0px 100px;
 	margin: 160px auto 60px;
 }
@@ -321,14 +315,14 @@ button {
 .mainContent__category__container {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 150%;
 	max-width: 1300px;
-	padding: 0px 100px;
 	margin: 100px auto 60px;
 }
 
 .studyOrProject__category {
 	display: flex;
+	padding: 0 100px 0 40px;
 }
 
 .studyOrProject__text {
@@ -353,7 +347,7 @@ button {
 	display: flex;
 	width: 100%;
 	max-width: 1300px;
-	padding: 0 10px;
+	padding: 0 100px 0 50px;
 	margin: 20px auto 60px;
 }
 
@@ -390,6 +384,51 @@ button {
 	padding: 0.5rem;
 	border: var(--color-gray) 2px solid;
 	border-radius: 30px;
+}
+
+/* content item list */
+.content__card__item {
+	padding: 0 40px;
+}
+.content__item {
+	border: 2px solid var(--color-gray);
+	border-radius: 30px;
+	display: inline-block;
+	margin-bottom: 1%;
+	width: 33%;
+	height: 350px;
+	padding: 30px 30px;
+}
+
+.item__head {
+	display: flex;
+	justify-content: space-between;
+}
+.item__head__checkbox {
+	display: flex;
+}
+.checkbox {
+	padding: 10px;
+	border: 1px solid var(--color-pink);
+}
+
+.item__tag {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item__footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item__footer__right {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item__footer__view {
+	margin-right: 10px;
 }
 
 /* footer */
