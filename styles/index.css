@@ -82,6 +82,7 @@ button {
 	top: 0;
 	width: 100%;
 	padding: 1rem;
+	z-index: 1;
 }
 
 .header__nav {
@@ -389,4 +390,29 @@ button {
 	padding: 0.5rem;
 	border: var(--color-gray) 2px solid;
 	border-radius: 30px;
+}
+
+/* footer */
+#footer {
+	background-color: var(--color-gray);
+	padding: 5%;
+	font-size: 0.8rem;
+}
+
+.contact {
+	margin-bottom: 1px;
+}
+
+.copyright {
+	margin-bottom: 1px;
+}
+
+.service_description {
+	display: flex;
+	justify-content: space-between;
+}
+
+.description__text {
+	font-size: 0.8rem;
+	font-weight: 500;
 }
