@@ -11,6 +11,7 @@
 	--color-black: #050a13;
 	--color-pink: #ea5455;
 	--color-gray: #d9d9d9;
+	--color-dark-gray: #8f8d8d;
 	--color-yellow: #ffd460;
 
 	/* Size */
@@ -97,6 +98,7 @@ button {
 	display: flex;
 	align-items: center;
 	gap: 8px;
+	cursor: pointer;
 }
 
 .header__logo__img {
@@ -147,6 +149,8 @@ button {
 	border-radius: 4px;
 }
 
+/* 따끈따끈한 팀원모집 글 */
+
 .newPost {
 	width: 100%;
 	max-width: 1300px;
@@ -171,6 +175,146 @@ button {
 
 .arrow__left {
 	margin-right: 10%;
+}
+
+.newPost__card {
+	height: 250px;
+	margin: auto;
+	position: relative;
+	width: 120%;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	left: -10%;
+}
+
+.slide {
+	height: 200px;
+	width: 350px;
+	display: flex;
+	align-items: center;
+	padding: 5px;
+	perspective: 100%;
+}
+
+.slide-track {
+	display: flex;
+	width: calc(300px * 12);
+	animation: scroll 40s linear infinite;
+}
+
+.slide-track:hover {
+	animation-play-state: paused;
+}
+
+@keyframes scroll {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(calc(-300px * 6));
+	}
+}
+
+.train-card {
+	width: 100%;
+	transition: transform 1s;
+	overflow: hidden;
+}
+
+.train-card:hover {
+	transform: translateZ(18px);
+}
+
+/* 슬라이더 그라데이션 그림자 */
+
+.slider::before,
+.slider::after {
+	background: linear-gradient(
+		to right,
+		#f6f4f2 0%,
+		rgba(255, 255, 255, 0) 100%
+	);
+	content: '';
+	height: 100%;
+	position: absolute;
+	width: 15%;
+	z-index: 2;
+}
+
+.slider::before {
+	left: 0;
+	top: 0;
+}
+
+.slider::after {
+	right: 0;
+	top: 0;
+	transform: rotateZ(180deg);
+}
+
+/* newPost 카드 */
+.card {
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	width: 320px;
+	padding: 8%;
+	border: 2px solid var(--color-gray);
+	border-radius: 20px;
+}
+
+.card__head {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 8%;
+	height: 10%;
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+.card__head__category {
+	border-radius: 30px;
+	padding: 3px;
+	height: 160%;
+	width: 35%;
+	background-color: var(--color-gray);
+	color: var(--color-black);
+	font-weight: 700;
+}
+
+.card__head__deadline {
+	border: 1px solid var(--color-pink);
+	border-radius: 30px;
+	padding: 2px;
+	height: 160%;
+	width: 38%;
+	color: var(--color-pink);
+	font-weight: 700;
+}
+
+.card__date {
+	margin-bottom: 5%;
+	height: 10%;
+	color: var(--color-dark-gray);
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.card__main {
+	margin-bottom: 5px;
+	height: 50%;
+	font-weight: 600;
+	font-size: 1rem;
+	color: var(--color-primary);
+}
+
+.card__footer {
+	height: 20%;
+	font-size: 0.8rem;
+	text-align: right;
+	font-weight: 700;
 }
 
 .mainContent__category__container {
