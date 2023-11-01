@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>팀원 모집 게시글 작성</title>
+		<meta name="description" content="KW OSS project - Team Hub" />
+		<meta name="author" content="웅크린불꽃" />
+		<script
+			src="https://kit.fontawesome.com/3bdd1547e6.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- Google fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+		<!-- Logo img -->
+		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
+
+		<!-- Document -->
+		<link rel="stylesheet" href="../styles/new-post.css" />
+		<script src="../assets/new-post.js" defer></script>
+	</head>
+	<body>
+		<div id="root">
+			<!-- Header -->
+			<header class="header">
+				
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="../pages/index.html"
+							><img
+								class="header__logo__img"
+								src="../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = './new-post.html' "
+								class="header__menu__item"
+							>
+							<span>새 글 쓰기</span>
+							<i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</li>
+						<li>
+							<img src="../public/basic-profile.png" alt="basic profile" class="profile">
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<main class="main">
+				<div class="up__wrapper">
+					<div class="title__wrapper">
+						<span>프로젝트 기본 정보를 입력해주세요</span>
+					</div>
+					<div class="line"></div>
+					<section class="up__content">
+						<div class="up__content__wrapper">
+							<div class="left__wrapper">
+								<div class="semester__wrapper">
+									<div class="title">
+										<span>진행학기</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="semester__text">
+									</div>
+								</div>
+								<div class="category__wrapper">
+									<div class="title">
+										<span>모집분야</span>
+									</div>
+									<div class="select__menu">
+										<div class="select__btn">
+											<span class="category__btn__text">모집분야를 선택하세요</span>
+											<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+										</div>
+										<ul class="category__options">
+											<li class="option">
+												<i class="fa-regular fa-folder-open" style="color:var(--color-pink);"></i>
+												<span class="option__text">프로젝트</span>
+											</li>
+											<li class="option">
+												<i class="fa-solid fa-book" style="color:green;"></i>
+												<span class="option__text">&nbsp스터디</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="people__wrapper">
+									<div class="title">
+										<span>모집인원</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="people__text">
+									</div>
+								</div>
+							</div>
+							<div class="right__wrapper">
+								<div class="department__wrapper">
+									<div class="title">
+										<span>학과</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="department__text">
+									</div>
+								</div>
+								<div class="subject__wrapper">
+									<div class="title">
+										<span>과목명</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="subject__text">
+									</div>
+								</div>
+								<div class="contact__wrapper">
+									<div class="title">
+										<span>연락방법</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="contact__text">
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="down__wrapper">
+					<div class="title__wrapper">
+						<span>프로젝트에 대해 소개해주세요</span>
+					</div>
+					<div class="line"></div>
+					<section class="down__content">
+						<div class="down__content__wrapper">
+							<div class="postTitle__wrapper">
+								<div class="postTitle">
+									<span>제목</span>
+								</div>
+								<div class="input__box" id="post__title">
+									<input type="text" id="post__title__text" value="글 제목을 입력해주세요!">
+								</div>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			</main>
+	</body>
+</html>
