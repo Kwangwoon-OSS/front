@@ -218,7 +218,7 @@ input[type='text'] {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.select__btn {
+.select__btn i {
 	font-size: 25px;
 	transition: 0.3s;
 }
@@ -234,10 +234,18 @@ input[type='text'] {
 	border-radius: 8px;
 	background: #fff;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+.select__menu .category__options.click {
+	display: block;
 }
 
-.select__menu .active .category__options {
+.select__menu.active .category__options {
 	display: block;
+}
+
+.select__menu.active .category__options.click {
+	display: none;
 }
 
 .category__options .option {
