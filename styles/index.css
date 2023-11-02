@@ -119,6 +119,7 @@ button {
 #header__menu__new__btn {
 	background-color: var(--color-gray);
 	border: 1px solid var(--color-gray);
+	font-size: 1.2rem;
 	color: var(--color-black);
 }
 
@@ -130,12 +131,14 @@ button {
 #header__menu__login__btn {
 	background-color: var(--color-white);
 	border: 1px solid var(--color-gray);
+	font-size: 1.2rem;
 	color: var(--color-primary);
 }
 
 #header__menu__signup__btn {
 	background-color: var(--color-pink);
 	border: 1px solid var(--color-pink);
+	font-size: 1.2rem;
 	color: var(--color-white);
 }
 
