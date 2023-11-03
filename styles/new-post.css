@@ -392,6 +392,8 @@ input[type='text'] {
 	background: #fff;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	display: none;
+	max-height: 200px;
+	overflow-y: scroll;
 }
 
 .department__menu .department__options.click {
@@ -409,6 +411,9 @@ input[type='text'] {
 .department__option__title {
 	font-size: 1rem;
 	font-weight: 600;
+	height: 35px;
+	margin-top: 20px;
+	border-bottom: 1px solid black;
 }
 
 .department__options .department__option {
@@ -427,8 +432,9 @@ input[type='text'] {
 }
 
 .department__option .department__option__text {
-	font: size 18px;
+	font-size: 1rem;
 	color: #333;
+	margin-left: 10px;
 }
 
 .contact__menu {
@@ -502,8 +508,25 @@ input[type='text'] {
 }
 
 .contact__option .contact__option__text {
-	font: size 18px;
+	font-size: 1rem;
 	color: #333;
+}
+
+.contact__option #contact__alt__text {
+	font-size: 1rem;
+	color: #333;
+}
+
+.contact__input__box {
+	display: none;
+}
+
+.contact__input__box.click {
+	display: block;
+}
+
+.contact__option__logo {
+	margin-right: 8px;
 }
 
 .postTitle__wrapper {
