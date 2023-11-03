@@ -188,8 +188,19 @@ input[type='text'] {
 	border: solid 2px var(--color-gray);
 	padding: 10px;
 	width: 88%;
-	height: 50px;
 	font-size: 1rem;
+
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 55px;
+	background: #fff;
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 400;
+	border: 2px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
 }
 
 .category__wrapper,
@@ -199,8 +210,78 @@ input[type='text'] {
 	margin-top: 40px;
 }
 
+.semester__menu {
+	width: 86%;
+	margin: 15px 0;
+}
+
+.semester__menu .semester__btn {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 55px;
+	background: #fff;
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 400;
+	border: 2px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
+}
+
+.semester__btn i {
+	font-size: 25px;
+	transition: 0.3s;
+}
+
+.semester__menu.active .semester__btn i {
+	transform: rotate(-180deg);
+}
+
+.semester__menu .semester__options {
+	position: relative;
+	padding: 20px;
+	margin-top: 10px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.semester__menu .semester__options.click {
+	display: block;
+}
+
+.semester__menu.active .semester__options {
+	display: block;
+}
+
+.semester__menu.active .semester__options.click {
+	display: none;
+}
+
+.semester__options .semester__option {
+	display: flex;
+	height: 55px;
+	cursor: pointer;
+	padding: 0 16px;
+	border-radius: 8px;
+	align-items: center;
+	background: #fff;
+}
+
+.semester__option i {
+	font-size: 25px;
+	margin-right: 12px;
+}
+
+.semester__option .semester__option__text {
+	font: size 18px;
+	color: #333;
+}
+
 .select__menu {
-	width: 380px;
+	width: 86%;
 	margin: 15px 0;
 }
 
@@ -213,9 +294,9 @@ input[type='text'] {
 	padding: 20px;
 	font-size: 18px;
 	font-weight: 400;
+	border: 2px solid var(--color-gray);
 	border-radius: 8px;
 	align-items: center;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .select__btn i {
@@ -236,6 +317,7 @@ input[type='text'] {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	display: none;
 }
+
 .select__menu .category__options.click {
 	display: block;
 }
@@ -258,7 +340,9 @@ input[type='text'] {
 	background: #fff;
 }
 
-.category__options .option:hover {
+.category__options .option:hover,
+.semester__options .semester__option:hover,
+.department__options .department__option:hover {
 	background: #f2f2f2;
 }
 
@@ -271,6 +355,157 @@ input[type='text'] {
 	font-size: 18px;
 	color: #333;
 }
+
+.department__menu {
+	width: 86%;
+	margin: 15px 0;
+}
+
+.department__menu .department__btn {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 55px;
+	background: #fff;
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 400;
+	border: 2px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
+}
+
+.department__btn i {
+	font-size: 25px;
+	transition: 0.3s;
+}
+
+.department__menu.active .department__btn i {
+	transform: rotate(-180deg);
+}
+
+.department__menu .department__options {
+	position: relative;
+	padding: 20px;
+	margin-top: 10px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.department__menu .department__options.click {
+	display: block;
+}
+
+.department__menu.active .department__options {
+	display: block;
+}
+
+.department__menu.active .department__options.click {
+	display: none;
+}
+
+.department__option__title {
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.department__options .department__option {
+	display: flex;
+	height: 55px;
+	cursor: pointer;
+	padding: 0 16px;
+	border-radius: 8px;
+	align-items: center;
+	background: #fff;
+}
+
+.department__option i {
+	font-size: 25px;
+	margin-right: 12px;
+}
+
+.department__option .department__option__text {
+	font: size 18px;
+	color: #333;
+}
+
+.contact__menu {
+	width: 86%;
+	margin: 15px 0;
+}
+
+.contact__menu .contact__btn {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 55px;
+	background: #fff;
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 400;
+	border: 2px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
+	/* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+}
+
+.contact__btn i {
+	font-size: 25px;
+	transition: 0.3s;
+}
+
+.contact__menu.active .contact__btn i {
+	transform: rotate(-180deg);
+}
+
+.contact__menu .contact__options {
+	position: relative;
+	padding: 20px;
+	margin-top: 10px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+}
+
+.contact__menu .contact__options.click {
+	display: block;
+}
+
+.contact__menu.active .contact__options {
+	display: block;
+}
+
+.contact__menu.active .contact__options.click {
+	display: none;
+}
+
+.contact__options .contact__option {
+	display: flex;
+	height: 55px;
+	cursor: pointer;
+	padding: 0 16px;
+	border-radius: 8px;
+	align-items: center;
+	background: #fff;
+}
+
+.contact__options .contact__option:hover {
+	background: #f2f2f2;
+}
+
+.contact__option i {
+	font-size: 25px;
+	margin-right: 12px;
+}
+
+.contact__option .contact__option__text {
+	font: size 18px;
+	color: #333;
+}
+
 .postTitle__wrapper {
 	padding: 10px;
 }
