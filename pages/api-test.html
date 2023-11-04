@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Api-Test</title>
+		<link rel="stylesheet" href="../styles/api-test.css" />
+		<script defer src="../assets/api/json-server.js"></script>
+	</head>
+	<body>
+		<button onclick="getData()">유저조회</button>
+		<button onclick="postData()">유저추가</button>
+		<br />
+		<form id="form">
+			<input type="text" id="user__name" name="name" />
+			<input type="text" id="user__email" name="email" />
+			<input type="text" id="user__phone" name="phone" />
+		</form>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+				</tr>
+			</thead>
+			<tbody id="tbBody"></tbody>
+		</table>
+	</body>
+</html>
