@@ -259,22 +259,52 @@
 						</div>
 					</div>
 					<div class="category__container">
-						<div class="category__item__semester">
-							<span class="semester__title">&nbsp진행 학기&nbsp</span>
-							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+						<div class="semester__menu" id="semester__list">
+							<div class="semester__btn">
+								<span class="semester__btn__text">진행학기</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="semester__options" id="semester__option__list">
+								<li class="semester__option">
+									<i class="fa-solid fa-calendar-days"></i>
+									<span class="semester__option__text">2023년 1학기</span>
+								</li>
+								<li class="semester__option">
+									<i class="fa-solid fa-calendar-days"></i>
+									<span class="semester__option__text">2023년 2학기</span>
+								</li>
+							</ul>
 						</div>
-						<div class="category__item__department">
-							<span class="department__title"
-								>&nbsp학과 &nbsp&nbsp&nbsp&nbsp&nbsp</span
-							>
-							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+						<div class="department__menu" id="department__list">
+							<div class="department__btn">
+								<span class="department__btn__text">학과</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="department__options" id="department__option__list">
+								<li class="department__option">
+									<span class="department__option__text">컴퓨터정보</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">소프트</span>
+								</li>
+							</ul>
 						</div>
-						<div class="category__item__subject">
-							<span class="subject__title"
-								>&nbsp과목 &nbsp&nbsp&nbsp&nbsp&nbsp
-							</span>
-							<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+
+						<div class="subject__menu" id="subject__list">
+							<div class="subject__btn">
+								<span class="subject__btn__text">과목명</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="subject__options" id="subject__option__list">
+								<li class="subject__option">
+									<span class="subject__option__text">영어</span>
+								</li>
+								<li class="subject__option">
+									<span class="subject__option__text">수학</span>
+								</li>
+							</ul>
 						</div>
+
 						<div class="category__item__myBookmark">
 							<span>&nbsp🔖내 북마크 보기&nbsp&nbsp&nbsp</span>
 						</div>
