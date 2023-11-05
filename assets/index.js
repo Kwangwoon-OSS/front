@@ -1,14 +1,24 @@
-const domainEl = document.querySelector('.category__item__semester');
-const domainListEl = document.querySelector('.semester__list');
+let swiperCards = new Swiper('.card__content', {
+	loop: true,
+	spaceBetween: 32,
+	grabCursor: true,
 
-let isActiveDomainList = false;
-domainEl.addEventListener('click', function () {
-	isActiveDomainList = !isActiveDomainList; // transition
-	if (isActiveDomainList) {
-		// active domain list
-		domainListEl.classList.add('active');
-	} else {
-		// hide domain list
-		domainListEl.classList.remove('active');
-	}
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+
+	breakpoints: {
+		600: {
+			slidesPerView: 2,
+		},
+		968: {
+			slidesPerView: 3,
+		},
+	},
+
+	autoplay: {
+		delay: 2000,
+		disableOnInteraction: false,
+	},
 });

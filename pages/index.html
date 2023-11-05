@@ -6,11 +6,14 @@
 		<title>TeamHub</title>
 		<meta name="description" content="KW OSS project - Team Hub" />
 		<meta name="author" content="웅크린불꽃" />
+
+		<!-- ==================== FONTAWESOME ==================== -->
 		<script
 			src="https://kit.fontawesome.com/3bdd1547e6.js"
 			crossorigin="anonymous"
 		></script>
-		<!-- Google fonts -->
+
+		<!-- ==================== Google Web fonts ==================== -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
@@ -18,16 +21,25 @@
 			rel="stylesheet"
 		/>
 
-		<!-- Logo img -->
+		<!-- ==================== CSS ==================== -->
+		<link rel="stylesheet" href="../styles/index.css" />
+
+		<!-- ==================== SWIPER CSS ====================-->
+		<link rel="stylesheet" href="../styles/swiper-bundle.min.css" />
+
+		<!-- ==================== LOGO IMG ==================== -->
 		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
 
-		<!-- Document -->
-		<link rel="stylesheet" href="../styles/index.css" />
-		<!-- <script src="../src/index.js" defer></script> -->
+		<!-- ==================== SWIPER JS ==================== -->
+		<script defer src="../assets/swiper-bundle.min.js"></script>
+
+		<!-- ==================== MAIN JS ==================== -->
+		<script defer src="../assets/index.js"></script>
 	</head>
+
 	<body>
 		<div id="root">
-			<!-- Header -->
+			<!-- ==================== HEADER ==================== -->
 			<header class="header">
 				<nav class="header__nav">
 					<div class="header__logo">
@@ -74,200 +86,165 @@
 				</nav>
 			</header>
 
-			<!-- 따끈따끈한 팀원모집 글 -->
+			<!-- ==================== SLIDER ==================== -->
+			<!-- title -->
 			<div class="newPost">
-				<div class="newPost__container">
-					<span class="newPost__title">🔥따끈따끈한 팀원모집 글</span>
-					<div class="newPost__title__arrow">
-						<div class="arrow__left">
-							<i
-								class="fa-solid fa-circle-chevron-left fa-2x"
-								style="color: #d9d9d9"
-							></i>
+				<span class="newPost__title">🔥따끈따끈한 팀원모집 글</span>
+			</div>
+			<!-- card -->
+			<div class="container">
+				<div class="card__container swiper">
+					<div class="card__content">
+						<div class="swiper-wrapper">
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main">
+										<span> </span>
+									</div>
+
+									<p class="card__description">
+										[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원을
+										구합니다.
+									</p>
+
+									<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main">
+										<span> </span>
+									</div>
+
+									<p class="card__description">
+										[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원을
+										구합니다.
+									</p>
+
+									<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main">
+										<span> </span>
+									</div>
+
+									<p class="card__description">
+										[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원을
+										구합니다.
+									</p>
+
+									<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main">
+										<span> </span>
+									</div>
+
+									<p class="card__description">
+										[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원을
+										구합니다.
+									</p>
+
+									<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main">
+										<span> </span>
+									</div>
+
+									<p class="card__description">
+										[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원을
+										구합니다.
+									</p>
+
+									<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
 						</div>
-						<div class="arrow__right">
-							<i
-								class="fa-solid fa-circle-chevron-right fa-2x"
-								style="color: #d9d9d9"
-							></i>
-						</div>
+					</div>
+					<!-- Navigation buttons -->
+					<div class="swiper-button-next">
+						<i class="ri-arrow-right-s-line"></i>
+					</div>
+
+					<div class="swiper-button-prev">
+						<i class="ri-arrow-left-s-line"></i>
 					</div>
 				</div>
-				<ul class="newPost__card">
-					<div class="slide-track">
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 <span>5</span>일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slide">
-							<div class="train-card">
-								<div class="card">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<span
-											>[오픈소스소프트웨어] 오픈소스팀프로젝트 함께 할 팀원
-											구합니다.
-										</span>
-									</div>
-									<div class="card__footer">
-										<span>👀 조회수 <span>45</span>회</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</ul>
 			</div>
 
-			<!-- 메인 콘텐츠 -->
+			<!-- ==================== Main Contents ==================== -->
 			<main class="mainContent">
 				<div class="mainContent__category__container">
 					<div class="studyOrProject__category">
@@ -306,7 +283,7 @@
 						</div>
 					</div>
 
-					<!-- content list -->
+					<!-- ==================== Content List ==================== -->
 					<div class="content__wrapper">
 						<ul class="content__card__item">
 							<li class="content__item">
@@ -376,7 +353,7 @@
 				</div>
 			</main>
 
-			<!-- footer -->
+			<!-- ==================== FOOTER ==================== -->
 			<footer id="footer" class="footer__container">
 				<div id="footer__wrapper" class="max-container">
 					<div class="contact">

@@ -1,10 +1,21 @@
-/* Global */
+/*=============== GOOGLE FONTS ===============*/
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&display=swap');
+
+/* =============== GLOBAL =============== */
 :root {
 	/* App Colors */
 	--color-primary: var(#2d4059);
 	--color-accent: var(#ffd460);
 	--color-accent-variant: var(#f07b3f);
 	--color-text: var(--color-primary);
+	--first-color: hsl(38, 92%, 58%);
+	--first-color-light: hsl(38, 100%, 78%);
+	--first-color-alt: hsl(32, 75%, 50%);
+	--second-color: hsl(195, 75%, 52%);
+	--dark-color: hsl(212, 40%, 12%);
+	--white-color: hsl(212, 4%, 95%);
+	--body-color: hsl(212, 42%, 15%);
+	--container-color: hsl(212, 42%, 20%);
 
 	/* Colors */
 	--color-white: #fff;
@@ -16,8 +27,15 @@
 
 	/* Size */
 	--size-max-width: 1200px;
+
+	/*========== Font and typography ==========*/
+	/*.5rem = 8px | 1rem = 16px ...*/
+	--body-font: 'Bai Jamjuree', sans-serif;
+	--h2-font-size: 1.25rem;
+	--normal-font-size: 1rem;
 }
 
+/*=============== BASE ===============*/
 * {
 	box-sizing: border-box;
 }
@@ -37,7 +55,6 @@ li {
 
 a {
 	text-decoration: none;
-	color: var(--color-primary);
 }
 
 button {
@@ -69,14 +86,14 @@ button {
 	margin: 0.5rem 0;
 }
 
-/* Header */
+/* =============== HEADER =============== */
 .header {
 	background-color: var(--color-white);
 	position: fixed;
 	top: 0;
 	width: 100%;
 	padding: 1rem;
-	z-index: 1;
+	z-index: 2;
 }
 
 .header__nav {
@@ -147,18 +164,147 @@ button {
 	border-radius: 4px;
 }
 
-/* 따끈따끈한 팀원모집 글 */
+/*=============== CARD ===============*/
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 30vh;
+}
+
+.card__container {
+	padding-block: 5rem;
+}
+
+.card__content {
+	margin-inline: 1.75rem;
+	border-radius: 1.25rem;
+	overflow: hidden;
+}
+
+.card__article {
+	width: 300px; /* Remove after adding swiper js */
+	border-radius: 1.25rem;
+	overflow: hidden;
+}
+
+.card__content .card__data {
+	background-color: var(--color-white);
+	border: 2px solid var(--color-gray);
+	padding: 1.5rem 2rem;
+	border-radius: 1.2rem;
+	text-align: center;
+	position: relative;
+	z-index: 10;
+}
+
+.card__content .card__shadow {
+	width: 200px;
+	height: 200px;
+	background-color: var(--first-color-alt);
+	border-radius: 50%;
+	position: absolute;
+	top: 3.75rem;
+	left: 0;
+	right: 0;
+	margin-inline: auto;
+	filter: blur(45px);
+}
+
+.card__content .card__name {
+	font-size: var(--h2-font-size);
+	color: var(--first-color);
+	margin-bottom: 0.75rem;
+}
+
+.card__content .card__date {
+	display: flex;
+	justify-content: end;
+}
+
+.card__content .card__description {
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin-bottom: 1.75rem;
+}
+
+.card__content .card__button {
+	display: inline-block;
+	background-color: var(--first-color);
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.25rem;
+	color: var(--dark-color);
+	font-weight: 600;
+}
+
+/* Swiper class */
+.swiper-button-prev:after,
+.swiper-button-next:after {
+	content: '';
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+	width: initial;
+	height: initial;
+	font-size: 2rem;
+	color: var(--first-color) !important;
+	display: none;
+}
+
+.swiper-button-prev {
+	left: 0;
+}
+
+.swiper-button-next {
+	right: 0;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 320px) {
+	.card__data {
+		padding: 1rem;
+	}
+}
+
+/* For medium devices */
+@media screen and (min-width: 768px) {
+	.card__content {
+		margin-inline: 3rem;
+	}
+
+	.swiper-button-next,
+	.swiper-button-prev {
+		display: block;
+	}
+}
+
+/* For large devices */
+@media screen and (min-width: 1120px) {
+	.card__container {
+		max-width: 1120px;
+	}
+
+	.swiper-button-prev {
+		left: -1rem;
+	}
+	.swiper-button-next {
+		right: -1rem;
+	}
+}
+
+/* /* =============== 따끈따끈한 팀원모집 글 ===============*/
 
 .newPost {
 	width: 100%;
 	max-width: 1180px;
-	padding: 0px 100px;
 	margin: 160px auto 60px;
 }
 
 .newPost__container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 }
 
@@ -186,72 +332,7 @@ button {
 	left: -10%;
 }
 
-.slide {
-	height: 200px;
-	width: 350px;
-	display: flex;
-	align-items: center;
-	padding: 5px;
-	perspective: 100%;
-}
-
-.slide-track {
-	display: flex;
-	width: calc(300px * 12);
-	animation: scroll 40s linear infinite;
-}
-
-.slide-track:hover {
-	animation-play-state: paused;
-}
-
-@keyframes scroll {
-	0% {
-		transform: translateX(0);
-	}
-	100% {
-		transform: translateX(calc(-300px * 6));
-	}
-}
-
-.train-card {
-	width: 100%;
-	transition: transform 1s;
-	overflow: hidden;
-}
-
-.train-card:hover {
-	transform: translateZ(18px);
-}
-
-/* 슬라이더 그라데이션 그림자 */
-
-.slider::before,
-.slider::after {
-	background: linear-gradient(
-		to right,
-		#f6f4f2 0%,
-		rgba(255, 255, 255, 0) 100%
-	);
-	content: '';
-	height: 100%;
-	position: absolute;
-	width: 15%;
-	z-index: 2;
-}
-
-.slider::before {
-	left: 0;
-	top: 0;
-}
-
-.slider::after {
-	right: 0;
-	top: 0;
-	transform: rotateZ(180deg);
-}
-
-/* newPost 카드 */
+/* =============== NEW POST CARD =============== */
 .card {
 	display: flex;
 	flex-direction: column;
@@ -314,6 +395,8 @@ button {
 	text-align: right;
 	font-weight: 700;
 }
+
+/* =============== MAIN CONTENT =============== */
 
 .mainContent__category__container {
 	display: flex;
@@ -498,7 +581,7 @@ button {
 	margin-right: 10px;
 }
 
-/* footer */
+/* =============== FOOTER =============== */
 #footer {
 	background-color: var(--color-gray);
 	padding: 5%;
