@@ -19,11 +19,11 @@
 		/>
 
 		<!-- Logo img -->
-		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
+		<link rel="icon" type="image/png" href="../../public/img-Logo.png" />
 
 		<!-- Document -->
-		<link rel="stylesheet" href="../styles/new-post.css" />
-		<script defer src="../assets/new-post.js"></script>
+		<link rel="stylesheet" href="../../styles/post/new-post.css" />
+		<script defer src="../../assets/post/new-post.js"></script>
 	</head>
 	<body>
 		<div id="root">
@@ -31,10 +31,10 @@
 			<header class="header">
 				<nav class="header__nav">
 					<div class="header__logo">
-						<a href="../pages/index.html"
+						<a href="../../pages/index.html"
 							><img
 								class="header__logo__img"
-								src="../public/img-Logo.png"
+								src="../../public/img-Logo.png"
 								alt="logo"
 						/></a>
 					</div>
@@ -52,7 +52,7 @@
 						</li>
 						<li>
 							<img
-								src="../public/basic-profile.png"
+								src="../../public/basic-profile.png"
 								alt="basic profile"
 								class="profile"
 							/>
@@ -351,10 +351,27 @@
 									<input
 										type="text"
 										id="post__title__text"
-										value="글 제목을 입력해주세요!"
+										placeholder="제목을 작성해주세요."
 									/>
 								</div>
 							</div>
+							<div class="postContent__wrapper">
+								<div class="postContent">
+									<span>내용</span>
+								</div>
+								<div class="input__box" id="post__content">
+									<textarea
+										name="contents"
+										id="post__content__text"
+										cols="30"
+										rows="30"
+										placeholder="내용을 입력해주세요."
+									></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="postSubmit">
+							<a href="#" class="submit__button">등록하기</a>
 						</div>
 					</section>
 				</div>
