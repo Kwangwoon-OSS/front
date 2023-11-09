@@ -112,3 +112,30 @@ contactOptions.forEach((contactOption) => {
 		contactAltText.classList.remove('click');
 	});
 });
+
+// 등록하기 버튼 시 날짜 데이터 받아오기
+const submitBtn = document.querySelector('.submit__button');
+submitBtn.addEventListener('click', () => {
+	dateFormMaker();
+	alert('게시글이 등록되었습니다!');
+});
+
+const dateFormMaker = function () {
+	const timestamp = new Date().getTime();
+	const date = new Date(timestamp); //타임스탬프를 인자로 받아 Date 객체 생성
+
+	/* 생성한 Date 객체에서 년, 월, 일, 시, 분을 각각 문자열 곧바로 추출 */
+	let year = date.getFullYear().toString(); //년도 뒤에 두자리
+
+	let month = ('0' + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
+	let day = ('0' + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
+	let hour = ('0' + date.getHours()).slice(-2); //시 2자리 (00, 01 ... 23)
+	let minute = ('0' + date.getMinutes()).slice(-2); //분 2자리 (00, 01 ... 59)
+	let second = ('0' + date.getSeconds()).slice(-2); //초 2자리 (00, 01 ... 59)
+
+	let returnDate = `${year}.${month}.${day}.${hour}:${minute}:${second}`;
+
+	// console.log(`year:${year}`);
+	// console.log(`month : ${month}`);
+	console.log(returnDate);
+};
