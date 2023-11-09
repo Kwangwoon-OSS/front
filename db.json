@@ -1,0 +1,95 @@
+{
+	"posts": [
+		{
+			"id": 1,
+			"title": "팀원 구합니다.",
+			"content": "오픈 소스 함께할 팀원 2명 구합니다.",
+			"status": "ACTIVE",
+			"deadline": "2023-11-07T10:16:46.111",
+			"views": 10,
+			"contact": "string",
+			"people": 2,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-07T19:16:41.084562",
+			"updateAt": "2023-11-07T19:16:41.084562"
+		},
+		{
+			"id": 2,
+			"title": "첫 번째 게시글",
+			"content": "새로운 내용 새로운 내용",
+			"status": "ACTIVE",
+			"deadline": "2023-11-07T10:24:36.702",
+			"views": 0,
+			"contact": "string",
+			"people": 0,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-07T19:24:50.675415",
+			"updateAt": "2023-11-07T19:24:50.675415"
+		},
+		{
+			"id": 3,
+			"title": "첫 게시글",
+			"content": "오픈소스 팀원 구합니다.",
+			"status": "ACTIVE",
+			"deadline": "2023-11-07T10:25:20.095",
+			"views": 0,
+			"contact": "string",
+			"people": 0,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-07T19:26:50.471386",
+			"updateAt": "2023-11-07T19:26:50.471386"
+		},
+		{
+			"id": 4,
+			"title": "같이 할 사람아아아아아아",
+			"content": "소프트웨어학부 함께 팀플 할 사람 모집합니다.",
+			"status": "ACTIVE",
+			"deadline": "2023-11-08T07:21:12.68",
+			"views": 0,
+			"contact": "string",
+			"people": 0,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-08T16:24:40.25342",
+			"updateAt": "2023-11-08T16:24:40.25342"
+		},
+		{
+			"id": 5,
+			"title": "hi",
+			"content": "코딩 없이 앱을 만드는 MIT APP코딩 없이 앱을 만드는 MIT APP코딩 없이 앱을 만드는 MIT APP",
+			"status": "ACTIVE",
+			"deadline": "2023-11-08T18:05:26.217",
+			"views": 100,
+			"contact": "kakao",
+			"people": 2,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-08T16:26:32.152484",
+			"updateAt": "2023-11-08T16:26:32.152484"
+		},
+		{
+			"id": 6,
+			"title": "big",
+			"content": "빅데이터 과제 함께 할 사람 모집합니다.",
+			"status": "ACTIVE",
+			"deadline": "2023-11-08T18:05:26.217",
+			"views": 50,
+			"contact": "email",
+			"people": 4,
+			"user_id": 1,
+			"subject_id": 1,
+			"createAt": "2023-11-08T16:32:58.085627",
+			"updateAt": "2023-11-08T16:32:58.085627"
+		}
+	],
+	"users": [
+		{
+			"nickname": "문승현",
+			"departmentName": "소프트웨어",
+			"introduction": "안녕하세요"
+		}
+	]
+}

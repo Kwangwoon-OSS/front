@@ -1,3 +1,65 @@
+function ready() {
+	// https://kihyeoksong.tistory.com/71 참고해서 작성
+}
+
+let tot = document.querySelector('body');
+
+tot.addEventListener('load', getData());
+
+async function getData() {
+	await fetch('http://localhost:3000/posts')
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			console.log(data[4].title);
+
+			const four = data[4].content;
+			console.log(four);
+
+			const len = data.length;
+			for (let i = 0; i <= len; i++) {
+				const h = [];
+				h.push(`<p class = "card__description">${data[i].content}</p>`);
+				document.getElementById(`test__${i + 1}`).innerHTML = h;
+			}
+
+			//document.getElementById('test').innerHTML = h;
+
+			// h.push(`<p class = "card__description">${data[i].content}</p>`);
+			// const len = data.length;
+			// for (let i = 0; i <= len; i++) {
+			// 	const h = [];
+
+			// 	h.push(
+			// 		`<div class="card__head" >
+			// 				<div class="card__head__category">
+			// 								<i class="fa-regular fa-folder-open"></i>
+			// 								<span>프로젝트</span>
+			// 								</div>
+			// 								<div class="card__head__deadline">
+			// 								<i class="fa-regular fa-hourglass-half"></i>
+			// 								<span>마감 5일 전</span>
+			// 							</div>
+			// 						</div>
+			// 						<div class="card__date">
+			// 							<span>마감일 | ${data[i].deadline}</span>
+			// 						</div>
+			// 						<div class="card__main">
+			// 							<p class="card__description" >
+			// 							${data[i].content}
+			// 						</p>
+
+			// 						<a href="#" class="card__button">View More</a>
+			// 						</div>`,
+			// 	);
+			// 	let test = document.getElementById('card__data__' + i);
+			// 	let newHTML = h.join('');
+			// 	test = test + newHTML;
+			// 	console.log(`새로운 HTML = ${test}`);
+			// }
+		});
+}
+
 let swiperCards = new Swiper('.card__content', {
 	loop: true,
 	spaceBetween: 32,
@@ -82,28 +144,28 @@ departmentOptions.forEach((departmentOption) => {
 });
 
 // 과목
-const subjectMenu = document.querySelector('.subject__menu');
-const subjectBtn = document.getElementById('subject__list');
-const subjectBtnText = document.querySelector('.subject__btn__text');
-const subjectOptionList = document.getElementById('subject__option__list');
+// const subjectMenu = document.querySelector('.subject__menu');
+// const subjectBtn = document.getElementById('subject__list');
+// const subjectBtnText = document.querySelector('.subject__btn__text');
+// const subjectOptionList = document.getElementById('subject__option__list');
 
-subjectBtn.addEventListener('click', () => {
-	subjectMenu.classList.toggle('active');
-});
-subjectOptionList.addEventListener('click', () => {
-	subjectOptionList.classList.toggle('click');
-});
+// subjectBtn.addEventListener('click', () => {
+// 	subjectMenu.classList.toggle('active');
+// });
+// subjectOptionList.addEventListener('click', () => {
+// 	subjectOptionList.classList.toggle('click');
+// });
 
-let subjectOption = subjectMenu.querySelector('.subject__options').children;
-let subjectOptions = Array.from(subjectOption);
+// let subjectOption = subjectMenu.querySelector('.subject__options').children;
+// let subjectOptions = Array.from(subjectOption);
 
-subjectOptions.forEach((subjectOption) => {
-	subjectOption.addEventListener('click', () => {
-		let selectedsubjectOption = subjectOption.querySelector(
-			'.subject__option__text',
-		).innerText;
-		subjectBtnText.innerText = selectedsubjectOption;
-		subjectMenu.classList.remove('active');
-		subjectOptionList.classList.remove('click');
-	});
-});
+// subjectOptions.forEach((subjectOption) => {
+// 	subjectOption.addEventListener('click', () => {
+// 		let selectedsubjectOption = subjectOption.querySelector(
+// 			'.subject__option__text',
+// 		).innerText;
+// 		subjectBtnText.innerText = selectedsubjectOption;
+// 		subjectMenu.classList.remove('active');
+// 		subjectOptionList.classList.remove('click');
+// 	});
+// });
