@@ -1,3 +1,4 @@
+// 모집분야
 const optionMenu = document.querySelector('.select__menu');
 const selectBtn = document.getElementById('menu__list');
 const category__btn__text = document.querySelector('.category__btn__text');
@@ -113,19 +114,69 @@ contactOptions.forEach((contactOption) => {
 	});
 });
 
+// post로 보낼 객체 변수 생성
+const semester = semesterBtnText.innerText;
+const department = departmentBtnText.innerText;
+const category = category__btn__text.innerText;
+// const subject = document.querySelector('department__btn__text').innerText;
+const people = document.getElementById('people__text').innerText;
+const contact = contactBtnText.innerText;
+const title = document.getElementById('post__title__text').innerText;
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
+const access_token =
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODMxMzQwfQ.kkBfIz323RJp8uu4UlpGPg-nqdGReF17xx-TKPH1ntI_3OfG_0TKao5AIX7e9Bfu_aCyWLiSh_-dv6OT0Fydsg';
+
+async function getSubject() {
+	fetch(baseURL + '/subject')
+		.then((res) => res.json())
+		.then((data) => console.log(data));
+}
+document.body.addEventListener('load', getSubject());
+
 // 등록하기 버튼 시 날짜 데이터 받아오기
 const submitBtn = document.querySelector('.submit__button');
 submitBtn.addEventListener('click', () => {
-	dateFormMaker();
-	alert('게시글이 등록되었습니다!');
+	const date = dateFormMaker();
+	fetch(baseURL + '/posts', {
+		method: 'POST',
+		body: JSON.stringify({
+			title: title,
+			content: 'subject test',
+			status: 'ACTIVE',
+			deadline: date,
+			views: 0,
+			contact: 'string',
+			people: people,
+			subjectId: 1,
+		}),
+		headers: {
+			'Content-type': 'application/json;charset=UTF-8',
+			Authorization: access_token,
+		},
+	})
+		.then((response) => {
+			if (response.status === 201) {
+				alert('게시글이 등록되었습니다!');
+				localStorage.setItem('access-token', access_token);
+			}
+		})
+		.then((response) => response.json())
+		.then((data) => console.log(data));
+	//alert('게시글이 등록되었습니다!');
 });
 
 const dateFormMaker = function () {
 	const timestamp = new Date().getTime();
 	const date = new Date(timestamp); //타임스탬프를 인자로 받아 Date 객체 생성
+	return date;
 
 	/* 생성한 Date 객체에서 년, 월, 일, 시, 분을 각각 문자열 곧바로 추출 */
 	let year = date.getFullYear().toString(); //년도 뒤에 두자리
+
+	// console.log(date);
+	// console.log(date.getMonth() + 1);
+	// console.log('0' + (date.getMonth() + 1));
 
 	let month = ('0' + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
 	let day = ('0' + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
@@ -135,7 +186,6 @@ const dateFormMaker = function () {
 
 	let returnDate = `${year}.${month}.${day}.${hour}:${minute}:${second}`;
 
-	// console.log(`year:${year}`);
 	// console.log(`month : ${month}`);
-	console.log(returnDate);
+	// console.log(returnDate);
 };
