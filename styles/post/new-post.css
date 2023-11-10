@@ -159,7 +159,7 @@ button {
 
 .up__content__wrapper {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	width: 100%;
 	max-width: 1180px;
 	margin: auto;
@@ -187,7 +187,7 @@ button {
 .up__content input[type='text'] {
 	border: solid 2px var(--color-gray);
 	padding: 10px;
-	width: 88%;
+	width: 24em;
 	font-size: 1rem;
 
 	display: flex;
@@ -211,7 +211,7 @@ button {
 }
 
 .semester__menu {
-	width: 86%;
+	width: 27em;
 	margin: 15px 0;
 }
 
@@ -281,7 +281,7 @@ button {
 }
 
 .select__menu {
-	width: 86%;
+	width: 27em;
 	margin: 15px 0;
 }
 
@@ -342,7 +342,8 @@ button {
 
 .category__options .option:hover,
 .semester__options .semester__option:hover,
-.department__options .department__option:hover {
+.department__options .department__option:hover,
+.subject__options .subject__option:hover {
 	background: #f2f2f2;
 }
 
@@ -357,7 +358,7 @@ button {
 }
 
 .department__menu {
-	width: 86%;
+	width: 27em;
 	margin: 15px 0;
 }
 
@@ -437,8 +438,83 @@ button {
 	margin-left: 10px;
 }
 
+/* subject */
+.subject__menu {
+	width: 27em;
+	margin: 15px 0;
+}
+
+.subject__menu .subject__btn {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 55px;
+	background: #fff;
+	padding: 20px;
+	font-size: 18px;
+	font-weight: 400;
+	border: 2px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
+}
+
+.subject__btn i {
+	font-size: 25px;
+	transition: 0.3s;
+}
+
+.subject__menu.active .subject__btn i {
+	transform: rotate(-180deg);
+}
+
+.subject__menu .subject__options {
+	position: relative;
+	padding: 20px;
+	margin-top: 10px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.subject__menu .subject__options.click {
+	display: block;
+}
+
+.subject__menu.active .subject__options {
+	display: block;
+}
+
+.subject__menu.active .subject__options.click {
+	display: none;
+}
+
+.subject__options .subject__option {
+	display: flex;
+	height: 55px;
+	cursor: pointer;
+	padding: 0 16px;
+	border-radius: 8px;
+	align-items: center;
+	background: #fff;
+}
+
+.subject__option i {
+	font-size: 25px;
+	margin-right: 12px;
+}
+
+.subject__option .subject__option__text {
+	font-size: 1rem;
+	color: #333;
+	margin-left: 10px;
+}
+
+/* contact */
 .contact__menu {
-	width: 86%;
+	width: 27em;
 	margin: 15px 0;
 }
 
