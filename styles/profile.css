@@ -1,0 +1,146 @@
+/* Global */
+
+:root {
+	/* App Colors */
+	--color-primary: var(#2d4059);
+	--color-accent: var(#ffd460);
+	--color-accent-variant: var(#f07b3f);
+	--color-text: var(--color-primary);
+
+	/* Colors */
+	--color-white: #fff;
+	--color-black: #050a13;
+	--color-pink: #ea5455;
+	--color-gray: #d9d9d9;
+	--color-dark-gray: #8f8d8d;
+	--color-gray-text: #989898;
+	--color-yellow: #ffd460;
+
+	/* Size */
+	--size-max-width: 1200px;
+}
+
+
+
+button {
+	font-size: 1rem;
+	font-weight: bold;
+	border-radius: 0.3rem;
+	padding-inline: 1rem;
+	text-align: center;
+	outline: 0;
+	cursor: pointer;
+    }
+    
+  
+/* Header */
+.header {
+	background-color: var(--color-white);
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 1rem;
+	z-index: 1;
+}
+
+.header__nav {
+	margin: auto;
+	max-width: 1180px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 85px;
+	padding: 0 10px;
+}
+
+.header__logo {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+}
+
+.header__logo__img {
+	width: 80%;
+	height: 70%;
+	border: 1px solid var(--color-primary);
+}
+
+.header__logo__title {
+	font-size: 1.5rem;
+	color: var(--color-primary);
+}
+
+.header__menu {
+	display: flex;
+    justify-content: space-between;
+	gap: 16px;
+}
+
+.header__menu__item {
+	padding: 8px 16px;
+}
+
+#header__menu__new__btn {
+	background-color: var(--color-gray);
+	border: 1px solid var(--color-gray);
+	font-size: 1.2rem;
+	color: var(--color-black);
+}
+
+#header__menu__new__btn:hover {
+	background-color: var(--color-yellow);
+	border: 1px solid var(--color-yellow);
+}
+
+.header__menu_item.active {
+	border: 2px solid var(--color-black);
+	border-radius: 4px;
+}
+
+.profile {
+	width: 40px;
+	height: 40px;
+	align-items: center;
+}
+
+/* Main */
+.main {
+	width: 110%;
+	max-width: 1180px;
+	padding: 0px 100px;
+	margin: 160px auto 60px;
+    display: grid;
+    place-items: center;
+}
+.main h1{
+    font-size: 30px;
+    font-weight: 400;
+}
+.nickname h1{
+    font-size: 15px;
+}
+
+.belong h1{
+    font-size: 15px;
+}
+
+.introduction h1{
+    font-size: 15px;
+}
+
+input{
+    border:1px solid black;
+    border-radius: 3px;
+    width:500px;
+    line-height:35px;
+    font-size:12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin : 10px;
+}
+#introduction{
+    width: 500px;
+    height: 300px;
+}
+
