@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang ="ko">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>자기소개 프로필</title>
+        <link rel="stylesheet" href="../styles/reset.css">
+        <link rel="stylesheet" href="../styles/profile.css">
+    </head>
+    <body>
+        <div id = "root">
+            <!--header -->
+            <header class = "header">
+                <nav class = "header__nav">
+                    <div class = "header__logo">
+                        <a href = "../pages/index.html">
+                            <img
+                            class = "header_logo_img"
+                            src = "../public/img-Logo.png"
+                            alt = "logo"
+                            >
+                        </a>
+                    <div class = "header__menu">
+                        <li>
+                            <button
+                            id = "header__menu__new__btn"
+                            type = "button"
+                            onclick = "location.href = './new-post.html' "
+                            class = header_menu_item
+                            <span>새 글 쓰기</span>
+								<i class="fa-solid fa-arrow-right"></i>
+							</button>
+                        </li>
+                        <li>
+                            <img
+								src="../public/basic-profile.png"
+                                onclick="location.gredf = './profile.html'"
+								alt="basic profile"
+								class="profile"
+							/>
+                        </li>
+                    </div>
+                    </div>
+                </nav>
+            </header>
+
+            <body>
+                <main class = "main">
+                    <div class = "up_wrapper">
+                        <img src = "../public/profile_img_logo.png" alt = "my_profil_img">
+                    </div>
+                    <h1>***님 환영해요!</h1>
+                    <div class = "line"></div>
+                      <div class = "nickname">
+                        <h1>닉네임</h1>
+                        <input id = "nickname" type = "text">
+                      </div>
+                      <div class ="belong">
+                        <h1>소속</h1>
+                        <input id ="belong" type ="text">
+                      </div>
+                      <div class = "introduction">
+                        <h1>자기소개</h1>
+                        <input id = "introduction" type="text" placeholder="안녕하세요, 광운대학교 **입니다">
+                      </div>
+                </main>
+            </body>
+        </div>
+    </body>
+    </html>
+</html>

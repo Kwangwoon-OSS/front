@@ -1,21 +1,28 @@
 *{
-    margin:0px;
+    margin: 0px;
     box-sizing: border-box;
     font-size: 11px;
 }
 
-html {
-    width: 100%;
+html{
     display: flex;
     justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    align-items: center;
+    width: 100%; 
 }
 
-body {
-    width:45%;
-    border:1px solid black;
+
+.head h1 {
+    text-align: left;
+    position:fixed;
 }
+
+
+body {
+    width: 30%;
+}
+
+
 input{
     border:1px solid black;
     border-radius: 3px;
@@ -26,7 +33,7 @@ input{
 }
 
 .wrapper {
-    padding:10px;    
+    padding:1px;    
 }
 
 div {
@@ -37,6 +44,12 @@ div {
 .title {
     text-align: center;
     font-weight: 700;
+    line-height : 300%;
+    
+}
+
+.title h2 {
+    font-size: 15px;
 }
 
 .email input{
@@ -64,23 +77,23 @@ div {
     justify-content: space-between;
 }
 
-.timer{
-    display: flex;
-    justify-content: space-between;
-}
 
 .auth div {
-    width:30%;
+    width:50%;
     text-align: center;
     font-weight: 700;
     font-size: 15px;
+    font-weight:600 ;
 }
 
 .auth button {
-    width:70%;   
+    width:100%;   
+    background-color: rgba(255, 242, 0, 0.577);
+    border-radius: 5px;
+    font-weight:600 ;
 }
 
-.signup button{
+.signUp button{
     width:100%;
     cursor: pointer;
 }
@@ -95,4 +108,49 @@ button{
     height: 20px;
     color:red;
     font-weight: 700;
+}
+
+.item__footer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item__footer__right {
+	display: flex;
+	justify-content: space-between;
+}
+
+.item__footer__view {
+	margin-right: 10px;
+}
+
+/* footer */
+/* footer */
+#footer {
+    width: 100%; /* 너비 수정 */
+    background-color: #c4c3c3;
+    padding: 5%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+    align-items: flex-start; /* 왼쪽 정렬로 변경 */
+}
+
+.contact {
+	margin-bottom: 1px;
+}
+
+.copyright {
+	margin-bottom: 1px;
+}
+
+.service_description {
+	display: flex;
+	justify-content: space-between;
+}
+
+.description__text {
+	font-size: 0.8rem;
+	font-weight: 500;
+    text-align: left;
 }
