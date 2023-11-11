@@ -88,29 +88,6 @@ const subjectBtn = document.getElementById('subject__list');
 const subjectBtnText = document.querySelector('.subject__btn__text');
 const subjectOptionList = document.getElementById('subject__option__list');
 
-// subjectBtn.addEventListener('click', () => {
-// 	subjectMenu.classList.toggle('active');
-// });
-// subjectOptionList.addEventListener('click', () => {
-// 	subjectOptionList.classList.toggle('click');
-// });
-
-// let subjectOption = subjectMenu.querySelector('.subject__options').children;
-// let subjectOptions = Array.from(subjectOption);
-// console.log(subjectOptions);
-
-// subjectOptions.forEach((subjectOption) => {
-// 	subjectOption.addEventListener('click', () => {
-// 		let selectedSubjectOption = subjectOption.querySelector(
-// 			'.subject__option__text',
-// 		).innerText;
-// 		subjectBtnText.innerText = selectedSubjectOption;
-// 		console.log(selectedSubjectOption);
-// 		subjectMenu.classList.remove('active');
-// 		subjectOptionList.classList.remove('click');
-// 	});
-// });
-
 // 연락방법
 const contactMenu = document.querySelector('.contact__menu');
 const contactBtn = document.getElementById('contact__list');
@@ -146,7 +123,7 @@ contactOptions.forEach((contactOption) => {
 const baseURL =
 	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 const access_token =
-	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODMxMzQwfQ.kkBfIz323RJp8uu4UlpGPg-nqdGReF17xx-TKPH1ntI_3OfG_0TKao5AIX7e9Bfu_aCyWLiSh_-dv6OT0Fydsg';
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODg3NzUzfQ.W705o2nKtft79aymybG_J25Vj9TSsPdkpgmcm5QqTPeFKr2uNn1cRQBY13miO7B_RS-hP1VjLyJAxZVHJVp6OQ';
 
 // <======================== 과목 정보 받아온 후, 과목명 드롭메뉴로 추가 ========================>
 document.body.addEventListener('load', getSubject());
@@ -194,82 +171,48 @@ async function getSubject() {
 					// console.log(subjectBtnText.innerText);
 
 					// 과목 id 가져오기
-					for (let i = 0; i < len; i++) {
-						if (subjectBtnText.innerText === data[i].name) {
-							// console.log('ok');
-							subjectID = data[i].id;
+					// for (let i = 0; i < len; i++) {
+					// 	if (subjectBtnText.innerText === data[i].name) {
+					// 		// console.log('ok');
+					// 		subjectID = data[i].id.toString();
 
-							console.log(subjectID);
-						}
-					}
+					// 		console.log('첫 번째:' + subjectID);
+					// 		console.log(typeof subjectID);
+					// 	}
+					// }
+
 					subjectMenu.classList.remove('active');
 					subjectOptionList.classList.remove('click');
 				});
+				// console.log(subjectID);
+				// console.log(typeof subjectID);
 			});
 		});
 }
 
-async function getSubjectID() {
-	fetch(baseURL + '/subject')
-		.then((res) => res.json())
-		.then((data) => {
-			const len = data.length;
-			// 과목 ID 가저오기
-			const subjectID = 0;
-			console.log(data[0].id);
-			console.log(subjectBtnText.innerText);
-			for (let i = 0; i < len; i++) {
-				if (data[i].name === subjectBtnText.innerText) {
-					subjectID = data[i].id;
-					console.log(subjectID);
-				}
-			}
-			console.log(subjectID);
-		});
-}
-
-// <======================== post로 보낼 객체 변수 생성 ========================>
-const semester = semesterBtnText.innerText;
-const department = departmentBtnText.innerText;
-const category = category__btn__text.innerText;
-const people = document.getElementById('people__text').innerText;
-const post_contact = contactBtnText.innerText;
-const post_title = document.getElementById('post__title__text').innerText;
-const post_content = document.getElementById('post__content__text').innerText;
-
-// 등록하기 버튼 시 날짜 데이터 받아오기
-const submitBtn = document.querySelector('.submit__button');
-submitBtn.addEventListener('click', () => {
-	// 날짜 데이터 받아오기
-	const date = dateFormMaker();
-
-	fetch(baseURL + '/posts', {
-		method: 'POST',
-		body: JSON.stringify({
-			title: post_title,
-			content: post_content,
-			status: 'ACTIVE',
-			deadline: date,
-			views: 0,
-			contact: post_contact,
-			people: people,
-			subjectId: 1,
-		}),
-		headers: {
-			'Content-type': 'application/json;charset=UTF-8',
-			Authorization: access_token,
-		},
-	})
+let subjectID;
+const getSubjectID = function (subjectName) {
+	return fetch(baseURL + '/subject')
 		.then((response) => {
-			if (response.status === 201) {
-				alert('게시글이 등록되었습니다!');
-				localStorage.setItem('access-token', access_token);
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error("Server response wasn't OK");
 			}
 		})
-		.then((response) => response.json())
-		.then((data) => console.log(data));
-	//alert('게시글이 등록되었습니다!');
-});
+		.then((data) => {
+			let len = data.length;
+			for (let i = 0; i < len; i++) {
+				if (subjectName === data[i].name) {
+					subjectID = data[i].id;
+				}
+			}
+			return subjectID;
+		});
+};
+
+// <======================== post로 보낼 객체 변수 생성 ========================>
+const category = category__btn__text.innerText;
 
 const dateFormMaker = function () {
 	const timestamp = new Date().getTime();
@@ -294,3 +237,56 @@ const dateFormMaker = function () {
 	// console.log(`month : ${month}`);
 	// console.log(returnDate);
 };
+
+// 등록하기 버튼 눌렀을 때
+const submitBtn = document.querySelector('.submit__button');
+submitBtn.addEventListener('click', () => {
+	let selectSubjectID;
+	getSubjectID(subjectBtnText.innerText).then((getID) => {
+		selectSubjectID = getID;
+		// console.log(selectSubjectID);
+		// console.log(typeof selectSubjectID);
+
+		const people = document.getElementById('people__text').value;
+		const post_contact = document.getElementById('contact__alt__text').value;
+		const post_title = document.getElementById('post__title__text').value;
+		const post_content = document.getElementById('post__content__text').value;
+		const subjectID = selectSubjectID;
+
+		// console.log(`인원 수 : ${people}`);
+		// console.log(`연락방법 : ${post_contact}`);
+		// console.log(`title : ${post_title}`);
+		// console.log(`content : ${post_content}`);
+		// console.log(`id : ${subjectID}`);
+
+		// post 요청 보내기
+		fetch(baseURL + '/posts', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: access_token,
+			},
+			body: JSON.stringify({
+				title: post_title,
+				content: post_content,
+				status: 'ACTIVE',
+				deadline: '2023-11-11T05:25:49.735Z',
+				views: 0,
+				contact: post_contact,
+				people: people,
+				subjectId: subjectID,
+			}),
+		});
+	});
+});
+
+// submitBtn.addEventListener('click', () => {
+// 	// let selectSubjectID;
+// 	// getSubjectID(subjectBtnText.innerText).then((getID) => {
+// 	// 	selectSubjectID = getID.toString();
+// 	// 	console.log(selectSubjectID);
+// 	// 	console.log(typeof selectSubjectID);
+// 	// });
+// 	// localStorage.setItem('access-token', access_token);
+// 	//alert('게시글이 등록되었습니다!');
+// });
