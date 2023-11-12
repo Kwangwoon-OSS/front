@@ -276,6 +276,12 @@ submitBtn.addEventListener('click', () => {
 				people: people,
 				subjectId: subjectID,
 			}),
+		}).then((res) => {
+			// 성공적으로 게시글 등록 후 메인 페이지로 이동
+			if (res.ok) {
+				alert('새로운 글이 등록되었습니다!');
+				setInterval((window.location.href = '../../index.html'), 1000);
+			}
 		});
 	});
 });
