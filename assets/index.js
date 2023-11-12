@@ -2,88 +2,154 @@ function ready() {
 	// https://kihyeoksong.tistory.com/71 참고해서 작성
 }
 
-let tot = document.querySelector('body');
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 
-tot.addEventListener('load', getData());
+// let tot = document.querySelector('body');
 
-async function getData() {
-	await fetch('http://localhost:3000/posts')
+// tot.addEventListener('load', getData());
+
+document.body.addEventListener('load', getData());
+
+// 과목 정보 가져오기
+async function getSubject() {
+	fetch(baseURL + '/subject')
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data);
-			console.log(data[4].title);
+			const len = data.length;
+			const template = [];
+
+			// 과목명 드롭메뉴 옵션으로 추가
+			for (let i = 0; i < len; i++) {
+				const subjectName = data[i].name;
+				template.push(`<li class="subject__option">`);
+				template.push(
+					`<span class="subject__option__text">${subjectName}</span>`,
+				);
+				template.push(`</li>`);
+			}
+			document.getElementById('subject__option__list').innerHTML =
+				template.join('');
+
+			// 선택 시 과목명 보이게
+			const subjectBtn = document.getElementById('subject__list');
+			const subjectMenu = document.querySelector('.subject__menu');
+			const subjectOptionList = document.getElementById(
+				'subject__option__list',
+			);
+			const subjectBtnText = document.querySelector('.subject__btn__text');
+
+			subjectBtn.addEventListener('click', () => {
+				subjectMenu.classList.toggle('active');
+			});
+			subjectOptionList.addEventListener('click', () => {
+				subjectOptionList.classList.toggle('click');
+			});
+
+			let subjectOption =
+				subjectMenu.querySelector('.subject__options').children;
+			let subjectOptions = Array.from(subjectOption);
+
+			subjectOptions.forEach((subjectOption) => {
+				subjectOption.addEventListener('click', () => {
+					let selectedSubjectOption = subjectOption.querySelector(
+						'.subject__option__text',
+					).innerText;
+
+					subjectBtnText.innerText = selectedSubjectOption;
+					subjectMenu.classList.remove('active');
+					subjectOptionList.classList.remove('click');
+				});
+			});
+		});
+}
+
+async function getData() {
+	fetch(baseURL + '/posts')
+		.then((response) => response.json())
+		.then((data) => {
+			getSubject();
+			// console.log(data);
+			// console.log(data[4].title);
 
 			const four = data[4].content;
 			console.log(four);
 
+			// 따끈따근한 글 내용 보이기
 			const len = data.length;
-			for (let i = 0; i <= len; i++) {
-				const h = [];
-				h.push(`<p class = "card__description">${data[i].content}</p>`);
-				document.getElementById(`test__${i + 1}`).innerHTML = h;
+			const templateArr = [];
+
+			console.log(`length : ${len}`);
+			console.log(data);
+			for (let i = 0; i < len; i++) {
+				// content_data = data[i].content;
+				const template = [];
+
+				template.push(
+					`<article class="card__article swiper-slide" id="new__card">`,
+				);
+				template.push(`<div class="card__data">`);
+				template.push(`<div class="card__head">`);
+				template.push(`<div class="card__head__category">`);
+				template.push(`<i class="fa-regular fa-folder-open"></i>
+				<span>프로젝트</span>`);
+				template.push(`</div>`);
+				template.push(`<div class="card__head__deadline"><i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 ${i}일 전</span>
+				</div>`);
+				template.push(`</div>`);
+				template.push(`<div class="card__date">`);
+				template.push(`<span>마감일 | 2023.09.30</span>`);
+				template.push(`</div>`);
+				template.push(`<div class="card__main">`);
+				template.push(`<p class="card__description">`);
+				template.push(`${data[i].content}`);
+				template.push(`</p>`);
+				template.push(`</div>`);
+				template.push(`<div class="card__btn">
+				<a href="#" class="card__button">View More</a></div>`);
+				template.push(`</div>`);
+				template.push(`</article>`);
+
+				templateArr[i] = template.join('');
+
+				// h.push(`<p class = "card__description">${data[i].content}</p>`);///
+
+				// document.getElementById(`test__${i + 1}`).innerHTML = template.join('');
 			}
 
-			//document.getElementById('test').innerHTML = h;
+			console.log(`0번째 html => ${templateArr[0]}`);
+			console.log(`1번째 html => ${templateArr[1]}`);
+			for (let i = 0; i < len; i++) {
+				document.getElementById(`new__card__slide`).innerHTML += templateArr[i];
+			}
 
-			// h.push(`<p class = "card__description">${data[i].content}</p>`);
-			// const len = data.length;
-			// for (let i = 0; i <= len; i++) {
-			// 	const h = [];
+			let swiperCards = new Swiper('.card__content', {
+				loop: true,
+				spaceBetween: 32,
+				grabCursor: true,
 
-			// 	h.push(
-			// 		`<div class="card__head" >
-			// 				<div class="card__head__category">
-			// 								<i class="fa-regular fa-folder-open"></i>
-			// 								<span>프로젝트</span>
-			// 								</div>
-			// 								<div class="card__head__deadline">
-			// 								<i class="fa-regular fa-hourglass-half"></i>
-			// 								<span>마감 5일 전</span>
-			// 							</div>
-			// 						</div>
-			// 						<div class="card__date">
-			// 							<span>마감일 | ${data[i].deadline}</span>
-			// 						</div>
-			// 						<div class="card__main">
-			// 							<p class="card__description" >
-			// 							${data[i].content}
-			// 						</p>
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
 
-			// 						<a href="#" class="card__button">View More</a>
-			// 						</div>`,
-			// 	);
-			// 	let test = document.getElementById('card__data__' + i);
-			// 	let newHTML = h.join('');
-			// 	test = test + newHTML;
-			// 	console.log(`새로운 HTML = ${test}`);
-			// }
+				breakpoints: {
+					600: {
+						slidesPerView: 2,
+					},
+					968: {
+						slidesPerView: 3,
+					},
+				},
+
+				autoplay: {
+					delay: 2000,
+					disableOnInteraction: false,
+				},
+			});
 		});
 }
-
-let swiperCards = new Swiper('.card__content', {
-	loop: true,
-	spaceBetween: 32,
-	grabCursor: true,
-
-	navigation: {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev',
-	},
-
-	breakpoints: {
-		600: {
-			slidesPerView: 2,
-		},
-		968: {
-			slidesPerView: 3,
-		},
-	},
-
-	autoplay: {
-		delay: 2000,
-		disableOnInteraction: false,
-	},
-});
 
 // 진행학기
 const semesterMenu = document.querySelector('.semester__menu');
