@@ -170,17 +170,6 @@ async function getSubject() {
 					subjectBtnText.innerText = selectedSubjectOption;
 					// console.log(subjectBtnText.innerText);
 
-					// 과목 id 가져오기
-					// for (let i = 0; i < len; i++) {
-					// 	if (subjectBtnText.innerText === data[i].name) {
-					// 		// console.log('ok');
-					// 		subjectID = data[i].id.toString();
-
-					// 		console.log('첫 번째:' + subjectID);
-					// 		console.log(typeof subjectID);
-					// 	}
-					// }
-
 					subjectMenu.classList.remove('active');
 					subjectOptionList.classList.remove('click');
 				});
@@ -248,6 +237,7 @@ submitBtn.addEventListener('click', () => {
 		// console.log(typeof selectSubjectID);
 
 		const people = document.getElementById('people__text').value;
+		const dateInput = document.getElementById('deadline__text').value;
 		const post_contact = document.getElementById('contact__alt__text').value;
 		const post_title = document.getElementById('post__title__text').value;
 		const post_content = document.getElementById('post__content__text').value;
@@ -258,6 +248,14 @@ submitBtn.addEventListener('click', () => {
 		// console.log(`title : ${post_title}`);
 		// console.log(`content : ${post_content}`);
 		// console.log(`id : ${subjectID}`);
+
+		const date = new Date(dateInput);
+		console.log(date);
+
+		// const tradeDate = Date.parse(dateInput) / 1000;
+		// console.log(tradeDate);
+		// const dateData = new Date(tradeDate).toLocaleString();
+		// console.log(dateData);
 
 		// post 요청 보내기
 		fetch(baseURL + '/posts', {
@@ -270,7 +268,7 @@ submitBtn.addEventListener('click', () => {
 				title: post_title,
 				content: post_content,
 				status: 'ACTIVE',
-				deadline: '2023-11-11T05:25:49.735Z',
+				deadline: date,
 				views: 0,
 				contact: post_contact,
 				people: people,
