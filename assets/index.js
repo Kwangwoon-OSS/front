@@ -1,9 +1,14 @@
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
+const api =
+	'6550ea719fe23e137f1b894a--sparkling-hummingbird-207a57.netlify.app';
+// const host = window.location.hostname === '127.0.0.1' ? baseURL : 'api';
+
+console.log(window.location.hostname);
+
 function ready() {
 	// https://kihyeoksong.tistory.com/71 참고해서 작성
 }
-
-const baseURL =
-	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 
 // let tot = document.querySelector('body');
 
@@ -13,7 +18,7 @@ document.body.addEventListener('load', getData());
 
 // 과목 정보 가져오기
 async function getSubject() {
-	fetch(baseURL + '/subject')
+	fetch('/api/subject')
 		.then((response) => response.json())
 		.then((data) => {
 			const len = data.length;
@@ -65,7 +70,7 @@ async function getSubject() {
 }
 
 async function getData() {
-	fetch(baseURL + '/posts')
+	fetch('/api/posts')
 		.then((response) => response.json())
 		.then((data) => {
 			getSubject();
@@ -73,14 +78,14 @@ async function getData() {
 			// console.log(data[4].title);
 
 			const four = data[4].content;
-			console.log(four);
+			// console.log(four);
 
 			// 따끈따근한 글 내용 보이기
 			const len = data.length;
 			const templateArr = [];
 
-			console.log(`length : ${len}`);
-			console.log(data);
+			// console.log(`length : ${len}`);
+			// console.log(data);
 			for (let i = 0; i < len; i++) {
 				// content_data = data[i].content;
 				const template = [];
@@ -118,8 +123,8 @@ async function getData() {
 				// document.getElementById(`test__${i + 1}`).innerHTML = template.join('');
 			}
 
-			console.log(`0번째 html => ${templateArr[0]}`);
-			console.log(`1번째 html => ${templateArr[1]}`);
+			// console.log(`0번째 html => ${templateArr[0]}`);
+			// console.log(`1번째 html => ${templateArr[1]}`);
 			for (let i = 0; i < len; i++) {
 				document.getElementById(`new__card__slide`).innerHTML += templateArr[i];
 			}

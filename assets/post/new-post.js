@@ -129,7 +129,7 @@ const access_token =
 document.body.addEventListener('load', getSubject());
 
 async function getSubject() {
-	fetch(baseURL + '/subject')
+	fetch('/api/subject')
 		.then((response) => response.json())
 		.then((data) => {
 			const len = data.length;
@@ -181,7 +181,7 @@ async function getSubject() {
 
 let subjectID;
 const getSubjectID = function (subjectName) {
-	return fetch(baseURL + '/subject')
+	return fetch('/api/subject')
 		.then((response) => {
 			if (response.ok) {
 				return response.json();
@@ -258,7 +258,7 @@ submitBtn.addEventListener('click', () => {
 		// console.log(dateData);
 
 		// post 요청 보내기
-		fetch(baseURL + '/posts', {
+		fetch('/api/posts', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
