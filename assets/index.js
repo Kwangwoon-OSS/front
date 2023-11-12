@@ -3,7 +3,7 @@ function ready() {
 }
 
 const baseURL =
-	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
+	'//together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 
 // let tot = document.querySelector('body');
 
