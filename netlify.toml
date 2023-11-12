@@ -1,0 +1,10 @@
+[[redirects]]
+from = "/api/*"
+to = "http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/:splat"
+status=200
+
+
+[[redirects]]
+from = "/"
+to = "index.html"
+status=200
