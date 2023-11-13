@@ -8,66 +8,58 @@
 		<title>자기소개 프로필</title>
         <link rel="stylesheet" href="../styles/reset.css">
         <link rel="stylesheet" href="../styles/profile.css">
+	<script src="../assets/profile.js"></script>
     </head>
-    <body>
-        <div id = "root">
-            <!--header -->
-            <header class = "header">
-                <nav class = "header__nav">
-                    <div class = "header__logo">
-                        <a href = "../pages/index.html">
-                            <img
-                            class = "header_logo_img"
-                            src = "../public/img-Logo.png"
-                            alt = "logo"
-                            >
-                        </a>
-                    <div class = "header__menu">
-                        <li>
-                            <button
-                            id = "header__menu__new__btn"
-                            type = "button"
-                            onclick = "location.href = './new-post.html' "
-                            class = header_menu_item
-                            <span>새 글 쓰기</span>
-								<i class="fa-solid fa-arrow-right"></i>
-							</button>
-                        </li>
-                        <li>
-                            <img
-								src="../public/basic-profile.png"
-                                onclick="location.gredf = './profile.html'"
-								alt="basic profile"
-								class="profile"
-							/>
-                        </li>
-                    </div>
-                    </div>
-                </nav>
-            </header>
-
-            <body>
-                <main class = "main">
-                    <div class = "up_wrapper">
-                        <img src = "../public/profile_img_logo.png" alt = "my_profil_img">
-                    </div>
-                    <h1>***님 환영해요!</h1>
-                    <div class = "line"></div>
-                      <div class = "nickname">
-                        <h1>닉네임</h1>
-                        <input id = "nickname" type = "text">
-                      </div>
-                      <div class ="belong">
-                        <h1>소속</h1>
-                        <input id ="belong" type ="text">
-                      </div>
-                      <div class = "introduction">
-                        <h1>자기소개</h1>
-                        <input id = "introduction" type="text" placeholder="안녕하세요, 광운대학교 **입니다">
-                      </div>
-                </main>
-            </body>
-        </div>
-    </body>
-    </html>
+ <div id="root">
+    <!-- Header -->
+    <header class="header">
+        <nav class="header__nav">
+            <div class="header__logo">
+                <a href="../index.html"
+                    ><img
+                        class="header__logo__img"
+                        src="../public/img-Logo.png"
+                        alt="logo"
+                /></a>
+            </div>
+            <ul class="header__menu">
+                <li>
+                    <button
+                        id="header__menu__new__btn"
+                        type="button"
+                        onclick="location.href = '../pages/post/new-post.html' "
+                        class="header__menu__item"
+                    >
+                        <span>새 글 쓰기→</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </li>
+                <li>
+                    <button
+                        id="header__menu__new__btn_1"
+                        type= "button"
+                        onclick="location.href = '../pages/profile_modified.html' "
+                        class="header__menu__item_1"
+                >
+                    <span>수정하기→</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+<body class="member1">
+    <section>
+        <nav class="menu">
+            <a href="#"><i class="fa fa-bars"></i></a>
+        </nav>
+        <article class="profile">
+            <img src="../public/basic-profile.png" alt="프로필 이미지">
+            <h1 id="nickname"></h1>
+            <h2 id="departmentName"></h2>
+            <p id="introduction" style="display: none;"></p>
+            <a href="#" class="btnView" onclick="toggleIntroduction()">View More</a>
+        </article>
+    </section>
+</body>
 </html>
