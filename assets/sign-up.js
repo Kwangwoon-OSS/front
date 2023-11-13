@@ -1,123 +1,105 @@
+function signUpCheck() {
+  // 이메일, 이름, 비밀번호 등을 가져옴
+  var email = document.getElementById("email").value;
+  var name = document.getElementById("name").value;
+  var password = document.getElementById("password").value;
+  var passwordConfirm = document.getElementById("passwordConfirm").value;
+  var school_email = document.getElementById("school_email").value;
 
-// 문자인증+타이머 부분
-function initButton(){
-    document.getElementById("sendMessage").disabled = true;
-    document.getElementById("completion").disabled = true;
-    document.getElementById("certificationNumber").innerHTML = "000000";
-    document.getElementById("timeLimit").innerHTML = "03:00";
-    document.getElementById("sendMessage").setAttribute("style","background-color:none;")
-    document.getElementById("completion").setAttribute("style","background-color:none;")
+  // 간단한 유효성 검사
+  if (!email || !name || !password || !passwordConfirm || !school_email) {
+      alert("모든 필드를 입력해주세요.");
+      return;
   }
-  
-  let processID = -1;
-  
-  const getToken = () => {
-  
-    // 인증확인 버튼 활성화
-    document.getElementById("completion").setAttribute("style","background-color:yellow;")
-    document.getElementById("completion").disabled = false;
-  
-    if (processID != -1) clearInterval(processID);
-    const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
-    document.getElementById("certificationNumber").innerText = token;
-    let time = 180;
-    processID = setInterval(function () {
-      if (time < 0 || document.getElementById("sendMessage").disabled) {
-        clearInterval(processID);
-        initButton();
-        return;
-      }
-      let mm = String(Math.floor(time / 60)).padStart(2, "0");
-      let ss = String(time % 60).padStart(2, "0");
-      let result = mm + ":" + ss;
-      
-      document.getElementById("timeLimit").innerText = result;
-      time--;
-    }, 50);
+
+  // 비밀번호와 비밀번호 확인이 일치하는지 확인
+  if (password !== passwordConfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+  }
+
+  // 이메일 유효성 검사 (간단한 예제)
+  var emailRegex = /\S+@\S+\.\S+/;
+  if (!emailRegex.test(email)) {
+      alert("올바른 이메일 주소를 입력해주세요.");
+      return;
+  }
+
+  // 여기에서 서버로 데이터를 전송하거나 필요한 동작을 수행
+  const userData = {
+    email: email,
+    password: password,
+    passwordConfirm: passwordConfirm,
+    isCertification: "Y"
+};
+
+const requestOptions = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+    },
+    body: JSON.stringify(userData)
+};
+
+fetch("http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/users/signup", requestOptions)
+    .then(response => {
+        if (response.status === 204) {
+            // 회원가입 성공
+            console.log("회원가입 성공");
+            alert("회원가입이 성공했습니다!");
+            window.location.href = "../index.html";
+        } else {
+            // 회원가입 실패 또는 다른 상태 코드
+            console.error("회원가입 실패. 상태 코드: " + response.status);
+        }
+    })
+    .catch(error => {
+        console.error("요청 실패:", error);
+    });
+
+}
+
+
+
+// 이메일 전송 버튼 클릭 시 호출될 함수
+function sendEmail() {
+  // 필요한 데이터 가져오기
+  var privateKey = "9c9fbe95-dd5c-4fe2-9bb8-8bec44256d98";  // 실제로는 안전한 방법으로 키를 관리해야 합니다.
+  var univName = "광운대학교";  
+  var univ_check = true;
+  var univEmail = "tiger521@kw.ac.kr"
+
+  // API에 보낼 데이터 객체 생성
+  const requestData = {
+      privateKey: privateKey,
+      univEmail: univEmail,
+      univName: univName,
+      univ_check: univ_check
   };
-  
-  function checkCompletion(){
-    alert("문자 인증이 완료되었습니다.")
-    initButton();
-    document.getElementById("completion").innerHTML="인증완료"
-    document.getElementById("signUpButton").disabled = false;
-    document.getElementById("signUpButton").setAttribute("style","background-color:yellow;")
-  }
-  
-  
-  // 가입부분 체크
-  
-  function signUpCheck(){
-  
-    let email = document.getElementById("email").value
-    let name = document.getElementById("name").value
-    let password = document.getElementById("password").value
-    let passwordCheck = document.getElementById("passwordCheck").value
-    let area = document.getElementById("area").value
-    let check = true;
-  
-    // 이메일확인
-    if(email.includes('@')){
-      let emailId = email.split('@')[0]
-      let emailServer = email.split('@')[1]
-      if(emailId == "" || emailServer == ""){
-        document.getElementById("emailError").innerHTML="이메일이 올바르지 않습니다."
-        check = false
+
+  // fetch를 사용하여 서버로 데이터 전송
+  fetch('http://univcert.com/api/v1/certify', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestData)
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
       }
-      else{
-        document.getElementById("emailError").innerHTML=""
+      return response.json();
+  })
+  .then(data => {
+      // 서버의 응답 처리
+      if (data.status === 200) {
+          alert("이메일이 성공적으로 전송되었습니다!");
+      } else {
+          alert("이메일 전송 실패: " + data.error); // 실패 시 서버에서 전달한 에러 메시지 출력
       }
-    }else{
-      document.getElementById("emailError").innerHTML="이메일이 올바르지 않습니다."
-      check = false
-    }
-  
-  
-    // 이름확인
-    if(name===""){
-      document.getElementById("nameError").innerHTML="이름이 올바르지 않습니다."
-      check = false
-    }else{
-      document.getElementById("nameError").innerHTML=""
-    }
-  
-  
-    // 비밀번호 확인
-    if(password != passwordCheck){
-      document.getElementById("passwordError").innerHTML=""
-      document.getElementById("passwordCheckError").innerHTML="비밀번호가 동일하지 않습니다."
-      check = false
-    }else{
-      document.getElementById("passwordError").innerHTML=""
-      document.getElementById("passwordCheckError").innerHTML=""
-    }
-  
-    if(password==""){
-      document.getElementById("passwordError").innerHTML="비밀번호를 입력해주세요."
-      check = false
-    }else{
-      //document.getElementById("passwordError").innerHTML=""
-    }
-    if(passwordCheck==""){
-      document.getElementById("passwordCheckError").innerHTML="비밀번호를 다시 입력해주세요."
-      check = false
-    }else{
-      //document.getElementById("passwordCheckError").innerHTML=""
-    }
-  
-  
-    
-    if(check){
-      document.getElementById("emailError").innerHTML=""
-      document.getElementById("nameError").innerHTML=""
-      document.getElementById("passwordError").innerHTML=""
-      document.getElementById("passwordCheckError").innerHTML=""
-      document.getElementById("areaError").innerHTML=""
-      document.getElementById("genderError").innerHTML=""
-      
-      //비동기 처리이벤트
-      setTimeout(function() {
-        alert("가입이 완료되었습니다.")
-    },0);
-    }
-  }
+  })
+  .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+  });
+}
