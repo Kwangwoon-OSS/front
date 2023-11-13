@@ -6,7 +6,7 @@
 			<img src="../public/img-Logo.png" alt="title" />
 		</h1>
 		<link href="../styles/sign-up.css" rel="stylesheet" />
-		<script defer src="../assets/sign-up.js"></script>
+		<script src="../assets/sign-up.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	</head>
 
@@ -32,13 +32,9 @@
 			<input id="password" type="password" placeholder="******." />
 			<div id="passwordError" class="error"></div>
 		</div>
-		<div class="passwordCheck">
-			<input
-				id="passwordCheck"
-				type="password"
-				placeholder="비밀번호를 다시 입력해 주세요."
-			/>
-			<div id="passwordCheckError" class="error"></div>
+		<div class="passwordConfirm">
+            <input id="passwordConfirm" type="password" placeholder="비밀번호를 다시 입력해 주세요.">
+            <div id="passwordConfirmError" class="error"></div>
 		</div>
 		<div class="school_email">
 			<input
@@ -49,7 +45,7 @@
 			<div id="school_emailError" class="error"></div>
 		</div>
 		<div class="auth">
-			<button id="sendMessage" onclick="sendmail()">인증메일 보내기</button>
+			<button id="sendMessage" onclick="sendEmail()">인증메일 보내기</button>
 		</div>
 		<div class="line">
 			<hr />
