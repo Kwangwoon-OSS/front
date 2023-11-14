@@ -147,14 +147,8 @@ async function getData() {
 					disableOnInteraction: false,
 				},
 			});
-
-			modal();
 		});
 }
-
-const modalShowBtn = document.getElementById('modal__button');
-const modal = document.querySelector('.modal');
-const modalCloseBtn = document.getElementById('body__close__button');
 
 // view more 버튼 클릭 시 이벤트 함수
 // newPost card 과목 ID 가져오기
@@ -171,30 +165,6 @@ async function setID(elem) {
 			window.location.href = '../pages/post_detail.html';
 		});
 }
-
-// const btn = document.getElementById('card__detail__button');
-// btn.onclick = function () {
-// 	alert('!!');
-// };
-
-// window.onload = function () {
-// 	modalShowBtn.onclick = function () {
-// 		alert('click!');
-// 		modal.style.display = 'block';
-// 	};
-// };
-
-modalCloseBtn.onclick = function () {
-	modal.style.display = 'none';
-	modal.classList.remove('click');
-};
-
-window.onclick = function (event) {
-	if (event.target == modal) {
-		modal.style.display = 'none';
-		modal.classList.remove('click');
-	}
-};
 
 // 진행학기
 const semesterMenu = document.querySelector('.semester__menu');
