@@ -127,6 +127,10 @@ async function getData() {
 			// console.log(`1번째 html => ${templateArr[1]}`);
 			for (let i = 0; i < 6; i++) {
 				document.getElementById(`test__${i}`).innerHTML += templateArr[i];
+
+				// 과목 id 로컬스토리지 저장
+				window.localStorage.setItem(`subjectId__${i}`, data[i].id);
+				// console.log(window.localStorage.getItem(`${i}__newCard`));
 			}
 
 			let swiperCards = new Swiper('.card__content', {
@@ -156,8 +160,21 @@ async function getData() {
 		});
 }
 
-function setID() {
-	alert('!!!');
+// newPost card 과목 ID 가져오기
+async function setID(elem) {
+	// console.log(elem);
+	// console.log(elem.id);
+	const newPostID = elem.id;
+	// console.log(`newPostID=${newPostID}`);
+	const getSubjectID = window.localStorage.getItem(newPostID);
+	// console.log(getSubjectID);
+	// console.log(host + '/posts/' + getSubjectID);
+	await fetch(host + '/posts/' + getSubjectID)
+		.then((res) => res.json())
+		.then((data) => {
+			console.log(data);
+			console.log(`title : ${data.title}`);
+		});
 }
 
 // const btn = document.getElementById('card__detail__button');
