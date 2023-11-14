@@ -68,6 +68,11 @@ async function getData() {
 		.then((response) => response.json())
 		.then((data) => {
 			getSubject();
+			// console.log(data);
+			// console.log(data[4].title);
+
+			const four = data[4].content;
+			// console.log(four);
 
 			// 따끈따근한 글 내용 보이기
 			const len = data.length;
@@ -99,11 +104,7 @@ async function getData() {
 				template.push(`<p class="card__description">`);
 				template.push(`${data[i].content}`);
 				template.push(`</p>`);
-				// template.push(`</div>`);
-				// template.push(`<div class="card__btn">
-				// <a href="#" class="card__button">View More</a></div>`);
-				// template.push(`</div>`);
-				// template.push(`</article>`);
+				template.push(`</div>`);
 
 				templateArr[i] = template.join('');
 
@@ -146,9 +147,16 @@ async function getData() {
 					disableOnInteraction: false,
 				},
 			});
+
+			modal();
 		});
 }
 
+const modalShowBtn = document.getElementById('modal__button');
+const modal = document.querySelector('.modal');
+const modalCloseBtn = document.getElementById('body__close__button');
+
+// view more 버튼 클릭 시 이벤트 함수
 // newPost card 과목 ID 가져오기
 async function setID(elem) {
 	const newPostID = elem.id;
@@ -168,6 +176,25 @@ async function setID(elem) {
 // btn.onclick = function () {
 // 	alert('!!');
 // };
+
+// window.onload = function () {
+// 	modalShowBtn.onclick = function () {
+// 		alert('click!');
+// 		modal.style.display = 'block';
+// 	};
+// };
+
+modalCloseBtn.onclick = function () {
+	modal.style.display = 'none';
+	modal.classList.remove('click');
+};
+
+window.onclick = function (event) {
+	if (event.target == modal) {
+		modal.style.display = 'none';
+		modal.classList.remove('click');
+	}
+};
 
 // 진행학기
 const semesterMenu = document.querySelector('.semester__menu');
@@ -227,29 +254,17 @@ departmentOptions.forEach((departmentOption) => {
 	});
 });
 
-// 과목
-// const subjectMenu = document.querySelector('.subject__menu');
-// const subjectBtn = document.getElementById('subject__list');
-// const subjectBtnText = document.querySelector('.subject__btn__text');
-// const subjectOptionList = document.getElementById('subject__option__list');
+// modalViewBtn.onclick = function () {
+// 	modal.style.display = 'block';
+// };
 
-// subjectBtn.addEventListener('click', () => {
-// 	subjectMenu.classList.toggle('active');
-// });
-// subjectOptionList.addEventListener('click', () => {
-// 	subjectOptionList.classList.toggle('click');
-// });
+// modalCloseBtn.onclick = function () {
+// 	modal.style.display = 'none';
+// };
 
-// let subjectOption = subjectMenu.querySelector('.subject__options').children;
-// let subjectOptions = Array.from(subjectOption);
-
-// subjectOptions.forEach((subjectOption) => {
-// 	subjectOption.addEventListener('click', () => {
-// 		let selectedsubjectOption = subjectOption.querySelector(
-// 			'.subject__option__text',
-// 		).innerText;
-// 		subjectBtnText.innerText = selectedsubjectOption;
-// 		subjectMenu.classList.remove('active');
-// 		subjectOptionList.classList.remove('click');
-// 	});
-// });
+// // 바깥 검은 부분 클릭했을 때에도 모달 창 닫기
+// window.onclick = function (event) {
+// 	if (event.target == modal) {
+// 		modal.style.display = 'none';
+// 	}
+// };
