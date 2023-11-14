@@ -83,13 +83,13 @@
 							</button>
 						</li>
 						<li>
-						<img
-									src="public/basic-profile.png"
-									alt="basic profile"
-									onclick="location.href='./pages/profile.html'"
-									class="pro_img"
-								/>
-						</li>								
+							<img
+								src="public/basic-profile.png"
+								alt="basic profile"
+								onclick="location.href='./pages/profile.html'"
+								class="pro_img"
+							/>
+						</li>
 					</ul>
 				</nav>
 			</header>
@@ -104,7 +104,7 @@
 				<div class="card__container swiper">
 					<div class="card__content">
 						<div class="swiper-wrapper" id="new__card__slide">
-							<!-- <article class="card__article swiper-slide" id="new__card">
+							<article class="card__article swiper-slide" id="new__card">
 								<div class="card__data">
 									<div class="card__head">
 										<div class="card__head__category">
@@ -113,17 +113,17 @@
 										</div>
 										<div class="card__head__deadline">
 											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
+											<span>마감 1일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
 										<span>마감일 | 2023.09.30</span>
 									</div>
-									<div class="card__main" id="test__3">
-										<p class="card__description">3번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
+									<div class="card__main" id="test__0"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
 								</div>
 							</article>
@@ -142,34 +142,11 @@
 									<div class="card__date">
 										<span>마감일 | 2023.09.30</span>
 									</div>
-									<div class="card__main" id="test__4">
-										<p class="card__description">4번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
-									</div>
-								</div>
-							</article>
-							<article class="card__article swiper-slide">
-								<div class="card__data">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 5일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main" id="test__5">
-										<p class="card__description">5번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
+									<div class="card__main" id="test__1"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
 								</div>
 							</article>
@@ -188,11 +165,34 @@
 									<div class="card__date">
 										<span>마감일 | 2023.09.30</span>
 									</div>
-									<div class="card__main" id="test__6">
-										<p class="card__description">6번 게시글</p>
+									<div class="card__main" id="test__2"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span>마감일 | 2023.09.30</span>
+									</div>
+									<div class="card__main" id="test__3"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
 								</div>
 							</article>
@@ -211,11 +211,11 @@
 									<div class="card__date">
 										<span>마감일 | 2023.09.30</span>
 									</div>
-									<div class="card__main">
-										<p class="card__description">8번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
+									<div class="card__main" id="test__4"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
 								</div>
 							</article>
@@ -234,37 +234,14 @@
 									<div class="card__date">
 										<span>마감일 | 2023.09.30</span>
 									</div>
-									<div class="card__main">
-										<p class="card__description">9번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
+									<div class="card__main" id="test__5"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a href="#" class="card__button" onclick="setID()"
+											>View More</a
+										>
 									</div>
 								</div>
 							</article>
-							<article class="card__article swiper-slide">
-								<div class="card__data">
-									<div class="card__head">
-										<div class="card__head__category">
-											<i class="fa-regular fa-folder-open"></i>
-											<span>프로젝트</span>
-										</div>
-										<div class="card__head__deadline">
-											<i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 15일 전</span>
-										</div>
-									</div>
-									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
-									</div>
-									<div class="card__main">
-										<p class="card__description">10번 게시글</p>
-									</div>
-									<div class="card__btn">
-										<a href="#" class="card__button">View More</a>
-									</div>
-								</div>
-							</article> -->
 						</div>
 					</div>
 					<!-- Navigation buttons -->

@@ -2,7 +2,7 @@ const baseURL =
 	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 const api =
 	'6550ea719fe23e137f1b894a--sparkling-hummingbird-207a57.netlify.app';
-// const host = window.location.hostname === '127.0.0.1' ? baseURL : 'api';
+const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 
 console.log(window.location.hostname);
 
@@ -18,7 +18,7 @@ document.body.addEventListener('load', getData());
 
 // 과목 정보 가져오기
 async function getSubject() {
-	fetch('/api/subject')
+	fetch(host + '/subject')
 		.then((response) => response.json())
 		.then((data) => {
 			const len = data.length;
@@ -70,7 +70,7 @@ async function getSubject() {
 }
 
 async function getData() {
-	fetch('/api/posts')
+	fetch(host + '/posts/newposts')
 		.then((response) => response.json())
 		.then((data) => {
 			getSubject();
@@ -86,35 +86,35 @@ async function getData() {
 
 			// console.log(`length : ${len}`);
 			// console.log(data);
-			for (let i = 0; i < len; i++) {
+			for (let i = 0; i < 6; i++) {
 				// content_data = data[i].content;
 				const template = [];
 
-				template.push(
-					`<article class="card__article swiper-slide" id="new__card">`,
-				);
-				template.push(`<div class="card__data">`);
-				template.push(`<div class="card__head">`);
-				template.push(`<div class="card__head__category">`);
-				template.push(`<i class="fa-regular fa-folder-open"></i>
-				<span>프로젝트</span>`);
-				template.push(`</div>`);
-				template.push(`<div class="card__head__deadline"><i class="fa-regular fa-hourglass-half"></i>
-											<span>마감 ${i}일 전</span>
-				</div>`);
-				template.push(`</div>`);
-				template.push(`<div class="card__date">`);
-				template.push(`<span>마감일 | 2023.09.30</span>`);
-				template.push(`</div>`);
-				template.push(`<div class="card__main">`);
+				// template.push(
+				// 	`<article class="card__article swiper-slide" id="new__card">`,
+				// );
+				// template.push(`<div class="card__data">`);
+				// template.push(`<div class="card__head">`);
+				// template.push(`<div class="card__head__category">`);
+				// template.push(`<i class="fa-regular fa-folder-open"></i>
+				// <span>프로젝트</span>`);
+				// template.push(`</div>`);
+				// template.push(`<div class="card__head__deadline"><i class="fa-regular fa-hourglass-half"></i>
+				// 							<span>마감 ${i}일 전</span>
+				// </div>`);
+				// template.push(`</div>`);
+				// template.push(`<div class="card__date">`);
+				// template.push(`<span>마감일 | 2023.09.30</span>`);
+				// template.push(`</div>`);
+				// template.push(`<div class="card__main">`);
 				template.push(`<p class="card__description">`);
 				template.push(`${data[i].content}`);
 				template.push(`</p>`);
-				template.push(`</div>`);
-				template.push(`<div class="card__btn">
-				<a href="#" class="card__button">View More</a></div>`);
-				template.push(`</div>`);
-				template.push(`</article>`);
+				// template.push(`</div>`);
+				// template.push(`<div class="card__btn">
+				// <a href="#" class="card__button">View More</a></div>`);
+				// template.push(`</div>`);
+				// template.push(`</article>`);
 
 				templateArr[i] = template.join('');
 
@@ -125,8 +125,8 @@ async function getData() {
 
 			// console.log(`0번째 html => ${templateArr[0]}`);
 			// console.log(`1번째 html => ${templateArr[1]}`);
-			for (let i = 0; i < len; i++) {
-				document.getElementById(`new__card__slide`).innerHTML += templateArr[i];
+			for (let i = 0; i < 6; i++) {
+				document.getElementById(`test__${i}`).innerHTML += templateArr[i];
 			}
 
 			let swiperCards = new Swiper('.card__content', {
@@ -155,6 +155,15 @@ async function getData() {
 			});
 		});
 }
+
+function setID() {
+	alert('!!!');
+}
+
+// const btn = document.getElementById('card__detail__button');
+// btn.onclick = function () {
+// 	alert('!!');
+// };
 
 // 진행학기
 const semesterMenu = document.querySelector('.semester__menu');
