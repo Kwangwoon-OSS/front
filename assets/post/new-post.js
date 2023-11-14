@@ -1,3 +1,8 @@
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
+const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
+console.log(window.location.hostname);
+
 // <======================== 드롭 메뉴 토글 ========================>
 // 모집분야
 const optionMenu = document.querySelector('.select__menu');
@@ -119,9 +124,6 @@ contactOptions.forEach((contactOption) => {
 		contactAltText.classList.remove('click');
 	});
 });
-
-const baseURL =
-	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 const access_token =
 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODg3NzUzfQ.W705o2nKtft79aymybG_J25Vj9TSsPdkpgmcm5QqTPeFKr2uNn1cRQBY13miO7B_RS-hP1VjLyJAxZVHJVp6OQ';
 
@@ -129,7 +131,7 @@ const access_token =
 document.body.addEventListener('load', getSubject());
 
 async function getSubject() {
-	fetch('/api/subject')
+	fetch(host + '/subject')
 		.then((response) => response.json())
 		.then((data) => {
 			const len = data.length;
@@ -181,7 +183,7 @@ async function getSubject() {
 
 let subjectID;
 const getSubjectID = function (subjectName) {
-	return fetch('/api/subject')
+	return fetch(host + '/subject')
 		.then((response) => {
 			if (response.ok) {
 				return response.json();
@@ -258,7 +260,7 @@ submitBtn.addEventListener('click', () => {
 		// console.log(dateData);
 
 		// post 요청 보내기
-		fetch('/api/posts', {
+		fetch(host + '/posts', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

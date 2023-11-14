@@ -1,18 +1,12 @@
 const baseURL =
 	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
-const api =
-	'6550ea719fe23e137f1b894a--sparkling-hummingbird-207a57.netlify.app';
-const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 
+const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
 function ready() {
 	// https://kihyeoksong.tistory.com/71 참고해서 작성
 }
-
-// let tot = document.querySelector('body');
-
-// tot.addEventListener('load', getData());
 
 document.body.addEventListener('load', getData());
 
@@ -74,11 +68,6 @@ async function getData() {
 		.then((response) => response.json())
 		.then((data) => {
 			getSubject();
-			// console.log(data);
-			// console.log(data[4].title);
-
-			const four = data[4].content;
-			// console.log(four);
 
 			// 따끈따근한 글 내용 보이기
 			const len = data.length;
@@ -162,18 +151,16 @@ async function getData() {
 
 // newPost card 과목 ID 가져오기
 async function setID(elem) {
-	// console.log(elem);
-	// console.log(elem.id);
 	const newPostID = elem.id;
-	// console.log(`newPostID=${newPostID}`);
 	const getSubjectID = window.localStorage.getItem(newPostID);
-	// console.log(getSubjectID);
-	// console.log(host + '/posts/' + getSubjectID);
+
 	await fetch(host + '/posts/' + getSubjectID)
 		.then((res) => res.json())
 		.then((data) => {
+			window.localStorage.setItem('selectID', data.id);
 			console.log(data);
 			console.log(`title : ${data.title}`);
+			window.location.href = '../pages/post_detail.html';
 		});
 }
 
