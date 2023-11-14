@@ -182,10 +182,16 @@ button {
 }
 
 .title__wrapper {
+	display: flex;
+	justify-content: space-between;
 	font-size: 1.5rem;
 	font-weight: 700;
 	font-style: normal;
 	line-height: normal;
+}
+
+.fa-bookmark {
+	color: var(--color-pink);
 }
 
 .line {

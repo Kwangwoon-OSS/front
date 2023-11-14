@@ -4,6 +4,9 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
+const access_token =
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMTkyNjU3fQ.xq7y3P9vgzDZTM2qYdR5SGA6LYFbr0sD_ZwOgQ00QYtrhWicRcrBLQY7aeRhvMlpEr4AxWa6APN1iv2LdXECOw';
+
 const postID = window.localStorage.getItem('selectID');
 console.log(postID);
 
@@ -98,3 +101,43 @@ async function getPostData() {
 			document.getElementById('content__detail').innerText = content;
 		});
 }
+
+// 북마크
+let clickNum = 0;
+document.getElementById('bookmark__icon').addEventListener('click', () => {
+	const postID = window.localStorage.getItem('selectID');
+
+	if (clickNum == 0) {
+		document.querySelector('.fa-bookmark').classList.add('fa-solid');
+		clickNum++;
+
+		// 북마크 등록
+		fetch(host + '/posts/' + postID + '/interest', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: access_token,
+			},
+		}).then((res) => {
+			if (res.ok) {
+				alert('북마크 등록되었습니다.');
+			}
+		});
+	} else {
+		document.querySelector('.fa-bookmark').classList.remove('fa-solid');
+		clickNum--;
+
+		// 북마크 해제
+		fetch(host + '/posts/' + postID + '/interest', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: access_token,
+			},
+		}).then((res) => {
+			if (res.ok) {
+				alert('북마크 해제되었습니다.');
+			}
+		});
+	}
+});
