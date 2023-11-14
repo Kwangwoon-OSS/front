@@ -9,6 +9,7 @@
 			src="https://kit.fontawesome.com/3bdd1547e6.js"
 			crossorigin="anonymous"
 		></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 		<!-- ==================== Google Web fonts ==================== -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,8 +71,11 @@
 						<h2 id="title">이곳은 제목이 들어가는 공간입니다.</h2>
 					</div>
 					<div class="writer__wrapper">
-						<span>김말랭</span>
-						<span>| 등록일 2023.11.23</span>
+						<span id="writer">김말랭</span>
+						<span>&nbsp&nbsp| &nbsp&nbsp등록일&nbsp</span>
+						<span id="creatAt"></span>
+						<span>&nbsp&nbsp| &nbsp&nbsp모집마감일&nbsp</span>
+						<span id="deadline"></span>
 					</div>
 					<div class="line"></div>
 					<section class="up__content">
@@ -116,7 +120,7 @@
 										<span>과&nbsp 목&nbsp 명</span>
 									</div>
 									<div class="right__wrapper">
-										<span id="subject"></span>
+										<span id="subject">오픈소스소프트웨어</span>
 									</div>
 								</div>
 								<div class="contact__wrapper">
