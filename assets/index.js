@@ -250,3 +250,32 @@ departmentOptions.forEach((departmentOption) => {
 		departmentOptionList.classList.remove('click');
 	});
 });
+//< ----- 밑에 포스트 카드 -------->
+function getContentList() {
+    // API 엔드포인트와 userId를 조합
+    const apiUrl = host+'/posts';
+
+    // fetch를 사용하여 서버로 데이터 요청
+    fetch(apiUrl)
+        .then(response => {
+            // 응답이 성공적인지 확인
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // JSON 형태로 응답을 파싱
+            return response.json();
+        })
+        .then(data => {
+            // 가져온 데이터를 각 요소에 할당
+            document.getElementById('item__category__title').textContent = data.content;
+            document.getElementById('chk_text').textContent = data.status;
+            document.getElementById('deadline').textContent = data.deadline;
+	    document.getElementById('content').textContent = data.content;
+	    document.getElementById('semester__tag').textContent = data.subject_id;
+	    document.getElementById('content').textContent = data.content;
+            // 더 많은 데이터가 있다면 추가로 할당해주세요.
+        })
+        .catch(error => {
+            console.error('오류:', error);
+        });
+}
