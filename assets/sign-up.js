@@ -52,7 +52,7 @@ fetch(host +'/users/signup', requestOptions)
             window.location.href = "../index.html";
         } else {
             // 회원가입 실패 또는 다른 상태 코드
-            console.error("회원가입 실패. 상태 코드: " + response.status);
+            alert("회원가입 실패. 다시 확인해주세요!);
         }
     })
     .catch(error => {
@@ -87,8 +87,8 @@ function sendEmail() {
         // 이메일 보내기  성공
         alert("이메일이 성공적으로 보내졌습니다!");
     } else {
-        // 회원가입 실패 또는 다른 상태 코드
-        console.error("이메일 실패. 상태 코드: " + response.status);
+        // 주소 다르면
+        alert("주소를 다시 한 번 확인해주세요);
     }
 })
 .catch(error => {
@@ -122,7 +122,7 @@ function check_number() {
           document.getElementById("signUpButton").removeAttribute("disabled");
       } else {
           // 잘못입력했을때
-          console.error("인증코드가 틀렸습니다");
+          alert("인증코드가 틀렸습니다");
       }
   })
   .catch(error => {
