@@ -1,3 +1,5 @@
+const host = window.location.hostname ==='127.0.0.1' ? baseURL:'/api';
+
 function signUpCheck() {
   // 이메일, 이름, 비밀번호 등을 가져옴
   var email = document.getElementById("email").value;
@@ -41,7 +43,7 @@ const requestOptions = {
     body: JSON.stringify(userData)
 };
 
-fetch("http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/users/signup", requestOptions)
+fetch(host +'/users/signup', requestOptions)
     .then(response => {
         if (response.status === 204) {
             // 회원가입 성공
@@ -73,7 +75,7 @@ function sendEmail() {
   };
 
   // fetch를 사용하여 서버로 데이터 전송
-  fetch('http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/users/email/cert', {
+  fetch(host +'/users/email/cert', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -107,7 +109,7 @@ function check_number() {
     };
   
     // fetch를 사용하여 서버로 데이터 전송
-    fetch('http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/users/email/verify', {
+    fetch(host +'/users/email/verify', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
