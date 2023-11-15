@@ -92,6 +92,18 @@ div {
     border-radius: 5px;
     font-weight:600 ;
 }
+.check_auth input{
+    width : 50%;
+    height : 38px;
+    text-align: center;
+}
+
+.check_auth button{
+    width : 30%;
+    height : 38px;
+    text-align: center;
+    float: right;
+}
 
 .signUp button{
     width:100%;
