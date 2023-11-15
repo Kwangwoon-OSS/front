@@ -179,8 +179,47 @@ button {
 	padding: 0px 100px;
 	margin: 160px auto 60px;
 }
+
 .up__wrapper {
 	margin-bottom: 100px;
+}
+
+.button__wrapper {
+	margin-top: 150px;
+}
+
+.button__list {
+	display: flex;
+	padding: 0;
+	margin-bottom: 0px;
+}
+
+.button__list .button__list__item {
+	border: none;
+	font-size: 1em;
+	color: var(--color-primary);
+	width: 7rem;
+	height: 2rem;
+	padding: 5px;
+}
+
+.button__list #updateBtn {
+	margin-right: 2em;
+	background-color: #fff;
+	border: 2px solid var(--color-gray);
+}
+
+.button__list #updateBtn:hover {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.button__list #deleteBtn {
+	background-color: #fff;
+	border: 2px solid var(--color-gray);
+}
+
+.button__list #deleteBtn:hover {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .title__wrapper {
@@ -194,6 +233,7 @@ button {
 
 .fa-bookmark {
 	color: var(--color-pink);
+	cursor: pointer;
 }
 
 .line {
