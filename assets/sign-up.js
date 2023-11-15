@@ -1,3 +1,5 @@
+const host = window.location.hostname ==='127.0.0.1' ? baseURL:'/api';
+
 function signUpCheck() {
   // 이메일, 이름, 비밀번호 등을 가져옴
   var email = document.getElementById("email").value;
@@ -41,7 +43,7 @@ const requestOptions = {
     body: JSON.stringify(userData)
 };
 
-fetch("http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/users/signup", requestOptions)
+fetch(host +'/users/signup', requestOptions)
     .then(response => {
         if (response.status === 204) {
             // 회원가입 성공
@@ -64,21 +66,16 @@ fetch("http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/user
 // 이메일 전송 버튼 클릭 시 호출될 함수
 function sendEmail() {
   // 필요한 데이터 가져오기
-  var privateKey = "9c9fbe95-dd5c-4fe2-9bb8-8bec44256d98";  // 실제로는 안전한 방법으로 키를 관리해야 합니다.
-  var univName = "광운대학교";  
-  var univ_check = true;
-  var univEmail = "tiger521@kw.ac.kr"
-
+  var email = document.getElementById("school_email").value;
+  var univName = "광운대학교";
   // API에 보낼 데이터 객체 생성
   const requestData = {
-      privateKey: privateKey,
-      univEmail: univEmail,
-      univName: univName,
-      univ_check: univ_check
+      email : email,
+      univName : univName
   };
 
   // fetch를 사용하여 서버로 데이터 전송
-  fetch('http://univcert.com/api/v1/certify', {
+  fetch(host +'/users/email/cert', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -86,20 +83,49 @@ function sendEmail() {
       body: JSON.stringify(requestData)
   })
   .then(response => {
-      if (!response.ok) {
-          throw new Error('Network response was not ok');
-      }
-      return response.json();
-  })
-  .then(data => {
-      // 서버의 응답 처리
-      if (data.status === 200) {
-          alert("이메일이 성공적으로 전송되었습니다!");
+    if (response.status === 200) {
+        // 이메일 보내기  성공
+        alert("이메일이 성공적으로 보내졌습니다!");
+    } else {
+        // 회원가입 실패 또는 다른 상태 코드
+        console.error("이메일 실패. 상태 코드: " + response.status);
+    }
+})
+.catch(error => {
+    console.error("요청 실패:", error);
+});
+}
+
+function check_number() {
+    // 필요한 데이터 가져오기
+    var email = document.getElementById("school_email").value;
+    var univName = "광운대학교";
+    var code = document.getElementById("code").value;
+    // API에 보낼 데이터 객체 생성
+    const requestData = {
+        email : email,
+        univName : univName,
+        code : code
+    };
+  
+    // fetch를 사용하여 서버로 데이터 전송
+    fetch(host +'/users/email/verify', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => {
+      if (response.status === 200) {
+          alert("인증되었습니다!");
+          document.getElementById("signUpButton").removeAttribute("disabled");
       } else {
-          alert("이메일 전송 실패: " + data.error); // 실패 시 서버에서 전달한 에러 메시지 출력
+          // 잘못입력했을때
+          console.error("인증코드가 틀렸습니다");
       }
   })
   .catch(error => {
-      console.error('There has been a problem with your fetch operation:', error);
+      console.error("요청 실패:", error);
   });
-}
+  }
