@@ -83,7 +83,6 @@ async function getPost() {
 						// console.log(`학과 이름 : ${data}`);
 						deptRes = deptData;
 
-						console.log(data[i].user_id);
 						getUser(data[i].user_id).then((userData) => {
 							userName = userData;
 
@@ -93,7 +92,9 @@ async function getPost() {
 							const deadline = moment(temp).format('YYYY-MM-DD');
 							// console.log(deadline);
 
-							template.push(`<li class="content__item">`);
+							template.push(
+								`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
+							);
 							template.push(`<div class="item__save">`);
 							template.push(`<i
 										class="fa-regular fa-bookmark fa-2x"
@@ -146,6 +147,8 @@ async function getPost() {
 							document.querySelector('.content__card__item').innerHTML +=
 								templateArr[i];
 							// console.log(templateArr[i]);
+
+							window.localStorage.setItem(`cardSubjectId__${i}`, data[i].id);
 						});
 					});
 				});
@@ -346,10 +349,25 @@ async function getCardSlide() {
 		});
 }
 
-// newPost card 과목 ID 가져오기 (view more 버튼 클릭 시 이벤트 함수)
-async function setID(card) {
-	const newPostID = card.id; // 선택된 카드의 고유 ID
+// 선택한 new post card의 과목 ID 가져오기 (따끈따끈한 글)
+async function setID(newPostCard) {
+	const newPostID = newPostCard.id; // 선택된 카드의 고유 ID
 	const getSubjectID = window.localStorage.getItem(newPostID); // 해당 카드의 subject ID 가져옴
+
+	// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
+	await fetch(host + '/posts/' + getSubjectID)
+		.then((res) => res.json())
+		.then((data) => {
+			window.localStorage.setItem('selectID', data.id);
+			window.location.href = '../pages/post_detail.html';
+		});
+}
+
+// 선택한 card의 과목 ID 가져오기 (메인 카드 그리드뷰)
+async function setCardID(card) {
+	const cardID = card.id; // 선택된 카드의 고유 ID
+
+	const getSubjectID = window.localStorage.getItem(cardID); // 해당 카드의 subject ID 가져옴
 
 	// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
 	await fetch(host + '/posts/' + getSubjectID)
