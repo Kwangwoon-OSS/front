@@ -35,27 +35,6 @@ const semesterBtn = document.getElementById('semester__list');
 const semesterBtnText = document.querySelector('.semester__btn__text');
 const semesterOptionList = document.getElementById('semester__option__list');
 
-semesterBtn.addEventListener('click', () => {
-	semesterMenu.classList.toggle('active');
-});
-semesterOptionList.addEventListener('click', () => {
-	semesterOptionList.classList.toggle('click');
-});
-
-let semesterOption = semesterMenu.querySelector('.semester__options').children;
-let semesterOptions = Array.from(semesterOption);
-
-semesterOptions.forEach((semesterOption) => {
-	semesterOption.addEventListener('click', () => {
-		let selectedSemesterOption = semesterOption.querySelector(
-			'.semester__option__text',
-		).innerText;
-		semesterBtnText.innerText = selectedSemesterOption;
-		semesterMenu.classList.remove('active');
-		semesterOptionList.classList.remove('click');
-	});
-});
-
 // 학과
 const departmentMenu = document.querySelector('.department__menu');
 const departmentBtn = document.getElementById('department__list');
@@ -128,9 +107,10 @@ const access_token =
 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODg3NzUzfQ.W705o2nKtft79aymybG_J25Vj9TSsPdkpgmcm5QqTPeFKr2uNn1cRQBY13miO7B_RS-hP1VjLyJAxZVHJVp6OQ';
 
 // <======================== 과목 정보 받아온 후, 과목명 드롭메뉴로 추가 ========================>
-document.body.addEventListener('load', getSubject());
+document.body.addEventListener('load', getData());
 
-async function getSubject() {
+async function getData() {
+	// 과목 정보 받아오기
 	fetch(host + '/subject')
 		.then((response) => response.json())
 		.then((data) => {
@@ -161,7 +141,6 @@ async function getSubject() {
 				subjectMenu.querySelector('.subject__options').children;
 			let subjectOptions = Array.from(subjectOption);
 
-			let subjectID;
 			subjectOptions.forEach((subjectOption) => {
 				subjectOption.addEventListener('click', () => {
 					let selectedSubjectOption = subjectOption.querySelector(
@@ -170,17 +149,63 @@ async function getSubject() {
 
 					// 과목명 보이게
 					subjectBtnText.innerText = selectedSubjectOption;
-					// console.log(subjectBtnText.innerText);
-
 					subjectMenu.classList.remove('active');
 					subjectOptionList.classList.remove('click');
 				});
-				// console.log(subjectID);
-				// console.log(typeof subjectID);
+			});
+		});
+
+	// 학기 정보 받아오기
+	await fetch(host + '/semester')
+		.then((res) => res.json())
+		.then((data) => {
+			const len = data.length;
+			const template = [];
+
+			let year;
+			let semester;
+
+			// 학기 드롭메뉴 옵션으로 추가
+			for (let i = 0; i < len; i++) {
+				year = data[i].years;
+				semester = data[i].semester;
+
+				template.push(`<li class="semester__option">`);
+				template.push(`<i class="fa-solid fa-calendar-days"></i>`);
+				template.push(
+					`<span class="semester__option__text">${year}년 ${semester}학기</span>`,
+				);
+				template.push(`</li>`);
+			}
+			document.getElementById('semester__option__list').innerHTML =
+				template.join('');
+
+			// 토글 생성 및 과목명 보이게
+			semesterBtn.addEventListener('click', () => {
+				semesterMenu.classList.toggle('active');
+			});
+			semesterOptionList.addEventListener('click', () => {
+				semesterOptionList.classList.toggle('click');
+			});
+
+			let semesterOption =
+				semesterMenu.querySelector('.semester__options').children;
+			let semesterOptions = Array.from(semesterOption);
+
+			semesterOptions.forEach((semesterOption) => {
+				semesterOption.addEventListener('click', () => {
+					let selectedSemesterOption = semesterOption.querySelector(
+						'.semester__option__text',
+					).innerText;
+					semesterBtnText.innerText = selectedSemesterOption;
+					semesterMenu.classList.remove('active');
+					semesterOptionList.classList.remove('click');
+				});
 			});
 		});
 }
 
+// 선택한 과목 ID 가져오기
 let subjectID;
 const getSubjectID = function (subjectName) {
 	return fetch(host + '/subject')
@@ -202,32 +227,15 @@ const getSubjectID = function (subjectName) {
 		});
 };
 
-// <======================== post로 보낼 객체 변수 생성 ========================>
-const category = category__btn__text.innerText;
-
+// 날짜 데이터 가져오기 (게시글 생성날짜로 사용)
 const dateFormMaker = function () {
 	const timestamp = new Date().getTime();
 	const date = new Date(timestamp); //타임스탬프를 인자로 받아 Date 객체 생성
 	return date;
-
-	/* 생성한 Date 객체에서 년, 월, 일, 시, 분을 각각 문자열 곧바로 추출 */
-	let year = date.getFullYear().toString(); //년도 뒤에 두자리
-
-	// console.log(date);
-	// console.log(date.getMonth() + 1);
-	// console.log('0' + (date.getMonth() + 1));
-
-	let month = ('0' + (date.getMonth() + 1)).slice(-2); //월 2자리 (01, 02 ... 12)
-	let day = ('0' + date.getDate()).slice(-2); //일 2자리 (01, 02 ... 31)
-	let hour = ('0' + date.getHours()).slice(-2); //시 2자리 (00, 01 ... 23)
-	let minute = ('0' + date.getMinutes()).slice(-2); //분 2자리 (00, 01 ... 59)
-	let second = ('0' + date.getSeconds()).slice(-2); //초 2자리 (00, 01 ... 59)
-
-	let returnDate = `${year}.${month}.${day}.${hour}:${minute}:${second}`;
-
-	// console.log(`month : ${month}`);
-	// console.log(returnDate);
 };
+
+// <======================== post로 보낼 객체 변수 생성 ========================>
+const category = category__btn__text.innerText;
 
 // 등록하기 버튼 눌렀을 때
 const submitBtn = document.querySelector('.submit__button');
@@ -235,8 +243,6 @@ submitBtn.addEventListener('click', () => {
 	let selectSubjectID;
 	getSubjectID(subjectBtnText.innerText).then((getID) => {
 		selectSubjectID = getID;
-		// console.log(selectSubjectID);
-		// console.log(typeof selectSubjectID);
 
 		const people = document.getElementById('people__text').value;
 		const dateInput = document.getElementById('deadline__text').value;
@@ -245,19 +251,8 @@ submitBtn.addEventListener('click', () => {
 		const post_content = document.getElementById('post__content__text').value;
 		const subjectID = selectSubjectID;
 
-		// console.log(`인원 수 : ${people}`);
-		// console.log(`연락방법 : ${post_contact}`);
-		// console.log(`title : ${post_title}`);
-		// console.log(`content : ${post_content}`);
-		// console.log(`id : ${subjectID}`);
-
 		const date = new Date(dateInput);
 		console.log(date);
-
-		// const tradeDate = Date.parse(dateInput) / 1000;
-		// console.log(tradeDate);
-		// const dateData = new Date(tradeDate).toLocaleString();
-		// console.log(dateData);
 
 		// post 요청 보내기
 		fetch(host + '/posts', {
@@ -285,14 +280,3 @@ submitBtn.addEventListener('click', () => {
 		});
 	});
 });
-
-// submitBtn.addEventListener('click', () => {
-// 	// let selectSubjectID;
-// 	// getSubjectID(subjectBtnText.innerText).then((getID) => {
-// 	// 	selectSubjectID = getID.toString();
-// 	// 	console.log(selectSubjectID);
-// 	// 	console.log(typeof selectSubjectID);
-// 	// });
-// 	// localStorage.setItem('access-token', access_token);
-// 	//alert('게시글이 등록되었습니다!');
-// });
