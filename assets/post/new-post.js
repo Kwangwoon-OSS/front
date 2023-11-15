@@ -3,6 +3,9 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
+const access_token =
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
+
 // <======================== 드롭 메뉴 토글 ========================>
 // 모집분야
 const optionMenu = document.querySelector('.select__menu');
@@ -72,8 +75,6 @@ contactOptions.forEach((contactOption) => {
 		contactAltText.classList.remove('click');
 	});
 });
-const access_token =
-	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAwODg3NzUzfQ.W705o2nKtft79aymybG_J25Vj9TSsPdkpgmcm5QqTPeFKr2uNn1cRQBY13miO7B_RS-hP1VjLyJAxZVHJVp6OQ';
 
 // <======================== 과목 정보 받아온 후, 과목명 드롭메뉴로 추가 ========================>
 document.body.addEventListener('load', getData());

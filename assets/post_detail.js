@@ -5,7 +5,7 @@ const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
 const access_token =
-	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMTkyNjU3fQ.xq7y3P9vgzDZTM2qYdR5SGA6LYFbr0sD_ZwOgQ00QYtrhWicRcrBLQY7aeRhvMlpEr4AxWa6APN1iv2LdXECOw';
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
 
 const postID = window.localStorage.getItem('selectID');
 console.log(postID);
