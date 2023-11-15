@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>로그인 | Together</title>
+		<link rel="stylesheet" href="../styles/reset.css" />
+		<link rel="stylesheet" href="../styles/Login.css" />
+		<script src="../assets/Login.js"></script>
+	</head>
+	<body>
+		<div id="login">
+			<a href="../index.html">
+			<h1><img src="../public/img-Logo.png" alt="투게더" /></h1>
+			</a>
+			<h1>로그인</h1>
+			<form action="#" method="post" id="login_frm">
+				<fieldset>
+					<legend>로그인양식</legend>
+					<ul>
+						<li><input id="email" type="text" placeholder="이메일 or 아이디" /></li>
+						<li><input id="password" type="password" placeholder="비밀번호" /></li>
+					</ul>
+					<div class="bottom">
+						<button
+							type="button"
+							class="navyBtn"
+							onClick="location.href='../pages/sign-up.html'"
+							id="membership_btn"
+						>
+							회원가입
+						</button>
+						<button
+							type="button"
+							class="navyBtn"
+							onClick="login()"
+							id="next_btn"
+						>
+							로그인
+						</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</body>
+</html>

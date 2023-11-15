@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>게시글 상세보기</title>
+		<!-- ==================== FONTAWESOME ==================== -->
+		<script
+			src="https://kit.fontawesome.com/3bdd1547e6.js"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- ==================== MOMENT JS ==================== -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+		<!-- ==================== Google Web fonts ==================== -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- ==================== CSS ==================== -->
+		<link rel="stylesheet" href="../styles/post_detail.css" />
+
+		<!-- ==================== LOGO IMG ==================== -->
+		<link rel="icon" type="image/png" href="../public/img-Logo.png" />
+
+		<!-- ==================== MAIN JS ==================== -->
+		<script defer src="../assets/post_detail.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<!-- Header -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="../index.html"
+							><img
+								class="header__logo__img"
+								src="../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = '../pages/post/new-post.html' "
+								class="header__menu__item"
+							>
+								<span>새 글 쓰기</span>
+								<i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</li>
+						<li>
+							<img
+								src="../public/basic-profile.png"
+								alt="basic profile"
+								onclick="location.href='../pages/profile.html'"
+								class="pro_img"
+							/>
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+			<main class="main">
+				<div class="up__wrapper">
+					<div class="title__wrapper">
+						<h2 id="title"></h2>
+						<div id="bookmark__icon">
+							<i class="fa-regular fa-bookmark fa-2x"></i>
+						</div>
+					</div>
+					<div class="writer__wrapper">
+						<span id="writer"></span>
+						<span>&nbsp&nbsp| &nbsp&nbsp등록일&nbsp</span>
+						<span id="creatAt"></span>
+						<span>&nbsp&nbsp| &nbsp&nbsp모집마감일&nbsp</span>
+						<span id="deadline"></span>
+					</div>
+					<div class="line"></div>
+					<section class="up__content">
+						<div class="up__content__wrapper">
+							<div class="content__left__wrapper">
+								<div class="semester__wrapper">
+									<div class="left__wrapper">
+										<span>진행 학기</span>
+									</div>
+									<div class="right__wrapper">
+										<span id="semester">2023년 2학기</span>
+									</div>
+								</div>
+								<div class="category__wrapper">
+									<div class="left__wrapper">
+										<span>모집 분야</span>
+									</div>
+									<div class="right__wrapper">
+										<span>프로젝트</span>
+									</div>
+								</div>
+								<div class="people__wrapper">
+									<div class="left__wrapper">
+										<span>모집 인원</span>
+									</div>
+									<div class="right__wrapper">
+										<span id="people">3</span>
+									</div>
+								</div>
+							</div>
+							<div class="content__right__wrapper">
+								<div class="department__wrapper">
+									<div class="left__wrapper">
+										<span>학 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 과</span>
+									</div>
+									<div class="right__wrapper">
+										<span id="department">소프트웨어학부</span>
+									</div>
+								</div>
+								<div class="subject__wrapper">
+									<div class="left__wrapper">
+										<span>과&nbsp 목&nbsp 명</span>
+									</div>
+									<div class="right__wrapper">
+										<span id="subject">오픈소스소프트웨어</span>
+									</div>
+								</div>
+								<div class="contact__wrapper">
+									<div class="left__wrapper">
+										<span>연락방법</span>
+									</div>
+									<div class="right__wrapper">
+										<span id="contact"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section class="down__content">
+						<div class="down__wrapper">
+							<div class="subTitle">
+								<h2>프로젝트 소개</h2>
+							</div>
+						</div>
+						<div class="line"></div>
+						<div class="descript">
+							<span id="content__detail"
+								>프로젝트 참여자 모집! 함께 성장하는 팀을 만들어요 안녕하세요!
+								새로운 프로젝트에 참여할 팀원을 찾습니다. 우리 함께 성장하고,
+								열정적인 아이디어를 공유하며 프로젝트를 성공으로 이끌어나갈
+								동료를 기다립니다. 관심이 있으신 분들은 지원해주세요! 창의적인
+								아이디어를 기다리는 팀원을 모집합니다 우리는 창의적인 팀원을
+								찾고 있어요! 프로젝트에 새로운 아이디어를 불어넣고, 함께 일하며
+								성장하고자 하는 열정 넘치는 분들을 기다리고 있습니다. 함께
+								놀라운 결과물을 만들어보아요! 디자인 열정가를 찾습니다! 함께
+								멋진 작업을 만들어봐요 저희 팀은 디자인 열정가를 찾고 있습니다!
+								함께 멋진 작업을 만들어보고 싶은 분들을 기다리고 있어요. 디자인
+								분야에서의 경험은 물론, 새로운 아이디어와 열정이 가득한 분들의
+								지원을 기다립니다. 프로그래머 여러분, 우리 팀에 참여해주세요!
+								프로그래밍에 열정을 가진 팀원을 모집합니다! 함께 협업하며
+								흥미로운 프로젝트를 만들어보고 싶은 분들은 지금
+								지원하세요.</span
+							>
+						</div>
+					</section>
+					<section class="comment">
+						<div class="comment__wrapper">
+							<div class="comment__header">
+								<span>댓글</span>
+								<span id="commentNum">0</span>
+							</div>
+							<div class="comment__body">
+								<div class="body__input">
+									<textarea
+										placeholder="댓글을 입력하세요."
+										id="comment__input"
+									></textarea>
+								</div>
+							</div>
+							<div class="comment__footer">
+								<div class="comment__submit">
+									<button class="submitBtn">등록하기</button>
+								</div>
+							</div>
+							<div class="comment__show">
+								<div class="comment__user">
+									<span>김말랭2</span>
+								</div>
+								<div class="comment__content">
+									<span>댓글입니당!!</span>
+								</div>
+								<div class="comment__date">
+									<span>2023.11.15.02:07:56</span>
+								</div>
+								<div class="line"></div>
+							</div>
+							<div class="comment__show">
+								<div class="comment__user">
+									<span>김말랭2</span>
+								</div>
+								<div class="comment__content">
+									<span>어머머멈머</span>
+								</div>
+								<div class="comment__date">
+									<span>2023.11.15.02:07:56</span>
+								</div>
+								<div class="line"></div>
+							</div>
+							<div class="comment__show">
+								<div class="comment__user">
+									<span>김말랭2</span>
+								</div>
+								<div class="comment__content">
+									<span>댓글입니당!!</span>
+								</div>
+								<div class="comment__date">
+									<span>2023.11.15.02:07:56</span>
+								</div>
+								<div class="line"></div>
+							</div>
+							<div class="comment__show">
+								<div class="comment__user">
+									<span>김말랭2 </span>
+								</div>
+								<div class="comment__content">
+									<span>댓글입니당!!</span>
+								</div>
+								<div class="comment__date">
+									<span>2023.11.15.02:07:56</span>
+								</div>
+								<div class="line"></div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</main>
+
+			<!-- ==================== FOOTER ==================== -->
+			<footer id="footer" class="footer__container">
+				<div id="footer__wrapper" class="max-container">
+					<div class="contact">
+						<span>TOGETHER.official@gmail.com</span>
+					</div>
+					<div class="copyright">
+						<span>TOGETHER. All rights reserved.</span>
+					</div>
+					<div class="service_description">
+						<div class="git__icon">
+							<a href="https://github.com/Kwangwoon-OSS">
+								<i class="fa-brands fa-github fa-lg"></i>
+							</a>
+						</div>
+						<div class="description__text">
+							<span #="terms">이용약관&nbsp&nbsp&nbsp&nbsp</span>
+							<span #="personal">개인정보처리방침&nbsp&nbsp&nbsp&nbsp</span>
+							<span #="service">서비스소개</span>
+						</div>
+					</div>
+					<div class="license">MIT License</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

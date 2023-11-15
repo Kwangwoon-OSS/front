@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang ="ko">
+    <head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>자기소개 프로필_수정</title>
+        <link rel="stylesheet" href="../styles/reset.css">
+        <link rel="stylesheet" href="../styles/profile_modified.css">
+        <script src="../assets/post/profile_modified.js"></script>
+    </head>
+    <body>
+        <div id="root">
+			<!-- Header -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="../index.html"
+							><img
+								class="header__logo__img"
+								src="../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = '../pages/post/new-post.html' "
+								class="header__menu__item"
+							>
+								<span>새 글 쓰기→</span>
+								<i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</li>
+						<li>
+							<img
+								src="../public/basic-profile.png"
+								alt="basic profile"
+								class="pro_img"
+								onclick= "locatoin.href = '../pages/profile.html' ";
+							/>
+						</li>
+					</ul>
+				</nav>
+			</header>
+            <body>
+                <main class = "main">
+                    <div class = "up_wrapper">
+                        <img src = "../public/profile_img.jpeg" alt = "my_profil_img">
+                    </div>
+                    <h1>***님 환영해요!</h1>
+                    <div class = "line"></div>
+                      <div class = "nickname">
+                        <h1>닉네임</h1>
+                        <input id = "nickname" type = "text">
+                      </div>
+                      <div class ="belong">
+                        <h1>소속</h1>
+                        <input id ="belong" type ="text">
+                      </div>
+                      <div class="introduction">
+                        <h1>자기소개</h1>
+                        <textarea id="introduction" placeholder="안녕하세요, 광운대학교 **입니다" rows="4" cols="50" oninput="limitText(this, 100)"></textarea>
+                      </div>
+                      
+                      <script>
+                        function limitText(element, maxLength) {
+                          if (element.value.length > maxLength) {
+                            element.value = element.value.substring(0, maxLength);
+                          }
+                        }
+                      </script>
+                      <div class="profileSubmit">
+                        <a href="#" class="submit__button" onclick="save()">저장하기</a>
+                    </div>
+                </main>
+            </body>
+
+        </div>
+    </body>
+    </html>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TeamHub</title>
+		<meta name="description" content="KW OSS project - Team Hub" />
+		<meta name="author" content="웅크린불꽃" />
+
+		<!-- ==================== FONTAWESOME ==================== -->
+		<script
+			src="https://kit.fontawesome.com/3bdd1547e6.js"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- ==================== MOMENT JS ==================== -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+		<!-- ==================== Google Web fonts ==================== -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- ==================== CSS ==================== -->
+		<link rel="stylesheet" href="./styles/index.css" />
+
+		<!-- ==================== SWIPER CSS ====================-->
+		<link rel="stylesheet" href="./styles/swiper-bundle.min.css" />
+
+		<!-- ==================== LOGO IMG ==================== -->
+		<link rel="icon" type="image/png" href="./public/img-Logo.png" />
+
+		<!-- ==================== SWIPER JS ==================== -->
+		<script defer src="./assets/swiper-bundle.min.js"></script>
+
+		<!-- ==================== MAIN JS ==================== -->
+		<script defer src="./assets/index.js"></script>
+	</head>
+
+	<body>
+		<div id="root">
+			<!-- ==================== HEADER ==================== -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a onClick="window.location.reload()"
+							><img
+								class="header__logo__img"
+								src="./public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = './pages/post/new-post.html' "
+								class="header__menu__item"
+							>
+								<span>새 글 쓰기</span>
+								<i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__login__btn"
+								type="button"
+								onclick="location.href = './pages/Login.html' "
+								class="header__menu__item"
+							>
+								로그인
+							</button>
+						</li>
+						<li>
+							<button
+								id="header__menu__signup__btn"
+								type="button"
+								onclick="location.href='./pages/sign-up.html'"
+								class="header__menu__item"
+							>
+								회원가입
+							</button>
+						</li>
+						<li>
+							<img
+								src="public/basic-profile.png"
+								alt="basic profile"
+								onclick="location.href='./pages/profile.html'"
+								class="pro_img"
+							/>
+						</li>
+					</ul>
+				</nav>
+			</header>
+
+			<!-- ==================== SLIDER ==================== -->
+			<!-- title -->
+			<div class="newPost">
+				<span class="newPost__title">🔥따끈따끈한 팀원모집 글</span>
+			</div>
+			<!-- card -->
+			<div class="container">
+				<div class="card__container swiper">
+					<div class="card__content">
+						<div class="swiper-wrapper" id="new__card__slide">
+							<article class="card__article swiper-slide" id="new__card">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__0">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 1일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__0"
+											>마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__0"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__0"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__1">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__1"
+											>마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__1"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__1"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__2">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__2">
+											마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__2"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__2"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__3">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__3"
+											>마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__3"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__3"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__4">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 225일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__4"
+											>마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__4"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__4"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+							<article class="card__article swiper-slide">
+								<div class="card__data">
+									<div class="card__head">
+										<div class="card__head__category">
+											<i class="fa-regular fa-folder-open"></i>
+											<span>프로젝트</span>
+										</div>
+										<div class="card__head__deadline" id="deadline__5">
+											<i class="fa-regular fa-hourglass-half"></i>
+											<span>마감 5일 전</span>
+										</div>
+									</div>
+									<div class="card__date">
+										<span id="card__date__deadline__5"
+											>마감일 | 2023.09.30</span
+										>
+									</div>
+									<div class="card__main" id="test__5"></div>
+									<div class="card__btn" id="card__detail__button">
+										<a
+											href="#"
+											class="card__button"
+											id="subjectId__5"
+											onclick="setID(this)"
+											>View More</a
+										>
+									</div>
+								</div>
+							</article>
+						</div>
+						<div class="swiper-wrapper" id="new__card__slide"></div>
+					</div>
+					<!-- Navigation buttons -->
+					<div class="swiper-button-next">
+						<i class="ri-arrow-right-s-line"></i>
+					</div>
+
+					<div class="swiper-button-prev">
+						<i class="ri-arrow-left-s-line"></i>
+					</div>
+				</div>
+			</div>
+
+			<!-- ==================== Main Contents ==================== -->
+			<main class="mainContent">
+				<div class="mainContent__category__container">
+					<div class="studyOrProject__category">
+						<div class="studyOrProject__category__item__all">
+							<span class="studyOrProject__text">전체</span>
+						</div>
+						<div class="studyOrProject__category__item__project">
+							<span class="studyOrProject__text">프로젝트</span>
+						</div>
+						<div class="studyOrProject__category__item__study">
+							<span class="studyOrProject__text">스터디</span>
+						</div>
+					</div>
+					<div class="category__container">
+						<div class="semester__menu" id="semester__list">
+							<div class="semester__btn">
+								<span class="semester__btn__text">진행학기</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="semester__options" id="semester__option__list"></ul>
+						</div>
+						<div class="department__menu" id="department__list">
+							<div class="department__btn">
+								<span class="department__btn__text">학과</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="department__options" id="department__option__list">
+								<p class="department__option__title">전자정보공과대학</p>
+								<li class="department__option">
+									<span class="department__option__text">전자공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">전자통신공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">전자융합공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">전기공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">전자재료공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">로봇학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">지능형로봇학과</span>
+								</li>
+
+								<p class="department__option__title">소프트웨어융합대학</p>
+								<li class="department__option">
+									<span class="department__option__text">컴퓨터정보공학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">소프트웨어학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">정보융합학부</span>
+								</li>
+								<p class="department__option__title">공과대학</p>
+								<li class="department__option">
+									<span class="department__option__text">건축공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">건축학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">화학공학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">환경공학과</span>
+								</li>
+
+								<p class="department__option__title">자연과학대학</p>
+								<li class="department__option">
+									<span class="department__option__text">수학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text"
+										>전자바이오물리학과</span
+									>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text"
+										>정보콘텐츠학과(야)</span
+									>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">스포츠융합과학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">화학과</span>
+								</li>
+								<p class="department__option__title">인문사회과학대학</p>
+								<li class="department__option">
+									<span class="department__option__text">국어국문학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text"
+										>동북아문화산업학부</span
+									>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text"
+										>미디어커뮤니케이션학부</span
+									>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">산업심리학과</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">영어산업학과</span>
+								</li>
+								<p class="department__option__title">정책법학대학</p>
+								<li class="department__option">
+									<span class="department__option__text">국제학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">법학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">자산관리학과(야)</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">행정학과</span>
+								</li>
+								<p class="department__option__title">경영대학</p>
+								<li class="department__option">
+									<span class="department__option__text">경영학부</span>
+								</li>
+								<li class="department__option">
+									<span class="department__option__text">국제통상학부</span>
+								</li>
+								<p class="department__option__title">인제니움학부대학</p>
+							</ul>
+						</div>
+
+						<div class="subject__menu" id="subject__list">
+							<div class="subject__btn">
+								<span class="subject__btn__text">과목명</span>
+								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
+							</div>
+							<ul class="subject__options" id="subject__option__list">
+								<li class="subject__option">
+									<span class="subject__option__text">영어</span>
+								</li>
+								<li class="subject__option">
+									<span class="subject__option__text">수학</span>
+								</li>
+							</ul>
+						</div>
+
+						<div class="category__item__myBookmark">
+							<span>&nbsp🔖내 북마크 보기&nbsp&nbsp&nbsp</span>
+						</div>
+						<div class="category__item__recruit">
+							<span>&nbsp👀모집 중인 글만 보기&nbsp</span>
+						</div>
+					</div>
+
+					<!-- ==================== Content List ==================== -->
+					<div class="content__wrapper">
+						<ul class="content__card__item">
+							<li class="content__item">
+								<div class="item__save">
+									<i
+										class="fa-regular fa-star fa-xl"
+										style="color: var(--color-yellow)"
+									></i>
+								</div>
+								<div class="item__head">
+									<div class="item__head__category">
+										<i class="fa-regular fa-folder-open"></i>
+										<span class="item__category__title">프로젝트</span>
+									</div>
+									<div class="item__head__checkbox">
+										<span class="chk__text">모집 중</span>
+									</div>
+								</div>
+								<div class="item__deadline">
+									<span>모집마감 | 2023.10.06</span>
+								</div>
+								<div class="item__text">
+									<h3>
+										오픈소스소프트웨어 팀프로젝트 같이 할 프론트엔드, 백엔드
+										팀원 구합니다. 오픈소스 함께 할 팀원을구합니다.
+									</h3>
+								</div>
+								<div class="item__tag">
+									<div class="tag__semester">
+										<i class="fa-solid fa-calendar-days"></i>
+										<span>23-2</span>학기
+									</div>
+									<div class="tag__department">
+										<i class="fa-solid fa-school-flag"></i>
+										<span id="semester__tag">컴퓨터정보공학부</span>
+									</div>
+								</div>
+								<div class="item__line"></div>
+								<div class="item__footer">
+									<div class="item__footer__left">
+										<div class="item__footer__profile">
+											<i class="fa-regular fa-user"></i>
+											<span>user</span>
+										</div>
+									</div>
+									<div class="item__footer__right">
+										<div class="item__footer__view">
+											<i class="fa-regular fa-eye"></i>
+											<span>10</span>
+										</div>
+										<div class="item__footer__comment">
+											<i class="fa-solid fa-comment-dots"></i>
+											<span>0</span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="content__item">
+								<div class="item__save">
+									<i
+										class="fa-regular fa-star fa-xl"
+										style="color: var(--color-yellow)"
+									></i>
+								</div>
+								<div class="item__head">
+									<div class="item__head__category">
+										<i class="fa-regular fa-folder-open"></i>
+										<span class="item__category__title">프로젝트</span>
+									</div>
+									<div class="item__head__checkbox">
+										<span class="chk__text">모집 중</span>
+									</div>
+								</div>
+								<div class="item__deadline">
+									<span>모집마감 | 2023.10.06</span>
+								</div>
+								<div class="item__text">
+									<h3>
+										오픈소스소프트웨어 팀프로젝트 같이 할 프론트엔드, 백엔드
+										팀원 구합니다. 오픈소스 함께 할 팀원을구합니다.
+									</h3>
+								</div>
+								<div class="item__tag">
+									<div class="tag__semester">
+										<i class="fa-solid fa-calendar-days"></i>
+										<span>23-2</span>학기
+									</div>
+									<div class="tag__department">
+										<i class="fa-solid fa-school-flag"></i>
+										<span id="department__tag">전자공학부</span>
+									</div>
+								</div>
+								<div class="item__line"></div>
+								<div class="item__footer">
+									<div class="item__footer__left">
+										<div class="item__footer__profile">
+											<i class="fa-regular fa-user"></i>
+											<span>user</span>
+										</div>
+									</div>
+									<div class="item__footer__right">
+										<div class="item__footer__view">
+											<i class="fa-regular fa-eye"></i>
+											<span>10</span>
+										</div>
+										<div class="item__footer__comment">
+											<i class="fa-solid fa-comment-dots"></i>
+											<span>0</span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="content__item">
+								<div class="item__save">
+									<i
+										class="fa-regular fa-star fa-xl"
+										style="color: var(--color-yellow)"
+									></i>
+								</div>
+								<div class="item__head">
+									<div class="item__head__category">
+										<i class="fa-regular fa-folder-open"></i>
+										<span class="item__category__title">프로젝트</span>
+									</div>
+									<div class="item__head__checkbox">
+										<span class="chk__text">모집 중</span>
+									</div>
+								</div>
+								<div class="item__deadline">
+									<span>모집마감 | 2023.10.06</span>
+								</div>
+								<div class="item__text">
+									<h3>
+										오픈소스소프트웨어 팀프로젝트 같이 할 프론트엔드, 백엔드
+										팀원 구합니다. 오픈소스 함께 할 팀원을구합니다.
+									</h3>
+								</div>
+								<div class="item__tag">
+									<div class="tag__semester">
+										<i class="fa-solid fa-calendar-days"></i>
+										<span>23-2</span>학기
+									</div>
+									<div class="tag__department">
+										<i class="fa-solid fa-school-flag"></i>
+										<span id="department__tag">소프트웨어학부</span>
+									</div>
+								</div>
+								<div class="item__line"></div>
+								<div class="item__footer">
+									<div class="item__footer__left">
+										<div class="item__footer__profile">
+											<i class="fa-regular fa-user"></i>
+											<span>user</span>
+										</div>
+									</div>
+									<div class="item__footer__right">
+										<div class="item__footer__view">
+											<i class="fa-regular fa-eye"></i>
+											<span>10</span>
+										</div>
+										<div class="item__footer__comment">
+											<i class="fa-solid fa-comment-dots"></i>
+											<span>0</span>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="content__item">
+								<div class="item__save">
+									<i
+										class="fa-regular fa-star fa-xl"
+										style="color: var(--color-yellow)"
+									></i>
+								</div>
+								<div class="item__head">
+									<div class="item__head__category">
+										<i class="fa-regular fa-folder-open"></i>
+										<span class="item__category__title">프로젝트</span>
+									</div>
+									<div class="item__head__checkbox">
+										<span class="chk__text">모집 중</span>
+									</div>
+								</div>
+								<div class="item__deadline">
+									<span>모집마감 | 2023.10.06</span>
+								</div>
+								<div class="item__text">
+									<h3>
+										오픈소스소프트웨어 팀프로젝트 같이 할 프론트엔드, 백엔드
+										팀원 구합니다. 오픈소스 함께 할 팀원을구합니다.
+									</h3>
+								</div>
+								<div class="item__tag">
+									<div class="tag__semester">
+										<i class="fa-solid fa-calendar-days"></i>
+										<span>23-2</span>학기
+									</div>
+									<div class="tag__department">
+										<i class="fa-solid fa-school-flag"></i>
+										<span id="department__tag">미디어커뮤니케이션학부</span>
+									</div>
+								</div>
+								<div class="item__line"></div>
+								<div class="item__footer">
+									<div class="item__footer__left">
+										<div class="item__footer__profile">
+											<i class="fa-regular fa-user"></i>
+											<span>user</span>
+										</div>
+									</div>
+									<div class="item__footer__right">
+										<div class="item__footer__view">
+											<i class="fa-regular fa-eye"></i>
+											<span>10</span>
+										</div>
+										<div class="item__footer__comment">
+											<i class="fa-solid fa-comment-dots"></i>
+											<span>0</span>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</main>
+
+			<!-- ==================== FOOTER ==================== -->
+			<footer id="footer" class="footer__container">
+				<div id="footer__wrapper" class="max-container">
+					<div class="contact">
+						<span>TOGETHER.official@gmail.com</span>
+					</div>
+					<div class="copyright">
+						<span>TOGETHER. All rights reserved.</span>
+					</div>
+					<div class="service_description">
+						<div class="git__icon">
+							<a href="https://github.com/Kwangwoon-OSS">
+								<i class="fa-brands fa-github fa-lg"></i>
+							</a>
+						</div>
+						<div class="description__text">
+							<span #="terms">이용약관&nbsp&nbsp&nbsp&nbsp</span>
+							<span #="personal">개인정보처리방침&nbsp&nbsp&nbsp&nbsp</span>
+							<span #="service">서비스소개</span>
+						</div>
+					</div>
+					<div class="license">MIT License</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

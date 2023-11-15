@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>게시글 수정하기</title>
+		<meta name="description" content="KW OSS project - Team Hub" />
+		<meta name="author" content="웅크린불꽃" />
+
+		<script
+			src="https://kit.fontawesome.com/3bdd1547e6.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- Google fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Logo img -->
+		<link rel="icon" type="image/png" href="../../public/img-Logo.png" />
+
+		<!-- Document -->
+		<link rel="stylesheet" href="../../styles/post/post-modified.css" />
+		<script defer src="../../assets/post/post-modified.js"></script>
+	</head>
+	<body>
+		<div id="root">
+			<!-- Header -->
+			<header class="header">
+				<nav class="header__nav">
+					<div class="header__logo">
+						<a href="../../index.html"
+							><img
+								class="header__logo__img"
+								src="../../public/img-Logo.png"
+								alt="logo"
+						/></a>
+					</div>
+					<ul class="header__menu">
+						<li>
+							<button
+								id="header__menu__new__btn"
+								type="button"
+								onclick="location.href = './new-post.html' "
+								class="header__menu__item"
+							>
+								<span>새 글 쓰기</span>
+								<i class="fa-solid fa-arrow-right"></i>
+							</button>
+						</li>
+						<li>
+							<img
+								src="../../public/basic-profile.png"
+								alt="basic profile"
+								class="profile"
+							/>
+						</li>
+					</ul>
+				</nav>
+			</header>
+			<main class="main">
+				<div class="up__wrapper">
+					<div class="title__wrapper">
+						<span>프로젝트 기본 정보를 입력해주세요</span>
+					</div>
+					<div class="line"></div>
+					<section class="up__content">
+						<div class="up__content__wrapper">
+							<div class="left__wrapper">
+								<div class="semester__wrapper">
+									<div class="title">
+										<span>진행학기</span>
+									</div>
+									<div class="semester__menu" id="semester__list">
+										<div class="semester__btn">
+											<span class="semester__btn__text"
+												>진행학기를 선택하세요</span
+											>
+											<i
+												class="fa-solid fa-angle-down"
+												style="color: #989898"
+											></i>
+										</div>
+										<ul class="semester__options" id="semester__option__list">
+											<li class="semester__option">
+												<i class="fa-solid fa-calendar-days"></i>
+												<span class="semester__option__text">2023년 1학기</span>
+											</li>
+											<li class="semester__option">
+												<i class="fa-solid fa-calendar-days"></i>
+												<span class="semester__option__text">2023년 2학기</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="category__wrapper">
+									<div class="title">
+										<span>모집분야</span>
+									</div>
+									<div class="select__menu" id="menu__list">
+										<div class="select__btn">
+											<span class="category__btn__text"
+												>모집분야를 선택하세요</span
+											>
+											<i
+												class="fa-solid fa-angle-down"
+												style="color: #989898"
+											></i>
+										</div>
+										<ul class="category__options" id="option__list">
+											<li class="option">
+												<i
+													class="fa-regular fa-folder-open"
+													style="color: var(--color-pink)"
+												></i>
+												<span class="option__text">프로젝트</span>
+											</li>
+											<li class="option">
+												<i class="fa-solid fa-book" style="color: green"></i>
+												<span class="option__text">&nbsp스터디</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="people__wrapper">
+									<div class="title">
+										<span>모집인원</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="people__text" />
+									</div>
+								</div>
+							</div>
+							<div class="right__wrapper">
+								<div class="department__wrapper">
+									<div class="title">
+										<span>학과</span>
+									</div>
+									<div class="department__menu" id="department__list">
+										<div class="department__btn">
+											<span class="department__btn__text"
+												>학과를 선택하세요</span
+											>
+											<i
+												class="fa-solid fa-angle-down"
+												style="color: #989898"
+											></i>
+										</div>
+										<ul
+											class="department__options"
+											id="department__option__list"
+										>
+											<p class="department__option__title">전자정보공과대학</p>
+											<li class="department__option">
+												<span class="department__option__text">전자공학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>전자통신공학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>전자융합공학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">전기공학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>전자재료공학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">로봇학부</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>지능형로봇학과</span
+												>
+											</li>
+
+											<p class="department__option__title">
+												소프트웨어융합대학
+											</p>
+											<li class="department__option">
+												<span class="department__option__text"
+													>컴퓨터정보공학부</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>소프트웨어학부</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>정보융합학부</span
+												>
+											</li>
+											<p class="department__option__title">공과대학</p>
+											<li class="department__option">
+												<span class="department__option__text">건축공학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">건축학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">화학공학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">환경공학과</span>
+											</li>
+
+											<p class="department__option__title">자연과학대학</p>
+											<li class="department__option">
+												<span class="department__option__text">수학과</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>전자바이오물리학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>정보콘텐츠학과(야)</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>스포츠융합과학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">화학과</span>
+											</li>
+											<p class="department__option__title">인문사회과학대학</p>
+											<li class="department__option">
+												<span class="department__option__text"
+													>국어국문학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>동북아문화산업학부</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>미디어커뮤니케이션학부</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>산업심리학과</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>영어산업학과</span
+												>
+											</li>
+											<p class="department__option__title">정책법학대학</p>
+											<li class="department__option">
+												<span class="department__option__text">국제학부</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">법학부</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>자산관리학과(야)</span
+												>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text">행정학과</span>
+											</li>
+											<p class="department__option__title">경영대학</p>
+											<li class="department__option">
+												<span class="department__option__text">경영학부</span>
+											</li>
+											<li class="department__option">
+												<span class="department__option__text"
+													>국제통상학부</span
+												>
+											</li>
+											<p class="department__option__title">인제니움학부대학</p>
+										</ul>
+									</div>
+								</div>
+								<div class="subject__wrapper">
+									<div class="title">
+										<span>과목명</span>
+									</div>
+									<div class="input__box">
+										<input type="text" id="subject__text" />
+									</div>
+								</div>
+								<div class="contact__wrapper">
+									<div class="title">
+										<span>연락방법</span>
+									</div>
+									<div class="contact__menu" id="contact__list">
+										<div class="contact__btn">
+											<span class="contact__btn__text"
+												>연락방법을 선택하세요</span
+											>
+											<i
+												class="fa-solid fa-angle-down"
+												style="color: #989898"
+											></i>
+										</div>
+										<ul class="contact__options" id="contact__option__list">
+											<li class="contact__option">
+												<img
+													src="../../public/kakao-logo.png"
+													alt="카카오톡 로고"
+													class="contact__option__logo"
+												/>
+												<span class="contact__option__text">카카오톡</span>
+											</li>
+											<li class="contact__option">
+												&nbsp<i class="fa-solid fa-at"></i>
+												<span class="contact__option__text">이메일</span>
+											</li>
+										</ul>
+									</div>
+									<div class="contact__input__box">
+										<input type="text" id="contact__alt__text" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="down__wrapper">
+					<div class="title__wrapper">
+						<span>프로젝트에 대해 소개해주세요</span>
+					</div>
+					<div class="line"></div>
+					<section class="down__content">
+						<div class="down__content__wrapper">
+							<div class="postTitle__wrapper">
+								<div class="postTitle">
+									<span>제목</span>
+								</div>
+								<div class="input__box" id="post__title">
+									<input
+										type="text"
+										id="post__title__text"
+										placeholder="제목을 작성해주세요."
+									/>
+								</div>
+							</div>
+							<div class="postContent__wrapper">
+								<div class="postContent">
+									<span>내용</span>
+								</div>
+								<div class="input__box" id="post__content">
+									<textarea
+										name="contents"
+										id="post__content__text"
+										cols="30"
+										rows="30"
+										placeholder="내용을 입력해주세요."
+									></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="postSubmit">
+							<a href="#" class="update__button">수정하기</a>
+							<a href="#" class="submit__button">등록하기</a>
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>
