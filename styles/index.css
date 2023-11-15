@@ -39,10 +39,10 @@
 /*=============== BASE ===============*/
 * {
 	box-sizing: border-box;
+	font-family: 'Gothic A1', sans-serif;
 }
 
 body {
-	font-family: 'Gothic A1', sans-serif;
 	margin: 0;
 }
 
@@ -715,7 +715,7 @@ button {
 .item__save {
 	display: flex;
 	justify-content: end;
-	margin: 20px 0;
+	margin: 0 0 20px 0;
 }
 
 .item__head {
@@ -732,16 +732,6 @@ button {
 	background-color: var(--color-gray);
 	font-weight: 600;
 	padding: 7px;
-}
-
-.item__head__checkbox {
-	align-items: center;
-}
-
-.chk__text {
-	color: var(--color-pink);
-	font-size: 1rem;
-	font-weight: 700;
 }
 
 .item__deadline {
@@ -775,18 +765,6 @@ button {
 	align-items: center;
 	margin-top: 25px;
 	margin-bottom: 10px;
-}
-
-.item__tag .tag__semester {
-	align-items: center;
-	padding: 0.4rem;
-	background-color: var(--color-skyblue);
-	border-radius: 1rem;
-	width: 6.8rem;
-	height: 1.8rem;
-	margin-right: 2rem;
-	font-size: 1rem;
-	font-weight: 600;
 }
 
 .item__tag .tag__department {

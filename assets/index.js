@@ -3,15 +3,157 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
+const access_token =
+	' Bearer Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjYzMzQxfQ.EZ2FfCjRrkLT2vYu9ma3w6tuTlmnXmmoWMjwiOIPdFfRdOYsPuWwcrvXJbV-JxKjW-pK8m42Oho6SYmqQUVDEQ';
+
 document.body.addEventListener('load', getData());
 
 async function getData() {
+	window.localStorage.setItem('access_token', access_token);
+	getPost();
 	getSubject();
 	getSemester();
 	getCardSlide();
 }
 
 // 과목 정보 가져오기
+async function getSubjectToDept(subjectID) {
+	// console.log(`input subject ID = ${subjectID}`);
+	return fetch(host + '/subject')
+		.then((res) => res.json())
+		.then((data) => {
+			let deptID;
+			for (let i = 0; i < data.length; i++) {
+				if (subjectID === data[i].id) {
+					deptID = data[i].department_id;
+					// console.log(deptID);
+					return deptID;
+				}
+			}
+		});
+}
+
+// 학과 정보 가져오기
+async function getDepartment(deptID) {
+	// console.log(`input dept ID = ${deptID}`);
+	return fetch(host + '/department')
+		.then((res) => res.json())
+		.then((data) => {
+			let departmentName;
+			for (let i = 0; i < data.length; i++) {
+				if (deptID === data[i].id) {
+					departmentName = data[i].name;
+					// console.log(departmentName);
+					return departmentName;
+				}
+			}
+		});
+}
+
+// 유저 정보 가져오기
+async function getUser(userID) {
+	// console.log(`input user ID = ${userID}`);
+	return fetch(host + '/users/profile/' + userID)
+		.then((res) => res.json())
+		.then((data) => {
+			let userName;
+			userName = data.nickname;
+			return userName;
+		});
+}
+
+// 등록된 모든 게시글 가져오기
+async function getPost() {
+	fetch(host + '/posts')
+		.then((res) => res.json())
+		.then((data) => {
+			const len = data.length;
+			let templateArr = [];
+			console.log(data);
+
+			let subRes;
+			let deptRes;
+			let userName;
+
+			for (let i = 0; i < 8; i++) {
+				getSubjectToDept(data[i].subject_id).then((subData) => {
+					subRes = subData;
+
+					getDepartment(subRes).then((deptData) => {
+						// console.log(`학과 이름 : ${data}`);
+						deptRes = deptData;
+
+						console.log(data[i].user_id);
+						getUser(data[i].user_id).then((userData) => {
+							userName = userData;
+
+							const template = [];
+
+							const temp = data[i].deadline;
+							const deadline = moment(temp).format('YYYY-MM-DD');
+							// console.log(deadline);
+
+							template.push(`<li class="content__item">`);
+							template.push(`<div class="item__save">`);
+							template.push(`<i
+										class="fa-regular fa-bookmark fa-2x"
+										style="color: var(--color-pink)"
+									></i>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__head">`);
+							template.push(`<div class="item__head__category">`);
+							template.push(`<i class="fa-regular fa-folder-open"></i>`);
+							template.push(
+								`<span class="item__category__title">${data[i].type}</span>`,
+							);
+							template.push(`</div>`);
+							template.push(`<div class="item__deadline">`);
+							template.push(`<span>모집마감 | ${deadline}</span>`);
+							template.push(`</div>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__text">`);
+							template.push(`<h3>${data[i].content}</h3>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__tag">`);
+							template.push(`<div class="tag__department">`);
+							template.push(`<i class="fa-solid fa-school-flag"></i>`);
+							template.push(`<span id="semester__tag">${deptRes}</span>`);
+							template.push(`</div>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__line"></div>`);
+							template.push(`<div class="item__footer">`);
+							template.push(`<div class="item__footer__left">`);
+							template.push(`<div class="item__footer__profile">`);
+							template.push(`<i class="fa-regular fa-user"></i>`);
+							template.push(`<span>&nbsp&nbsp${userName}</span>`);
+							template.push(`</div>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__footer__right">`);
+							template.push(`<div class="item__footer__view">`);
+							template.push(`<i class="fa-regular fa-eye"></i>`);
+							template.push(`<span>&nbsp&nbsp${data[i].views}</span>`);
+							template.push(`</div>`);
+							template.push(`<div class="item__footer__comment">`);
+							template.push(`<i class="fa-solid fa-comment-dots"></i>`);
+							template.push(`<span>&nbsp&nbsp0</span>`);
+							template.push(`</div>`);
+							template.push(`</div>`);
+							template.push(`</div>`);
+							template.push(`</li>`);
+
+							templateArr[i] = template.join('');
+
+							document.querySelector('.content__card__item').innerHTML +=
+								templateArr[i];
+							// console.log(templateArr[i]);
+						});
+					});
+				});
+			}
+		});
+}
+
+// 과목 정보로 드롭메뉴 옵션 만들기
 async function getSubject() {
 	fetch(host + '/subject')
 		.then((response) => response.json())
@@ -252,30 +394,31 @@ departmentOptions.forEach((departmentOption) => {
 });
 //< ----- 밑에 포스트 카드 -------->
 function getContentList() {
-    // API 엔드포인트와 userId를 조합
-    const apiUrl = host+'/posts';
+	// API 엔드포인트와 userId를 조합
+	const apiUrl = host + '/posts';
 
-    // fetch를 사용하여 서버로 데이터 요청
-    fetch(apiUrl)
-        .then(response => {
-            // 응답이 성공적인지 확인
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            // JSON 형태로 응답을 파싱
-            return response.json();
-        })
-        .then(data => {
-            // 가져온 데이터를 각 요소에 할당
-            document.getElementById('item__category__title').textContent = data.content;
-            document.getElementById('chk_text').textContent = data.status;
-            document.getElementById('deadline').textContent = data.deadline;
-	    document.getElementById('content').textContent = data.content;
-	    document.getElementById('semester__tag').textContent = data.subject_id;
-	    document.getElementById('content').textContent = data.content;
-            // 더 많은 데이터가 있다면 추가로 할당해주세요.
-        })
-        .catch(error => {
-            console.error('오류:', error);
-        });
+	// fetch를 사용하여 서버로 데이터 요청
+	fetch(apiUrl)
+		.then((response) => {
+			// 응답이 성공적인지 확인
+			if (!response.ok) {
+				throw new Error('Network response was not ok');
+			}
+			// JSON 형태로 응답을 파싱
+			return response.json();
+		})
+		.then((data) => {
+			// 가져온 데이터를 각 요소에 할당
+			document.getElementById('item__category__title').textContent =
+				data.content;
+			document.getElementById('chk_text').textContent = data.status;
+			document.getElementById('deadline').textContent = data.deadline;
+			document.getElementById('content').textContent = data.content;
+			document.getElementById('semester__tag').textContent = data.subject_id;
+			document.getElementById('content').textContent = data.content;
+			// 더 많은 데이터가 있다면 추가로 할당해주세요.
+		})
+		.catch((error) => {
+			console.error('오류:', error);
+		});
 }
