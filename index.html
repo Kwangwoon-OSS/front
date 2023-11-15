@@ -13,6 +13,9 @@
 			crossorigin="anonymous"
 		></script>
 
+		<!-- ==================== MOMENT JS ==================== -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 		<!-- ==================== Google Web fonts ==================== -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -111,13 +114,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__0">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 1일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__0"
+											>마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__0"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -138,13 +143,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__1">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 5일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__1"
+											>마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__1"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -165,13 +172,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__2">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 5일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__2">
+											마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__2"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -192,13 +201,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__3">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 5일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__3"
+											>마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__3"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -219,13 +230,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__4">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 225일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__4"
+											>마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__4"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -246,13 +259,15 @@
 											<i class="fa-regular fa-folder-open"></i>
 											<span>프로젝트</span>
 										</div>
-										<div class="card__head__deadline">
+										<div class="card__head__deadline" id="deadline__5">
 											<i class="fa-regular fa-hourglass-half"></i>
 											<span>마감 5일 전</span>
 										</div>
 									</div>
 									<div class="card__date">
-										<span>마감일 | 2023.09.30</span>
+										<span id="card__date__deadline__5"
+											>마감일 | 2023.09.30</span
+										>
 									</div>
 									<div class="card__main" id="test__5"></div>
 									<div class="card__btn" id="card__detail__button">
@@ -300,16 +315,7 @@
 								<span class="semester__btn__text">진행학기</span>
 								<i class="fa-solid fa-angle-down" style="color: #989898"></i>
 							</div>
-							<ul class="semester__options" id="semester__option__list">
-								<li class="semester__option">
-									<i class="fa-solid fa-calendar-days"></i>
-									<span class="semester__option__text">2023년 1학기</span>
-								</li>
-								<li class="semester__option">
-									<i class="fa-solid fa-calendar-days"></i>
-									<span class="semester__option__text">2023년 2학기</span>
-								</li>
-							</ul>
+							<ul class="semester__options" id="semester__option__list"></ul>
 						</div>
 						<div class="department__menu" id="department__list">
 							<div class="department__btn">

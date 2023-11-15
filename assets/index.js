@@ -1,14 +1,15 @@
 const baseURL =
 	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
-
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
-function ready() {
-	// https://kihyeoksong.tistory.com/71 참고해서 작성
-}
-
 document.body.addEventListener('load', getData());
+
+async function getData() {
+	getSubject();
+	getSemester();
+	getCardSlide();
+}
 
 // 과목 정보 가져오기
 async function getSubject() {
@@ -63,44 +64,74 @@ async function getSubject() {
 		});
 }
 
-async function getData() {
+// 학기 정보 가져오기
+async function getSemester() {
+	fetch(host + '/semester')
+		.then((response) => response.json())
+		.then((data) => {
+			const len = data.length;
+			const template = [];
+
+			// 과목명 드롭메뉴 옵션으로 추가
+			for (let i = 0; i < len; i++) {
+				const year = data[i].years;
+				const semester = data[i].semester;
+
+				template.push(`<li class="semester__option">`);
+				template.push(`<i class="fa-solid fa-calendar-days"></i>`);
+				template.push(
+					`<span class="semester__option__text">${year}년 ${semester}학기</span>`,
+				);
+				template.push(`</li>`);
+			}
+			document.getElementById('semester__option__list').innerHTML =
+				template.join('');
+
+			// 선택 시 과목명 보이게
+			const semesterBtn = document.getElementById('semester__list');
+			const semesterMenu = document.querySelector('.semester__menu');
+			const semesterOptionList = document.getElementById(
+				'semester__option__list',
+			);
+			const semesterBtnText = document.querySelector('.semester__btn__text');
+
+			semesterBtn.addEventListener('click', () => {
+				semesterMenu.classList.toggle('active');
+			});
+			semesterOptionList.addEventListener('click', () => {
+				semesterOptionList.classList.toggle('click');
+			});
+
+			let semesterOption =
+				semesterMenu.querySelector('.semester__options').children;
+			let semesterOptions = Array.from(semesterOption);
+
+			semesterOptions.forEach((semesterOption) => {
+				semesterOption.addEventListener('click', () => {
+					let selectedSemesterOption = semesterOption.querySelector(
+						'.semester__option__text',
+					).innerText;
+
+					semesterBtnText.innerText = selectedSemesterOption;
+					semesterMenu.classList.remove('active');
+					semesterOptionList.classList.remove('click');
+				});
+			});
+		});
+}
+
+// 카드 슬라이드 정보 가져오기
+async function getCardSlide() {
 	fetch(host + '/posts/newposts')
 		.then((response) => response.json())
 		.then((data) => {
-			getSubject();
-			// console.log(data);
-			// console.log(data[4].title);
+			console.log(data);
 
-			const four = data[4].content;
-			// console.log(four);
-
-			// 따끈따근한 글 내용 보이기
-			const len = data.length;
-			const templateArr = [];
-
-			// console.log(`length : ${len}`);
-			// console.log(data);
+			let templateArr = [];
+			let dateTemplateArr = [];
 			for (let i = 0; i < 6; i++) {
-				// content_data = data[i].content;
+				// 카드 슬라이드 내용에 대한 템플릿 생성
 				const template = [];
-
-				// template.push(
-				// 	`<article class="card__article swiper-slide" id="new__card">`,
-				// );
-				// template.push(`<div class="card__data">`);
-				// template.push(`<div class="card__head">`);
-				// template.push(`<div class="card__head__category">`);
-				// template.push(`<i class="fa-regular fa-folder-open"></i>
-				// <span>프로젝트</span>`);
-				// template.push(`</div>`);
-				// template.push(`<div class="card__head__deadline"><i class="fa-regular fa-hourglass-half"></i>
-				// 							<span>마감 ${i}일 전</span>
-				// </div>`);
-				// template.push(`</div>`);
-				// template.push(`<div class="card__date">`);
-				// template.push(`<span>마감일 | 2023.09.30</span>`);
-				// template.push(`</div>`);
-				// template.push(`<div class="card__main">`);
 				template.push(`<p class="card__description">`);
 				template.push(`${data[i].content}`);
 				template.push(`</p>`);
@@ -108,19 +139,42 @@ async function getData() {
 
 				templateArr[i] = template.join('');
 
-				// h.push(`<p class = "card__description">${data[i].content}</p>`);///
+				// 마감일 포맷팅
+				let deadline = data[i].deadline.substr(0, 10);
+				let tempDeadline = moment(deadline, 'YYYY-MM-DD');
+				let creatAt = data[i].createAt.substr(0, 10);
+				let tempCreat = moment(creatAt, 'YYYY-MM-DD');
+				let year = tempDeadline.format('YYYY');
+				let month = tempDeadline.format('MM');
+				let day = tempDeadline.format('DD');
 
-				// document.getElementById(`test__${i + 1}`).innerHTML = template.join('');
+				// 마감일 표시
+				document.getElementById(
+					`card__date__deadline__${i}`,
+				).innerText = `마감일 | ${year}-${month}-${day}`;
+
+				// 마감까지 남은 일수 계산
+				let date = tempDeadline.diff(tempCreat, 'days');
+
+				// 카드 슬라이드 마감까지 남은 일수에 대한 템플릿 생성
+				const dateTemplate = [];
+				dateTemplate.push(`<i class="fa-regular fa-hourglass-half"></i>`);
+				dateTemplate.push(`<span>마감 ${date}일 전</span>`);
+
+				dateTemplateArr[i] = dateTemplate.join('');
 			}
 
-			// console.log(`0번째 html => ${templateArr[0]}`);
-			// console.log(`1번째 html => ${templateArr[1]}`);
+			// 카드 슬라이드 수만큼 생성된 template들 추가
 			for (let i = 0; i < 6; i++) {
+				// 내용
 				document.getElementById(`test__${i}`).innerHTML += templateArr[i];
 
-				// 과목 id 로컬스토리지 저장
+				// 마감까지 남은 기간
+				document.getElementById(`deadline__${i}`).innerHTML =
+					dateTemplateArr[i];
+
+				// 과목 id 로컬스토리지 저장 (선택된 카드 알기 위함)
 				window.localStorage.setItem(`subjectId__${i}`, data[i].id);
-				// console.log(window.localStorage.getItem(`${i}__newCard`));
 			}
 
 			let swiperCards = new Swiper('.card__content', {
@@ -150,48 +204,21 @@ async function getData() {
 		});
 }
 
-// view more 버튼 클릭 시 이벤트 함수
-// newPost card 과목 ID 가져오기
-async function setID(elem) {
-	const newPostID = elem.id;
-	const getSubjectID = window.localStorage.getItem(newPostID);
+// newPost card 과목 ID 가져오기 (view more 버튼 클릭 시 이벤트 함수)
+async function setID(card) {
+	const newPostID = card.id; // 선택된 카드의 고유 ID
+	const getSubjectID = window.localStorage.getItem(newPostID); // 해당 카드의 subject ID 가져옴
 
+	// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
 	await fetch(host + '/posts/' + getSubjectID)
 		.then((res) => res.json())
 		.then((data) => {
 			window.localStorage.setItem('selectID', data.id);
-			console.log(data);
-			console.log(`title : ${data.title}`);
 			window.location.href = '../pages/post_detail.html';
 		});
 }
 
-// 진행학기
-const semesterMenu = document.querySelector('.semester__menu');
-const semesterBtn = document.getElementById('semester__list');
-const semesterBtnText = document.querySelector('.semester__btn__text');
-const semesterOptionList = document.getElementById('semester__option__list');
-
-semesterBtn.addEventListener('click', () => {
-	semesterMenu.classList.toggle('active');
-});
-semesterOptionList.addEventListener('click', () => {
-	semesterOptionList.classList.toggle('click');
-});
-
-let semesterOption = semesterMenu.querySelector('.semester__options').children;
-let semesterOptions = Array.from(semesterOption);
-
-semesterOptions.forEach((semesterOption) => {
-	semesterOption.addEventListener('click', () => {
-		let selectedSemesterOption = semesterOption.querySelector(
-			'.semester__option__text',
-		).innerText;
-		semesterBtnText.innerText = selectedSemesterOption;
-		semesterMenu.classList.remove('active');
-		semesterOptionList.classList.remove('click');
-	});
-});
+// <============================ 드롭 메뉴 ============================>
 
 // 학과
 const departmentMenu = document.querySelector('.department__menu');
@@ -223,18 +250,3 @@ departmentOptions.forEach((departmentOption) => {
 		departmentOptionList.classList.remove('click');
 	});
 });
-
-// modalViewBtn.onclick = function () {
-// 	modal.style.display = 'block';
-// };
-
-// modalCloseBtn.onclick = function () {
-// 	modal.style.display = 'none';
-// };
-
-// // 바깥 검은 부분 클릭했을 때에도 모달 창 닫기
-// window.onclick = function (event) {
-// 	if (event.target == modal) {
-// 		modal.style.display = 'none';
-// 	}
-// };
