@@ -132,23 +132,55 @@ async function getPostData() {
 				// 현재 접속한 유저와 작성자가 같은 지 확인하기
 				getConnectUser().then((userData) => {
 					const connectUser = userData;
-					console.log(connectUser);
-					console.log(writer);
 
 					if (connectUser === writer) {
 						console.log('유저가 같습니다.');
-						document.getElementById('buttonSet').classList.remove('active');
+						// 유저가 같으면 수정하기, 삭제하기 버튼 보이기
+						document.getElementById('buttonSet').classList.toggle('active');
 					} else {
 						console.log('유저가 다릅니다.');
 
-						// 유저가 다르면 수정하기, 삭제하기 버튼 보이기
-						document.getElementById('buttonSet').classList.toggle('active');
+						document.getElementById('buttonSet').classList.remove('active');
 					}
 				});
 			});
 			document.getElementById('content__detail').innerText = content;
 		});
 }
+
+const updateBtn = document.getElementById('updateBtn');
+const deleteBtn = document.getElementById('deleteBtn');
+
+// 게시글 수정하기 페이지로 이동
+updateBtn.addEventListener('click', () => {
+	window.location.href = '../pages/post/post-modified.html';
+});
+
+// 게시글 삭제 API 호출
+deleteBtn.addEventListener('click', () => {
+	let isDelete = confirm('게시글을 정말 삭제하시겠습니까?');
+	const deleteID = window.localStorage.getItem('selectID');
+	console.log(deleteID);
+
+	if (isDelete) {
+		fetch(host + '/posts/' + deleteID, {
+			method: 'DELETE',
+			headers: {
+				Authorization: access_token,
+			},
+		})
+			.then((res) => {
+				res.json();
+			})
+			.then((data) => {
+				console.log(data);
+				alert('정상적으로 게시글이 삭제되었습니다😀');
+				setInterval((window.location.href = '../index.html'), 1000);
+			});
+	} else {
+		setInterval((window.location.href = '../index.html'), 1000);
+	}
+});
 
 // 북마크
 let clickNum = 0;
