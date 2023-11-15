@@ -205,7 +205,6 @@ button {
 
 .category__wrapper,
 .people__wrapper,
-.deadline__wrapper,
 .subject__wrapper,
 .contact__wrapper {
 	margin-top: 40px;
@@ -343,10 +342,11 @@ button {
 
 .category__options .option:hover,
 .semester__options .semester__option:hover,
-.department__options .department__option:hover,
 .subject__options .subject__option:hover {
 	background: #f2f2f2;
 }
+
+/* .department__options .department__option:hover, */
 
 .option i {
 	font-size: 25px;
@@ -358,7 +358,7 @@ button {
 	color: #333;
 }
 
-.department__menu {
+/* .department__menu {
 	width: 27em;
 	margin: 15px 0;
 }
@@ -437,6 +437,11 @@ button {
 	font-size: 1rem;
 	color: #333;
 	margin-left: 10px;
+} */
+
+/* deadline */
+.deadline__wrapper {
+	margin: 3px 0;
 }
 
 /* subject */

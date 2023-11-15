@@ -35,37 +35,6 @@ const semesterBtn = document.getElementById('semester__list');
 const semesterBtnText = document.querySelector('.semester__btn__text');
 const semesterOptionList = document.getElementById('semester__option__list');
 
-// 학과
-const departmentMenu = document.querySelector('.department__menu');
-const departmentBtn = document.getElementById('department__list');
-const departmentBtnText = document.querySelector('.department__btn__text');
-const departmentOptionList = document.getElementById(
-	'department__option__list',
-);
-
-departmentBtn.addEventListener('click', () => {
-	departmentMenu.classList.toggle('active');
-});
-departmentOptionList.addEventListener('click', () => {
-	departmentOptionList.classList.toggle('click');
-});
-
-let departmentOption = departmentMenu.querySelector(
-	'.department__options',
-).children;
-let departmentOptions = Array.from(departmentOption);
-
-departmentOptions.forEach((departmentOption) => {
-	departmentOption.addEventListener('click', () => {
-		let selectedDepartmentOption = departmentOption.querySelector(
-			'.department__option__text',
-		).innerText;
-		departmentBtnText.innerText = selectedDepartmentOption;
-		departmentMenu.classList.remove('active');
-		departmentOptionList.classList.remove('click');
-	});
-});
-
 // 과목
 const subjectMenu = document.querySelector('.subject__menu');
 const subjectBtn = document.getElementById('subject__list');
@@ -235,7 +204,6 @@ const dateFormMaker = function () {
 };
 
 // <======================== post로 보낼 객체 변수 생성 ========================>
-const category = category__btn__text.innerText;
 
 // 등록하기 버튼 눌렀을 때
 const submitBtn = document.querySelector('.submit__button');
@@ -249,34 +217,59 @@ submitBtn.addEventListener('click', () => {
 		const post_contact = document.getElementById('contact__alt__text').value;
 		const post_title = document.getElementById('post__title__text').value;
 		const post_content = document.getElementById('post__content__text').value;
+		const category = document.querySelector('.select__btn').innerText;
 		const subjectID = selectSubjectID;
 
-		const date = new Date(dateInput);
-		console.log(date);
+		let selectCategory;
+		if (category === '프로젝트') {
+			selectCategory = 'PROJECT';
+		} else if (category === '스터디') {
+			selectCategory = 'STUDY';
+		} else {
+			alert('모집분야를 제대로 입력하세요');
+		}
+		// console.log(selectCategory);
 
-		// post 요청 보내기
-		fetch(host + '/posts', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: access_token,
-			},
-			body: JSON.stringify({
-				title: post_title,
-				content: post_content,
-				status: 'ACTIVE',
-				deadline: date,
-				views: 0,
-				contact: post_contact,
-				people: people,
-				subjectId: subjectID,
-			}),
-		}).then((res) => {
-			// 성공적으로 게시글 등록 후 메인 페이지로 이동
-			if (res.ok) {
-				alert('새로운 글이 등록되었습니다!');
-				setInterval((window.location.href = '../../index.html'), 1000);
+		if (!people) {
+			alert('모집인원을 입력하세요');
+		} else if (!dateInput) {
+			alert('모집마감일을 입력하세요');
+		} else {
+			// 모집마감일 유효성 검사
+			let temp = moment(dateInput, 'YYYY-MM-DD');
+			let today = moment().format('YYYY-MM-DD');
+			let res = temp.diff(today, 'days');
+			if (res <= 0) {
+				alert('과거를 모집마감일로 할 수 없습니다. 다시 작성해주세요!');
 			}
-		});
+			const date = new Date(dateInput);
+			console.log(date);
+
+			// post 요청 보내기
+			fetch(host + '/posts', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: access_token,
+				},
+				body: JSON.stringify({
+					title: post_title,
+					content: post_content,
+					status: 'ACTIVE',
+					type: selectCategory,
+					deadline: date,
+					views: 0,
+					contact: post_contact,
+					people: people,
+					subjectId: subjectID,
+				}),
+			}).then((res) => {
+				// 성공적으로 게시글 등록 후 메인 페이지로 이동
+				if (res.ok) {
+					alert('새로운 글이 등록되었습니다!');
+					setInterval((window.location.href = '../../index.html'), 1000);
+				}
+			});
+		}
 	});
 });
