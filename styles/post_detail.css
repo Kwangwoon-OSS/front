@@ -186,6 +186,11 @@ button {
 
 .button__wrapper {
 	margin-top: 150px;
+	display: none;
+}
+
+.button__wrapper.active {
+	display: block;
 }
 
 .button__list {

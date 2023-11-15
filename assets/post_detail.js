@@ -5,7 +5,7 @@ const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
 const access_token =
-	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
+	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6NiwiZXhwIjoxNzAxMjc5MTE0fQ.L11n5VmUdHh0_YCYLDjcqupqJghPhhDje660foeRbOjM9GlHXU9nqNqqnXiUMaGzxR1-7-CXmUjM9TWrV_ZHQA';
 
 const postID = window.localStorage.getItem('selectID');
 console.log(postID);
@@ -15,6 +15,26 @@ document.body.addEventListener('load', getPostData());
 // 작성자 이름 가져오기
 const getWriter = function (userID) {
 	return fetch(host + '/users/profile/' + userID)
+		.then((res) => {
+			if (res.ok) {
+				return res.json();
+			} else {
+				throw new Error("Server response wasn't OK");
+			}
+		})
+		.then((data) => {
+			return data.nickname;
+		});
+};
+
+// 현재 접속한 유저의 프로필 가져오기
+const getConnectUser = function () {
+	return fetch(host + '/users/profile', {
+		method: 'GET',
+		headers: {
+			Authorization: access_token,
+		},
+	})
 		.then((res) => {
 			if (res.ok) {
 				return res.json();
@@ -47,7 +67,17 @@ const getSubjectData = function (subjectID) {
 		});
 };
 
+// async function book() {
+// 	fetch(host + '/posts/interestin')
+// 		.then((res) => res.json())
+// 		.then((data) => {
+// 			console.log(data);
+// 		});
+// }
+// book();
+
 async function getPostData() {
+	window.localStorage.setItem('access_token', access_token);
 	fetch(host + '/posts/' + postID)
 		.then((res) => res.json())
 		.then((data) => {
@@ -94,9 +124,27 @@ async function getPostData() {
 			document.getElementById('contact').innerText = contact;
 			document.getElementById('creatAt').innerText = creatDate;
 			document.getElementById('deadline').innerText = deadlineDate;
+
 			getWriter(data.user_id).then((data) => {
 				const writer = data;
 				document.getElementById('writer').innerText = writer;
+
+				// 현재 접속한 유저와 작성자가 같은 지 확인하기
+				getConnectUser().then((userData) => {
+					const connectUser = userData;
+					console.log(connectUser);
+					console.log(writer);
+
+					if (connectUser === writer) {
+						console.log('유저가 같습니다.');
+						document.getElementById('buttonSet').classList.remove('active');
+					} else {
+						console.log('유저가 다릅니다.');
+
+						// 유저가 다르면 수정하기, 삭제하기 버튼 보이기
+						document.getElementById('buttonSet').classList.toggle('active');
+					}
+				});
 			});
 			document.getElementById('content__detail').innerText = content;
 		});
