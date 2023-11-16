@@ -14,6 +14,171 @@ async function getData() {
 	getSubject();
 	getSemester();
 	getCardSlide();
+	typeFilter();
+}
+
+// 필터링
+// 1. 과목
+// 과목에 있는 옵션 선택 시 이벤트 함수 호출
+// /post로 현재 목록 다 불러옴
+// 지금 띄워져있는 거랑 비교 (cardSubjectId__i 값으로 로컬에 저장되어 있음)
+// 띄울 내용에 대한 id 값을 객체로 로컬에 저장
+
+// 방법1 data-type 이용
+async function typeFilter() {
+	const typeBtn = document.querySelector('.studyOrProject__category');
+	const typeOptions = document.querySelectorAll('.item__head__category');
+	typeBtn.addEventListener('click', (e) => {
+		// 선택한 타입 알기
+		let type;
+		if (e.target.innerText === 'PROJECT') {
+			type = 'PROJECT';
+		} else if (e.target.innerText === 'STUDY') {
+			type = 'STUDY';
+		} else {
+			getPost();
+		}
+
+		let cardIDArr = [];
+		// for (let i = 0; i < 9; i++) {
+		// 	// 게시되어 있는 카드의 id 가져오기
+		// 	let postCardID = window.localStorage.getItem(`cardSubjectId__${i}`);
+
+		// 	// 각 카드 id를 배열에 저장
+		// 	cardIDArr.push(postCardID);
+		// }
+
+		fetch(host + '/posts')
+			.then((res) => res.json())
+			.then((data) => {
+				let len = data.length;
+				console.log(data);
+				// console.log(len);
+
+				// 현재 등록되어 있는 게시글 수만큼 반복하며 해당 타입의 글 ID만 배열에 저장
+				let cardType;
+
+				for (let i = 0; i < len; i++) {
+					cardType = data[i].type;
+					if (type === cardType) {
+						cardIDArr.push(data[i].id);
+					}
+				}
+				return cardIDArr;
+			})
+			.then((arr) => {
+				// 새로운 템플릿 생성
+
+				let len = arr.length;
+				let templateArr = [];
+				document.querySelector('.content__card__item').innerHTML = '';
+				for (let i = 0; i < len; i++) {
+					let ID = arr[i];
+					fetch(host + '/posts/' + ID)
+						.then((res) => res.json())
+						.then((data) => {
+							let subRes;
+							let deptRes;
+							let userName;
+
+							getSubjectToDept(data.subject_id).then((subData) => {
+								subRes = subData;
+
+								getDepartment(subRes).then((deptData) => {
+									deptRes = deptData;
+
+									getUser(data.user_id).then((userData) => {
+										userName = userData;
+
+										const template = [];
+
+										const temp = data.deadline;
+										const deadline = moment(temp).format('YYYY-MM-DD');
+
+										template.push(
+											`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
+										);
+										template.push(`<div class="item__save">`);
+										template.push(`<i
+										class="fa-regular fa-bookmark fa-2x"
+										style="color: var(--color-pink)"
+									></i>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__head">`);
+										let type = data.type;
+										if (type === 'PROJECT') {
+											template.push(
+												`<div class="item__head__category" id="type__${type}" >`,
+											);
+											template.push(
+												`<i class="fa-regular fa-folder-open"></i>`,
+											);
+											template.push(`<span>&nbsp&nbsp</span>`);
+											template.push(
+												`<span class="item__category__title" >${type}</span>`,
+											);
+										} else if (type === 'STUDY') {
+											template.push(
+												`<div class="item__head__category" id="type__${type}" >`,
+											);
+											template.push(`<i class="fa-solid fa-book"></i>`);
+											template.push(`<span>&nbsp&nbsp</span>`);
+											template.push(
+												`<span class="item__category__title" >${data.type}</span>`,
+											);
+										}
+										template.push(`</div>`);
+										template.push(`<div class="item__deadline">`);
+										template.push(`<span>모집마감 | ${deadline}</span>`);
+										template.push(`</div>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__text">`);
+										template.push(`<h3>${data.content}</h3>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__tag">`);
+										template.push(`<div class="tag__department">`);
+										template.push(`<i class="fa-solid fa-school-flag"></i>`);
+										template.push(`<span>&nbsp&nbsp</span>`);
+										template.push(`<span id="semester__tag">${deptRes}</span>`);
+										template.push(`</div>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__line"></div>`);
+										template.push(`<div class="item__footer">`);
+										template.push(`<div class="item__footer__left">`);
+										template.push(`<div class="item__footer__profile">`);
+										template.push(`<i class="fa-regular fa-user"></i>`);
+										template.push(`<span>&nbsp&nbsp${userName}</span>`);
+										template.push(`</div>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__footer__right">`);
+										template.push(`<div class="item__footer__view">`);
+										template.push(`<i class="fa-regular fa-eye"></i>`);
+										template.push(`<span>&nbsp&nbsp${data.views}</span>`);
+										template.push(`</div>`);
+										template.push(`<div class="item__footer__comment">`);
+										template.push(`<i class="fa-solid fa-comment-dots"></i>`);
+										template.push(`<span>&nbsp&nbsp0</span>`);
+										template.push(`</div>`);
+										template.push(`</div>`);
+										template.push(`</div>`);
+										template.push(`</li>`);
+
+										templateArr[i] = template.join('');
+
+										document.querySelector('.content__card__item').innerHTML +=
+											templateArr[i];
+
+										window.localStorage.setItem(`cardSubjectId__${i}`, data.id);
+									});
+								});
+							});
+						});
+				}
+			});
+		console.log(cardIDArr);
+		// console.log('push');
+		console.log(e.target.innerText); // 선택된 type
+	});
 }
 
 // 과목 정보 가져오기
@@ -75,7 +240,7 @@ async function getPost() {
 			let deptRes;
 			let userName;
 
-			for (let i = 0; i < 8; i++) {
+			for (let i = 0; i < 9; i++) {
 				getSubjectToDept(data[i].subject_id).then((subData) => {
 					subRes = subData;
 
@@ -106,7 +271,7 @@ async function getPost() {
 							let type = data[i].type;
 							if (type === 'PROJECT') {
 								template.push(
-									`<div class="item__head__category" id="type__project">`,
+									`<div class="item__head__category" id="type__${type}" >`,
 								);
 								template.push(`<i class="fa-regular fa-folder-open"></i>`);
 								template.push(`<span>&nbsp&nbsp</span>`);
@@ -115,27 +280,14 @@ async function getPost() {
 								);
 							} else if (type === 'STUDY') {
 								template.push(
-									`<div class="item__head__category" id="type__study">`,
+									`<div class="item__head__category" id="type__${type}" >`,
 								);
 								template.push(`<i class="fa-solid fa-book"></i>`);
 								template.push(`<span>&nbsp&nbsp</span>`);
 								template.push(
 									`<span class="item__category__title" >${data[i].type}</span>`,
 								);
-							} else {
-								type = 'NULL';
-								template.push(
-									`<div class="item__head__category" id="type__null">`,
-								);
-								template.push(
-									`<i class="fa-regular fa-folder-open" style="color: var(--color-green)"></i>`,
-								);
-								template.push(`<span>&nbsp&nbsp</span>`);
-								template.push(
-									`<span class="item__category__title" >${type}</span>`,
-								);
 							}
-
 							template.push(`</div>`);
 							template.push(`<div class="item__deadline">`);
 							template.push(`<span>모집마감 | ${deadline}</span>`);
@@ -208,7 +360,7 @@ async function getSubject() {
 			// 과목명 드롭메뉴 옵션으로 추가
 			for (let i = 0; i < len; i++) {
 				const subjectName = data[i].name;
-				template.push(`<li class="subject__option">`);
+				template.push(`<li class="subject__option" data-type="subject">`);
 				template.push(
 					`<span class="subject__option__text">${subjectName}</span>`,
 				);

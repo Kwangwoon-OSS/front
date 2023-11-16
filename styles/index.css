@@ -25,6 +25,8 @@
 	--color-dark-gray: #8f8d8d;
 	--color-yellow: #ffd460;
 	--color-skyblue: #dfeaf8;
+	--color-green: #5fad56;
+	--color-orange: #f76d29;
 
 	/* Size */
 	--size-max-width: 1200px;
@@ -213,6 +215,10 @@ button {
 	height: 30vh;
 }
 
+.card__container {
+	margin-top: 30px;
+}
+
 .card__content {
 	border-radius: 1.25rem;
 	overflow: hidden;
@@ -225,7 +231,6 @@ button {
 }
 
 .card__data:hover {
-	cursor: pointer;
 	border: 4px solid var(--color-yellow);
 }
 
@@ -424,13 +429,20 @@ button {
 
 .studyOrProject__category {
 	display: flex;
+	align-items: baseline;
 	padding-left: 90px;
 }
 
-.studyOrProject__text {
+.studyOrProject__All__text {
 	margin-left: 1rem;
 	font-weight: 700;
-	font-size: 2rem;
+	font-size: 1.7rem;
+}
+
+.studyOrProject__text {
+	/* margin-left: 2rem; */
+	font-weight: 700;
+	font-size: 1.5rem;
 }
 
 .studyOrProject__category__item__all {
@@ -438,11 +450,33 @@ button {
 }
 
 .studyOrProject__category__item__project {
-	color: #2d4059;
+	margin-left: 2rem;
 }
 
 .studyOrProject__category__item__study {
+	margin-left: 2rem;
+}
+
+#category__item {
 	color: #2d4059;
+	cursor: pointer;
+}
+
+.studyOrProject__text {
+	cursor: pointer;
+}
+
+.studyOrProject__text:after {
+	display: block;
+	content: '';
+	/* border-bottom: solid 3px #ea2129;
+	 */
+	border-bottom: solid 3px var(--color-green);
+	transform: scaleX(0);
+	transition: transform 250ms ease-in-out;
+}
+.studyOrProject__text:hover:after {
+	transform: scaleX(1);
 }
 
 .category__container {
@@ -664,6 +698,10 @@ button {
 	background: #fff;
 }
 
+.subject__option.invisible {
+	display: none;
+}
+
 .subject__option i {
 	font-size: 1rem;
 	margin-right: 5px;
@@ -765,11 +803,11 @@ button {
 	padding: 7px;
 }
 
-#type__project {
-	background-color: var(--color-yellow);
+#type__PROJECT {
+	background-color: #fcd7d7;
 }
 
-#type__study {
+#type__STUDY {
 	background-color: #f9dbbd;
 	color: #221b15;
 }
