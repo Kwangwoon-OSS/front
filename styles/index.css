@@ -97,6 +97,10 @@ button {
 	z-index: 2;
 }
 
+.header:hover {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
 .header__nav {
 	margin: auto;
 	max-width: 1180px;
@@ -754,10 +758,19 @@ button {
 	padding: 7px;
 }
 
+#type__project {
+	background-color: var(--color-yellow);
+}
+
+#type__study {
+	background-color: #f9dbbd;
+	color: #221b15;
+}
+
 .item__deadline {
 	font-size: 0.8rem;
 	font-weight: 600;
-	padding: 3px;
+	padding-top: 5px;
 }
 
 .item__text {
@@ -772,7 +785,7 @@ button {
 	/* 여러 줄 자르기 추가 스타일 */
 	white-space: normal;
 	line-height: 1.2;
-	height: 5.4rem;
+	height: 5.2rem;
 	text-align: left;
 	word-break: break-word;
 	display: -webkit-box;

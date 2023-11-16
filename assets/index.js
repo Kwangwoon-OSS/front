@@ -102,11 +102,40 @@ async function getPost() {
 									></i>`);
 							template.push(`</div>`);
 							template.push(`<div class="item__head">`);
-							template.push(`<div class="item__head__category">`);
-							template.push(`<i class="fa-regular fa-folder-open"></i>`);
-							template.push(
-								`<span class="item__category__title">${data[i].type}</span>`,
-							);
+
+							let type = data[i].type;
+							if (type === 'PROJECT') {
+								template.push(
+									`<div class="item__head__category" id="type__project">`,
+								);
+								template.push(`<i class="fa-regular fa-folder-open"></i>`);
+								template.push(`<span>&nbsp&nbsp</span>`);
+								template.push(
+									`<span class="item__category__title" >${data[i].type}</span>`,
+								);
+							} else if (type === 'STUDY') {
+								template.push(
+									`<div class="item__head__category" id="type__study">`,
+								);
+								template.push(`<i class="fa-solid fa-book"></i>`);
+								template.push(`<span>&nbsp&nbsp</span>`);
+								template.push(
+									`<span class="item__category__title" >${data[i].type}</span>`,
+								);
+							} else {
+								type = 'NULL';
+								template.push(
+									`<div class="item__head__category" id="type__null">`,
+								);
+								template.push(
+									`<i class="fa-regular fa-folder-open" style="color: var(--color-green)"></i>`,
+								);
+								template.push(`<span>&nbsp&nbsp</span>`);
+								template.push(
+									`<span class="item__category__title" >${type}</span>`,
+								);
+							}
+
 							template.push(`</div>`);
 							template.push(`<div class="item__deadline">`);
 							template.push(`<span>모집마감 | ${deadline}</span>`);
@@ -118,6 +147,7 @@ async function getPost() {
 							template.push(`<div class="item__tag">`);
 							template.push(`<div class="tag__department">`);
 							template.push(`<i class="fa-solid fa-school-flag"></i>`);
+							template.push(`<span>&nbsp&nbsp</span>`);
 							template.push(`<span id="semester__tag">${deptRes}</span>`);
 							template.push(`</div>`);
 							template.push(`</div>`);
@@ -153,7 +183,18 @@ async function getPost() {
 					});
 				});
 			}
+
+			return data;
 		});
+	// .then((data) => {
+	// 	const type = document.querySelector('item__head__category');
+	// 	console.log(type);
+	// 	for (let i = 0; i < 8; i++) {
+	// 		if (data[i].type === 'PROJECT') {
+	// 			type.classList.toggle('project');
+	// 		}
+	// 	}
+	// });
 }
 
 // 과목 정보로 드롭메뉴 옵션 만들기
