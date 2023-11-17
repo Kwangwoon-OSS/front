@@ -13,8 +13,10 @@ async function getData() {
 	getPost();
 	getSubject();
 	getSemester();
+	getDepartmentDropMenu();
 	getCardSlide();
 	typeFilter();
+	semesterFilter();
 }
 
 // 필터링
@@ -24,10 +26,186 @@ async function getData() {
 // 지금 띄워져있는 거랑 비교 (cardSubjectId__i 값으로 로컬에 저장되어 있음)
 // 띄울 내용에 대한 id 값을 객체로 로컬에 저장
 
-// 방법1 data-type 이용
+// 학기 필터링
+async function semesterFilter() {
+	const semesterBtn = document.querySelector('.semester__options');
+	semesterBtn.addEventListener('click', (e) => {
+		// 선택한 학기 알기
+		let semester;
+		const targetSemester = e.target.innerText;
+		let inputYear;
+		let inputSemester;
+
+		inputYear = targetSemester.substr(0, targetSemester.indexOf('년'));
+		inputSemester = targetSemester.substr(6, 1);
+
+		console.log(targetSemester);
+		// console.log(inputYear);
+		// console.log(inputSemester);
+
+		let semesterData;
+		getSemesterID().then((data) => {
+			semesterData = data;
+			// console.log(semesterData);
+			// console.log(semesterData[0]);
+
+			let semesterID;
+			for (let i = 0; i < semesterData.length; i++) {
+				if (
+					inputYear === semesterData[i].years &&
+					inputSemester === semesterData[i].semester
+				) {
+					semesterID = semesterData[i].id;
+				}
+			}
+			console.log(`for문 밖에서 ID ===> ${semesterID}`);
+
+			// fetch(host + '/posts')
+			// 	.then((res) => res.json())
+			// 	.then((postData) => {
+			// 		let cardIDArr = [];
+			// 		let len = postData.length;
+			// 		// console.log(postData);
+
+			// 		let subjectID = postData[i].subject_id;
+			// 		let cardSemesterID;
+			// 		for (let i = 0; i < len; i++) {
+			// 			fetch(host + '/subject');
+			// 		}
+			// 	});
+
+			let cardIDArr = [];
+			fetch(host + '/posts/filter/' + semesterID)
+				.then((res) => res.json())
+				.then((data) => {
+					let len = data.length;
+
+					// console.log(data);
+
+					for (let i = 0; i < len; i++) {
+						document.querySelector('.content__card__item').innerHTML = '';
+						setTemplate(data[i], i);
+					}
+				});
+		});
+	});
+}
+
+// 학기 ID 가져오기
+async function getSemesterID() {
+	return fetch(host + '/semester')
+		.then((res) => res.json())
+		.then((data) => {
+			// console.log(data);
+			return data;
+		});
+}
+
+// 새로운 템플릿 생성
+async function setTemplate(data, i) {
+	let subRes;
+	let deptRes;
+	let userName;
+
+	let templateArr = [];
+
+	getSubjectToDept(data.subject_id).then((subData) => {
+		// 학과 이름을 알기 위해 과목 id로 가져온 학과 id
+		subRes = subData;
+
+		getDepartment(subRes).then((deptData) => {
+			// 학과 이름
+			deptRes = deptData;
+
+			getUser(data.user_id).then((userData) => {
+				// 유저 이름
+				userName = userData;
+
+				const template = [];
+
+				const temp = data.deadline;
+				const deadline = moment(temp).format('YYYY-MM-DD');
+
+				template.push(
+					`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
+				);
+				template.push(`<div class="item__save">`);
+				template.push(`<i
+										class="fa-regular fa-bookmark fa-2x"
+										style="color: var(--color-pink)"
+									></i>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__head">`);
+
+				let type = data.type;
+				// 타입별로 아이콘이 다름
+				if (type === 'PROJECT') {
+					template.push(
+						`<div class="item__head__category" id="type__${type}" >`,
+					);
+					template.push(`<i class="fa-regular fa-folder-open"></i>`);
+					template.push(`<span>&nbsp&nbsp</span>`);
+					template.push(`<span class="item__category__title" >${type}</span>`);
+				} else if (type === 'STUDY') {
+					template.push(
+						`<div class="item__head__category" id="type__${type}" >`,
+					);
+					template.push(`<i class="fa-solid fa-book"></i>`);
+					template.push(`<span>&nbsp&nbsp</span>`);
+					template.push(
+						`<span class="item__category__title" >${data.type}</span>`,
+					);
+				}
+				template.push(`</div>`);
+				template.push(`<div class="item__deadline">`);
+				template.push(`<span>모집마감 | ${deadline}</span>`);
+				template.push(`</div>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__text">`);
+				template.push(`<h3>${data.content}</h3>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__tag">`);
+				template.push(`<div class="tag__department">`);
+				template.push(`<i class="fa-solid fa-school-flag"></i>`);
+				template.push(`<span>&nbsp&nbsp</span>`);
+				template.push(`<span id="department__text">${deptRes}</span>`);
+				template.push(`</div>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__line"></div>`);
+				template.push(`<div class="item__footer">`);
+				template.push(`<div class="item__footer__left">`);
+				template.push(`<div class="item__footer__profile">`);
+				template.push(`<i class="fa-regular fa-user"></i>`);
+				template.push(`<span>&nbsp&nbsp${userName}</span>`);
+				template.push(`</div>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__footer__right">`);
+				template.push(`<div class="item__footer__view">`);
+				template.push(`<i class="fa-regular fa-eye"></i>`);
+				template.push(`<span>&nbsp&nbsp${data.views}</span>`);
+				template.push(`</div>`);
+				template.push(`<div class="item__footer__comment">`);
+				template.push(`<i class="fa-solid fa-comment-dots"></i>`);
+				template.push(`<span>&nbsp&nbsp0</span>`);
+				template.push(`</div>`);
+				template.push(`</div>`);
+				template.push(`</div>`);
+				template.push(`</li>`);
+
+				templateArr[i] = template.join('');
+
+				document.querySelector('.content__card__item').innerHTML +=
+					templateArr[i];
+
+				window.localStorage.setItem(`cardSubjectId__${i}`, data.id);
+			});
+		});
+	});
+}
+
+// 모집 분야 필터링
 async function typeFilter() {
 	const typeBtn = document.querySelector('.studyOrProject__category');
-	const typeOptions = document.querySelectorAll('.item__head__category');
 	typeBtn.addEventListener('click', (e) => {
 		// 선택한 타입 알기
 		let type;
@@ -70,108 +248,15 @@ async function typeFilter() {
 				// 새로운 템플릿 생성
 
 				let len = arr.length;
-				let templateArr = [];
+				// let templateArr = [];
+
 				document.querySelector('.content__card__item').innerHTML = '';
 				for (let i = 0; i < len; i++) {
 					let ID = arr[i];
 					fetch(host + '/posts/' + ID)
 						.then((res) => res.json())
 						.then((data) => {
-							let subRes;
-							let deptRes;
-							let userName;
-
-							getSubjectToDept(data.subject_id).then((subData) => {
-								subRes = subData;
-
-								getDepartment(subRes).then((deptData) => {
-									deptRes = deptData;
-
-									getUser(data.user_id).then((userData) => {
-										userName = userData;
-
-										const template = [];
-
-										const temp = data.deadline;
-										const deadline = moment(temp).format('YYYY-MM-DD');
-
-										template.push(
-											`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
-										);
-										template.push(`<div class="item__save">`);
-										template.push(`<i
-										class="fa-regular fa-bookmark fa-2x"
-										style="color: var(--color-pink)"
-									></i>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__head">`);
-										let type = data.type;
-										if (type === 'PROJECT') {
-											template.push(
-												`<div class="item__head__category" id="type__${type}" >`,
-											);
-											template.push(
-												`<i class="fa-regular fa-folder-open"></i>`,
-											);
-											template.push(`<span>&nbsp&nbsp</span>`);
-											template.push(
-												`<span class="item__category__title" >${type}</span>`,
-											);
-										} else if (type === 'STUDY') {
-											template.push(
-												`<div class="item__head__category" id="type__${type}" >`,
-											);
-											template.push(`<i class="fa-solid fa-book"></i>`);
-											template.push(`<span>&nbsp&nbsp</span>`);
-											template.push(
-												`<span class="item__category__title" >${data.type}</span>`,
-											);
-										}
-										template.push(`</div>`);
-										template.push(`<div class="item__deadline">`);
-										template.push(`<span>모집마감 | ${deadline}</span>`);
-										template.push(`</div>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__text">`);
-										template.push(`<h3>${data.content}</h3>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__tag">`);
-										template.push(`<div class="tag__department">`);
-										template.push(`<i class="fa-solid fa-school-flag"></i>`);
-										template.push(`<span>&nbsp&nbsp</span>`);
-										template.push(`<span id="semester__tag">${deptRes}</span>`);
-										template.push(`</div>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__line"></div>`);
-										template.push(`<div class="item__footer">`);
-										template.push(`<div class="item__footer__left">`);
-										template.push(`<div class="item__footer__profile">`);
-										template.push(`<i class="fa-regular fa-user"></i>`);
-										template.push(`<span>&nbsp&nbsp${userName}</span>`);
-										template.push(`</div>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__footer__right">`);
-										template.push(`<div class="item__footer__view">`);
-										template.push(`<i class="fa-regular fa-eye"></i>`);
-										template.push(`<span>&nbsp&nbsp${data.views}</span>`);
-										template.push(`</div>`);
-										template.push(`<div class="item__footer__comment">`);
-										template.push(`<i class="fa-solid fa-comment-dots"></i>`);
-										template.push(`<span>&nbsp&nbsp0</span>`);
-										template.push(`</div>`);
-										template.push(`</div>`);
-										template.push(`</div>`);
-										template.push(`</li>`);
-
-										templateArr[i] = template.join('');
-
-										document.querySelector('.content__card__item').innerHTML +=
-											templateArr[i];
-
-										window.localStorage.setItem(`cardSubjectId__${i}`, data.id);
-									});
-								});
-							});
+							setTemplate(data, i);
 						});
 				}
 			});
@@ -181,7 +266,7 @@ async function typeFilter() {
 	});
 }
 
-// 과목 정보 가져오기
+// 과목 id로 학과 정보 가져오기
 async function getSubjectToDept(subjectID) {
 	// console.log(`input subject ID = ${subjectID}`);
 	return fetch(host + '/subject')
@@ -198,7 +283,7 @@ async function getSubjectToDept(subjectID) {
 		});
 }
 
-// 학과 정보 가져오기
+// 학과 id로 학과 이름 가져오기
 async function getDepartment(deptID) {
 	// console.log(`input dept ID = ${deptID}`);
 	return fetch(host + '/department')
@@ -234,119 +319,19 @@ async function getPost() {
 		.then((data) => {
 			const len = data.length;
 			let templateArr = [];
-			console.log(data);
+			// console.log(data);
 
 			let subRes;
 			let deptRes;
 			let userName;
 
 			for (let i = 0; i < 9; i++) {
-				getSubjectToDept(data[i].subject_id).then((subData) => {
-					subRes = subData;
-
-					getDepartment(subRes).then((deptData) => {
-						// console.log(`학과 이름 : ${data}`);
-						deptRes = deptData;
-
-						getUser(data[i].user_id).then((userData) => {
-							userName = userData;
-
-							const template = [];
-
-							const temp = data[i].deadline;
-							const deadline = moment(temp).format('YYYY-MM-DD');
-							// console.log(deadline);
-
-							template.push(
-								`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
-							);
-							template.push(`<div class="item__save">`);
-							template.push(`<i
-										class="fa-regular fa-bookmark fa-2x"
-										style="color: var(--color-pink)"
-									></i>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__head">`);
-
-							let type = data[i].type;
-							if (type === 'PROJECT') {
-								template.push(
-									`<div class="item__head__category" id="type__${type}" >`,
-								);
-								template.push(`<i class="fa-regular fa-folder-open"></i>`);
-								template.push(`<span>&nbsp&nbsp</span>`);
-								template.push(
-									`<span class="item__category__title" >${data[i].type}</span>`,
-								);
-							} else if (type === 'STUDY') {
-								template.push(
-									`<div class="item__head__category" id="type__${type}" >`,
-								);
-								template.push(`<i class="fa-solid fa-book"></i>`);
-								template.push(`<span>&nbsp&nbsp</span>`);
-								template.push(
-									`<span class="item__category__title" >${data[i].type}</span>`,
-								);
-							}
-							template.push(`</div>`);
-							template.push(`<div class="item__deadline">`);
-							template.push(`<span>모집마감 | ${deadline}</span>`);
-							template.push(`</div>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__text">`);
-							template.push(`<h3>${data[i].content}</h3>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__tag">`);
-							template.push(`<div class="tag__department">`);
-							template.push(`<i class="fa-solid fa-school-flag"></i>`);
-							template.push(`<span>&nbsp&nbsp</span>`);
-							template.push(`<span id="semester__tag">${deptRes}</span>`);
-							template.push(`</div>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__line"></div>`);
-							template.push(`<div class="item__footer">`);
-							template.push(`<div class="item__footer__left">`);
-							template.push(`<div class="item__footer__profile">`);
-							template.push(`<i class="fa-regular fa-user"></i>`);
-							template.push(`<span>&nbsp&nbsp${userName}</span>`);
-							template.push(`</div>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__footer__right">`);
-							template.push(`<div class="item__footer__view">`);
-							template.push(`<i class="fa-regular fa-eye"></i>`);
-							template.push(`<span>&nbsp&nbsp${data[i].views}</span>`);
-							template.push(`</div>`);
-							template.push(`<div class="item__footer__comment">`);
-							template.push(`<i class="fa-solid fa-comment-dots"></i>`);
-							template.push(`<span>&nbsp&nbsp0</span>`);
-							template.push(`</div>`);
-							template.push(`</div>`);
-							template.push(`</div>`);
-							template.push(`</li>`);
-
-							templateArr[i] = template.join('');
-
-							document.querySelector('.content__card__item').innerHTML +=
-								templateArr[i];
-							// console.log(templateArr[i]);
-
-							window.localStorage.setItem(`cardSubjectId__${i}`, data[i].id);
-						});
-					});
-				});
+				document.querySelector('.content__card__item').innerHTML = '';
+				setTemplate(data[i], i);
 			}
 
 			return data;
 		});
-	// .then((data) => {
-	// 	const type = document.querySelector('item__head__category');
-	// 	console.log(type);
-	// 	for (let i = 0; i < 8; i++) {
-	// 		if (data[i].type === 'PROJECT') {
-	// 			type.classList.toggle('project');
-	// 		}
-	// 	}
-	// });
 }
 
 // 과목 정보로 드롭메뉴 옵션 만들기
@@ -458,12 +443,68 @@ async function getSemester() {
 		});
 }
 
+async function getDepartmentDropMenu() {
+	fetch(host + '/department')
+		.then((res) => res.json())
+		.then((data) => {
+			// console.log(data);
+
+			const len = data.length;
+			const template = [];
+
+			// 과목명 드롭메뉴 옵션으로 추가
+			for (let i = 0; i < len; i++) {
+				const deptName = data[i].name;
+
+				template.push(`<li class="department__option">`);
+				template.push(
+					`<span class="department__option__text">${deptName}</span>`,
+				);
+				template.push(`</li>`);
+			}
+			document.getElementById('department__option__list').innerHTML =
+				template.join('');
+
+			const departmentMenu = document.querySelector('.department__menu');
+			const departmentBtn = document.getElementById('department__list');
+			const departmentBtnText = document.querySelector(
+				'.department__btn__text',
+			);
+			const departmentOptionList = document.getElementById(
+				'department__option__list',
+			);
+
+			departmentBtn.addEventListener('click', () => {
+				departmentMenu.classList.toggle('active');
+			});
+			departmentOptionList.addEventListener('click', () => {
+				departmentOptionList.classList.toggle('click');
+			});
+
+			let departmentOption = departmentMenu.querySelector(
+				'.department__options',
+			).children;
+			let departmentOptions = Array.from(departmentOption);
+
+			departmentOptions.forEach((departmentOption) => {
+				departmentOption.addEventListener('click', () => {
+					let selectedDepartmentOption = departmentOption.querySelector(
+						'.department__option__text',
+					).innerText;
+					departmentBtnText.innerText = selectedDepartmentOption;
+					departmentMenu.classList.remove('active');
+					departmentOptionList.classList.remove('click');
+				});
+			});
+		});
+}
+
 // 카드 슬라이드 정보 가져오기
 async function getCardSlide() {
 	fetch(host + '/posts/newposts')
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 
 			let templateArr = [];
 			let dateTemplateArr = [];
@@ -573,36 +614,37 @@ async function setCardID(card) {
 
 // <============================ 드롭 메뉴 ============================>
 
-// 학과
-const departmentMenu = document.querySelector('.department__menu');
-const departmentBtn = document.getElementById('department__list');
-const departmentBtnText = document.querySelector('.department__btn__text');
-const departmentOptionList = document.getElementById(
-	'department__option__list',
-);
+// // 학과
+// const departmentMenu = document.querySelector('.department__menu');
+// const departmentBtn = document.getElementById('department__list');
+// const departmentBtnText = document.querySelector('.department__btn__text');
+// const departmentOptionList = document.getElementById(
+// 	'department__option__list',
+// );
 
-departmentBtn.addEventListener('click', () => {
-	departmentMenu.classList.toggle('active');
-});
-departmentOptionList.addEventListener('click', () => {
-	departmentOptionList.classList.toggle('click');
-});
+// departmentBtn.addEventListener('click', () => {
+// 	departmentMenu.classList.toggle('active');
+// });
+// departmentOptionList.addEventListener('click', () => {
+// 	departmentOptionList.classList.toggle('click');
+// });
 
-let departmentOption = departmentMenu.querySelector(
-	'.department__options',
-).children;
-let departmentOptions = Array.from(departmentOption);
+// let departmentOption = departmentMenu.querySelector(
+// 	'.department__options',
+// ).children;
+// let departmentOptions = Array.from(departmentOption);
 
-departmentOptions.forEach((departmentOption) => {
-	departmentOption.addEventListener('click', () => {
-		let selectedDepartmentOption = departmentOption.querySelector(
-			'.department__option__text',
-		).innerText;
-		departmentBtnText.innerText = selectedDepartmentOption;
-		departmentMenu.classList.remove('active');
-		departmentOptionList.classList.remove('click');
-	});
-});
+// departmentOptions.forEach((departmentOption) => {
+// 	departmentOption.addEventListener('click', () => {
+// 		let selectedDepartmentOption = departmentOption.querySelector(
+// 			'.department__option__text',
+// 		).innerText;
+// 		departmentBtnText.innerText = selectedDepartmentOption;
+// 		departmentMenu.classList.remove('active');
+// 		departmentOptionList.classList.remove('click');
+// 	});
+// });
+
 //< ----- 밑에 포스트 카드 -------->
 function getContentList() {
 	// API 엔드포인트와 userId를 조합
