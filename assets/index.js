@@ -612,39 +612,6 @@ async function setCardID(card) {
 		});
 }
 
-// <============================ 드롭 메뉴 ============================>
-
-// // 학과
-// const departmentMenu = document.querySelector('.department__menu');
-// const departmentBtn = document.getElementById('department__list');
-// const departmentBtnText = document.querySelector('.department__btn__text');
-// const departmentOptionList = document.getElementById(
-// 	'department__option__list',
-// );
-
-// departmentBtn.addEventListener('click', () => {
-// 	departmentMenu.classList.toggle('active');
-// });
-// departmentOptionList.addEventListener('click', () => {
-// 	departmentOptionList.classList.toggle('click');
-// });
-
-// let departmentOption = departmentMenu.querySelector(
-// 	'.department__options',
-// ).children;
-// let departmentOptions = Array.from(departmentOption);
-
-// departmentOptions.forEach((departmentOption) => {
-// 	departmentOption.addEventListener('click', () => {
-// 		let selectedDepartmentOption = departmentOption.querySelector(
-// 			'.department__option__text',
-// 		).innerText;
-// 		departmentBtnText.innerText = selectedDepartmentOption;
-// 		departmentMenu.classList.remove('active');
-// 		departmentOptionList.classList.remove('click');
-// 	});
-// });
-
 //< ----- 밑에 포스트 카드 -------->
 function getContentList() {
 	// API 엔드포인트와 userId를 조합
