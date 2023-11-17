@@ -17,6 +17,7 @@ async function getData() {
 	getCardSlide();
 	typeFilter();
 	semesterFilter();
+	departmentFilter();
 }
 
 // 필터링
@@ -40,14 +41,10 @@ async function semesterFilter() {
 		inputSemester = targetSemester.substr(6, 1);
 
 		console.log(targetSemester);
-		// console.log(inputYear);
-		// console.log(inputSemester);
 
 		let semesterData;
 		getSemesterID().then((data) => {
 			semesterData = data;
-			// console.log(semesterData);
-			// console.log(semesterData[0]);
 
 			let semesterID;
 			for (let i = 0; i < semesterData.length; i++) {
@@ -58,28 +55,42 @@ async function semesterFilter() {
 					semesterID = semesterData[i].id;
 				}
 			}
-			console.log(`for문 밖에서 ID ===> ${semesterID}`);
-
-			// fetch(host + '/posts')
-			// 	.then((res) => res.json())
-			// 	.then((postData) => {
-			// 		let cardIDArr = [];
-			// 		let len = postData.length;
-			// 		// console.log(postData);
-
-			// 		let subjectID = postData[i].subject_id;
-			// 		let cardSemesterID;
-			// 		for (let i = 0; i < len; i++) {
-			// 			fetch(host + '/subject');
-			// 		}
-			// 	});
-
-			let cardIDArr = [];
 			fetch(host + '/posts/filter/' + semesterID)
 				.then((res) => res.json())
 				.then((data) => {
 					let len = data.length;
 
+					for (let i = 0; i < len; i++) {
+						document.querySelector('.content__card__item').innerHTML = '';
+						setTemplate(data[i], i);
+					}
+				});
+		});
+	});
+}
+
+// 학과 필터링
+async function departmentFilter() {
+	const departmentBtn = document.querySelector('.department__options');
+	departmentBtn.addEventListener('click', (e) => {
+		// console.log(e.target.innerText);
+
+		const selectDept = e.target.innerText;
+
+		let deptData;
+		getDepartmentID().then((data) => {
+			deptData = data;
+
+			let targetDeptID;
+			for (let i = 0; i < deptData.length; i++) {
+				if (selectDept === data[i].name) {
+					targetDeptID = data[i].id;
+				}
+			}
+			fetch(host + '/posts/filter2/' + targetDeptID)
+				.then((res) => res.json())
+				.then((data) => {
+					let len = data.length;
 					// console.log(data);
 
 					for (let i = 0; i < len; i++) {
@@ -96,13 +107,22 @@ async function getSemesterID() {
 	return fetch(host + '/semester')
 		.then((res) => res.json())
 		.then((data) => {
-			// console.log(data);
+			return data;
+		});
+}
+
+// 과목 ID 가져오기
+async function getDepartmentID() {
+	return fetch(host + '/department')
+		.then((res) => res.json())
+		.then((data) => {
 			return data;
 		});
 }
 
 // 새로운 템플릿 생성
 async function setTemplate(data, i) {
+	console.log('template', data);
 	let subRes;
 	let deptRes;
 	let userName;
