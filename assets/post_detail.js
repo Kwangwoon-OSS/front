@@ -221,3 +221,123 @@ document.getElementById('bookmark__icon').addEventListener('click', () => {
 		});
 	}
 });
+
+//시간 표기 변경
+function formatDateTime(isoDateTime) {
+	const options = {
+	  year: 'numeric',
+	  month: '2-digit',
+	  day: '2-digit',
+	  hour: '2-digit',
+	  minute: '2-digit',
+	  second: '2-digit',
+	  timeZoneName: 'short',
+	};
+  
+	const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date(isoDateTime));
+  
+	return formattedDate;
+  }
+
+//댓글 가져오기
+// 댓글을 가져오는 함수
+
+// 로컬 스토리지에서 selectId 가져오기
+const selectId = localStorage.getItem('selectId');
+
+async function fetchComments() {
+	try {
+	  const response = await fetch('http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com/posts/${selectId}/comment');
+	  if (!response.ok) {
+		throw new Error(`HTTP error! Status: ${response.status}`);
+	  }
+	  const comments = await response.json();
+      console.log(response.headers);
+  
+	  // 댓글을 표시하는 부분 업데이트
+	  displayComments(comments);
+	} catch (error) {
+	  console.error('Error fetching comments:', error);
+	}
+  }
+  
+  // 댓글을 화면에 표시하는 함수
+  function displayComments(comments) {
+
+	const commentWrapper = document.querySelector('.comment__wrapper');
+	//commentWrapper.innerHTML = ''; // 기존의 댓글 내용을 지웁니다.
+  
+	const commentNumSpan = document.getElementById('commentNum');
+	commentNumSpan.textContent = comments.length; // 댓글 개수 업데이트
+	console.log(comments)
+  
+	comments.forEach((comments) => {
+	  const commentShow = document.createElement('div');
+	  commentShow.classList.add('comment__show');
+  
+	  const userDiv = document.createElement('div');
+	  userDiv.classList.add('comment__user');
+	  userDiv.innerHTML = `<span>${comments.id}</span>`;
+  
+	  const contentDiv = document.createElement('div');
+	  contentDiv.classList.add('comment__content');
+	  contentDiv.innerHTML = `<span>${comments.content}</span>`;
+  
+	  const formattedDateTime = formatDateTime(comments.createdtime);
+	  const dateDiv = document.createElement('div');
+	  dateDiv.classList.add('comment__date');
+	  dateDiv.innerHTML = `<span>${formattedDateTime}</span>`;
+  
+	  const lineDiv = document.createElement('div');
+	  lineDiv.classList.add('line');
+  
+	  commentShow.appendChild(userDiv);
+	  commentShow.appendChild(contentDiv);
+	  commentShow.appendChild(dateDiv);
+	  commentShow.appendChild(lineDiv);
+  
+	  commentWrapper.appendChild(commentShow);
+	});
+  }
+
+  //댓글 등록하기
+  function post_save() {
+    var content = document.getElementById("comment__input").value;
+	var parentId = localStorage.getItem('selectId');
+    var used = 'Y';
+    //const token = localStorage.getItem('accessToken');
+
+    // 여기에서 서버로 데이터를 전송하거나 필요한 동작을 수행
+  const userData = {
+    content : content,
+	parentId : parentId,
+	used : used
+    //bearer토큰 추가해야함 
+};
+
+const requestOptions = {
+    method: "POST",
+    headers: {
+        //"Authorization": token, Bearer 토큰 추가
+        "Content-Type": "application/json; charset=UTF-8"
+    },
+    body: JSON.stringify(userData)
+};
+
+fetch(host+'/posts/profile/${selectId}/comment, requestOptions)
+    .then(response => {
+        if (response.status === 200) {
+            //댓글 작성 완료
+            alert("댓글이 작성되었어요!");
+        } else {
+            // 회원가입 실패 또는 다른 상태 코드
+            console.error("댓글 실패. 상태 코드: " + response.status);
+        }
+    })
+    .catch(error => {
+        console.error("요청 실패:", error);
+    });
+}
+
+  // 페이지 로드 시 댓글을 가져오도록 설정
+document.addEventListener('DOMContentLoaded', fetchComments);
