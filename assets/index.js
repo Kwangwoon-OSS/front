@@ -122,7 +122,7 @@ async function getDepartmentID() {
 
 // 새로운 템플릿 생성
 async function setTemplate(data, i) {
-	console.log('template', data);
+	// console.log('template', data);
 	let subRes;
 	let deptRes;
 	let userName;
@@ -250,7 +250,7 @@ async function typeFilter() {
 			.then((res) => res.json())
 			.then((data) => {
 				let len = data.length;
-				console.log(data);
+				// console.log(data);
 				// console.log(len);
 
 				// 현재 등록되어 있는 게시글 수만큼 반복하며 해당 타입의 글 ID만 배열에 저장
@@ -280,7 +280,7 @@ async function typeFilter() {
 						});
 				}
 			});
-		console.log(cardIDArr);
+		// console.log(cardIDArr);
 		// console.log('push');
 		console.log(e.target.innerText); // 선택된 type
 	});
