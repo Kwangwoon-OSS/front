@@ -13,7 +13,7 @@ document.body.addEventListener('load', getData());
 async function getData() {
 	window.localStorage.setItem('access_token', access_token);
 	getPost();
-	getSubject();
+	// getSubject();
 	getSemester();
 	getDepartmentDropMenu();
 	getCardSlide();
@@ -379,57 +379,57 @@ async function getPost() {
 }
 
 // 과목 정보로 드롭메뉴 옵션 만들기
-async function getSubject() {
-	fetch(host + '/subject')
-		.then((response) => response.json())
-		.then((data) => {
-			const len = data.length;
-			const template = [];
+// async function getSubject() {
+// 	fetch(host + '/subject')
+// 		.then((response) => response.json())
+// 		.then((data) => {
+// 			const len = data.length;
+// 			const template = [];
 
-			// 과목명 드롭메뉴 옵션으로 추가
-			for (let i = 0; i < len; i++) {
-				const subjectName = data[i].name;
-				template.push(`<li class="subject__option" data-type="subject">`);
-				template.push(
-					`<span class="subject__option__text">${subjectName}</span>`,
-				);
-				template.push(`</li>`);
-			}
-			document.getElementById('subject__option__list').innerHTML =
-				template.join('');
+// 			// 과목명 드롭메뉴 옵션으로 추가
+// 			for (let i = 0; i < len; i++) {
+// 				const subjectName = data[i].name;
+// 				template.push(`<li class="subject__option" data-type="subject">`);
+// 				template.push(
+// 					`<span class="subject__option__text">${subjectName}</span>`,
+// 				);
+// 				template.push(`</li>`);
+// 			}
+// 			document.getElementById('subject__option__list').innerHTML =
+// 				template.join('');
 
-			// 선택 시 과목명 보이게
-			const subjectBtn = document.getElementById('subject__list');
-			const subjectMenu = document.querySelector('.subject__menu');
-			const subjectOptionList = document.getElementById(
-				'subject__option__list',
-			);
-			const subjectBtnText = document.querySelector('.subject__btn__text');
+// 			// 선택 시 과목명 보이게
+// 			const subjectBtn = document.getElementById('subject__list');
+// 			const subjectMenu = document.querySelector('.subject__menu');
+// 			const subjectOptionList = document.getElementById(
+// 				'subject__option__list',
+// 			);
+// 			const subjectBtnText = document.querySelector('.subject__btn__text');
 
-			subjectBtn.addEventListener('click', () => {
-				subjectMenu.classList.toggle('active');
-			});
-			subjectOptionList.addEventListener('click', () => {
-				subjectOptionList.classList.toggle('click');
-			});
+// 			subjectBtn.addEventListener('click', () => {
+// 				subjectMenu.classList.toggle('active');
+// 			});
+// 			subjectOptionList.addEventListener('click', () => {
+// 				subjectOptionList.classList.toggle('click');
+// 			});
 
-			let subjectOption =
-				subjectMenu.querySelector('.subject__options').children;
-			let subjectOptions = Array.from(subjectOption);
+// 			let subjectOption =
+// 				subjectMenu.querySelector('.subject__options').children;
+// 			let subjectOptions = Array.from(subjectOption);
 
-			subjectOptions.forEach((subjectOption) => {
-				subjectOption.addEventListener('click', () => {
-					let selectedSubjectOption = subjectOption.querySelector(
-						'.subject__option__text',
-					).innerText;
+// 			subjectOptions.forEach((subjectOption) => {
+// 				subjectOption.addEventListener('click', () => {
+// 					let selectedSubjectOption = subjectOption.querySelector(
+// 						'.subject__option__text',
+// 					).innerText;
 
-					subjectBtnText.innerText = selectedSubjectOption;
-					subjectMenu.classList.remove('active');
-					subjectOptionList.classList.remove('click');
-				});
-			});
-		});
-}
+// 					subjectBtnText.innerText = selectedSubjectOption;
+// 					subjectMenu.classList.remove('active');
+// 					subjectOptionList.classList.remove('click');
+// 				});
+// 			});
+// 		});
+// }
 
 // 학기 정보 가져오기
 async function getSemester() {
