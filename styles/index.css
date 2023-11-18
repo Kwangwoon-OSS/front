@@ -781,16 +781,17 @@ button {
 	border: 2px solid var(--color-yellow);
 }
 
-.item__save {
+/* .item__save {
 	display: flex;
 	justify-content: end;
 	margin: 0 0 20px 0;
-}
+} */
 
 .item__head {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 40px 0 10px 0;
 	margin-bottom: 10px;
 }
 

@@ -3,8 +3,10 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
-const access_token =
-	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
+const access_token = window.localStorage.getItem('accessToken');
+
+// const access_token =
+// 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
 
 document.body.addEventListener('load', getData());
 
@@ -19,6 +21,27 @@ async function getData() {
 	semesterFilter();
 	departmentFilter();
 }
+
+// 북마크
+const bookmarkBtn = document.querySelector('.category__item__myBookmark');
+
+bookmarkBtn.addEventListener('click', () => {
+	fetch(host + '/posts/interestin', {
+		method: 'GET',
+		headers: {
+			Authorization: access_token,
+			'Content-Type': 'application/json;charset=UTF-8',
+		},
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			// console.log(data);
+			document.querySelector('.content__card__item').innerHTML = '';
+			for (let i = 0; i < data.length; i++) {
+				setTemplate(data[i], i);
+			}
+		});
+});
 
 // 필터링
 // 1. 과목
@@ -149,12 +172,12 @@ async function setTemplate(data, i) {
 				template.push(
 					`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
 				);
-				template.push(`<div class="item__save">`);
-				template.push(`<i
-										class="fa-regular fa-bookmark fa-2x"
-										style="color: var(--color-pink)"
-									></i>`);
-				template.push(`</div>`);
+				// template.push(`<div class="item__save">`);
+				// template.push(`<i
+				// 						class="fa-regular fa-bookmark fa-2x"
+				// 						style="color: var(--color-pink)"
+				// 					></i>`);
+				// template.push(`</div>`);
 				template.push(`<div class="item__head">`);
 
 				let type = data.type;
@@ -326,6 +349,7 @@ async function getUser(userID) {
 	return fetch(host + '/users/profile/' + userID)
 		.then((res) => res.json())
 		.then((data) => {
+			window.localStorage.setItem('userID', data.id);
 			let userName;
 			userName = data.nickname;
 			return userName;
