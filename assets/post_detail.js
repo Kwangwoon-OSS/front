@@ -12,7 +12,42 @@ const access_token = window.localStorage.getItem('accessToken');
 const postID = window.localStorage.getItem('selectID');
 console.log(postID);
 
+// const style = () => {
+// 	console.log('style');
+// 	document.querySelector('.fa-bookmark').classList.add('fa-solid');
+// };
+
 document.body.addEventListener('load', getPostData());
+
+// 북마크 정보 가져오기
+async function getBook(selectID) {
+	return fetch(host + '/posts/interestin', {
+		method: 'GET',
+		headers: {
+			Authorization: access_token,
+			'Content-Type': 'application/json;charset=UTF-8',
+		},
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			return data;
+			console.log(data);
+			console.log(selectID);
+			// 북마크 정보 중에 현재 게시글이 있는 지 확인하기
+			let bookDataLen = data.length;
+			for (let i = 0; i < bookDataLen; i++) {
+				if (selectID == data[i].id) {
+					// style();
+					// console.log('ok');
+					// document.querySelector('.fa-bookmark').classList.add('fa-solid');
+				}
+				// else {
+				// return 1;
+				// document.querySelector('.fa-bookmark').classList.remove('fa-solid');
+				// }
+			}
+		});
+}
 
 // 작성자 이름 가져오기
 const getWriter = function (userID) {
@@ -68,15 +103,6 @@ const getSubjectData = function (subjectID) {
 			}
 		});
 };
-
-// async function book() {
-// 	fetch(host + '/posts/interestin')
-// 		.then((res) => res.json())
-// 		.then((data) => {
-// 			console.log(data);
-// 		});
-// }
-// book();
 
 async function getPostData() {
 	// window.localStorage.setItem('access_token', access_token);
@@ -135,6 +161,102 @@ async function getPostData() {
 				getConnectUser().then((userData) => {
 					const connectUser = userData;
 
+					getBook(postID).then((result) => {
+						const isBookSelect = document.querySelector('.fa-bookmark');
+						for (let i = 0; i < result.length; i++) {
+							if (postID == result[i].id) {
+								console.log('zero');
+								isBookSelect.classList.add('fa-solid');
+								// console.log(isBookSelect.classList);
+							}
+						}
+
+						// 북마크
+						let clickNum = 0;
+						console.log(clickNum);
+						document
+							.getElementById('bookmark__icon')
+							.addEventListener('click', () => {
+								const postID = window.localStorage.getItem('selectID');
+								const isBookSelect = document.querySelector('.fa-bookmark');
+								const bookClassListLen = isBookSelect.classList.length;
+								console.log(bookClassListLen);
+								console.log(`후 -> ${clickNum}`);
+
+								if (clickNum == 0 && bookClassListLen < 4) {
+									document
+										.querySelector('.fa-bookmark')
+										.classList.add('fa-solid');
+									// 북마크 등록
+									fetch(host + '/posts/' + postID + '/interest', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: access_token,
+										},
+									}).then((res) => {
+										if (res.ok) {
+											alert('북마크 등록되었습니다.');
+										}
+									});
+									clickNum++;
+								} else if (clickNum < 0) {
+									document
+										.querySelector('.fa-bookmark')
+										.classList.add('fa-solid');
+									// 북마크 등록
+									fetch(host + '/posts/' + postID + '/interest', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: access_token,
+										},
+									}).then((res) => {
+										if (res.ok) {
+											alert('북마크 등록되었습니다.');
+										}
+									});
+									clickNum++;
+								} else if (clickNum > 0) {
+									document
+										.querySelector('.fa-bookmark')
+										.classList.remove('fa-solid');
+									clickNum--;
+
+									// 북마크 해제
+									fetch(host + '/posts/' + postID + '/interest', {
+										method: 'DELETE',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: access_token,
+										},
+									}).then((res) => {
+										if (res.ok) {
+											alert('북마크 해제되었습니다.');
+										}
+									});
+								} else if (clickNum == 0 && bookClassListLen == 4) {
+									document
+										.querySelector('.fa-bookmark')
+										.classList.remove('fa-solid');
+									clickNum--;
+
+									// 북마크 해제
+									fetch(host + '/posts/' + postID + '/interest', {
+										method: 'DELETE',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: access_token,
+										},
+									}).then((res) => {
+										if (res.ok) {
+											alert('북마크 해제되었습니다.');
+										}
+									});
+								}
+							});
+					});
+
 					if (connectUser === writer) {
 						console.log('유저가 같습니다.');
 						// 유저가 같으면 수정하기, 삭제하기 버튼 보이기
@@ -181,46 +303,6 @@ deleteBtn.addEventListener('click', () => {
 			});
 	} else {
 		setInterval((window.location.href = '../index.html'), 1000);
-	}
-});
-
-// 북마크
-let clickNum = 0;
-document.getElementById('bookmark__icon').addEventListener('click', () => {
-	const postID = window.localStorage.getItem('selectID');
-
-	if (clickNum == 0) {
-		document.querySelector('.fa-bookmark').classList.add('fa-solid');
-		clickNum++;
-
-		// 북마크 등록
-		fetch(host + '/posts/' + postID + '/interest', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: access_token,
-			},
-		}).then((res) => {
-			if (res.ok) {
-				alert('북마크 등록되었습니다.');
-			}
-		});
-	} else {
-		document.querySelector('.fa-bookmark').classList.remove('fa-solid');
-		clickNum--;
-
-		// 북마크 해제
-		fetch(host + '/posts/' + postID + '/interest', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: access_token,
-			},
-		}).then((res) => {
-			if (res.ok) {
-				alert('북마크 해제되었습니다.');
-			}
-		});
 	}
 });
 
