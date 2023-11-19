@@ -365,12 +365,9 @@ function displayComments(comments) {
 		commentShow.classList.add('comment__show');
 
 		const userDiv = document.createElement('div');
-		getConnectUser().then((data) => {
-			const userName = data;
-
-			userDiv.classList.add('comment__user');
-			userDiv.innerHTML = `<span>${userName}</span>`;
-		});
+		userDiv.classList.add('comment__user');
+	        userDiv.innerHTML = `<span>${comments.username}</span>`;
+		
 
 		const contentDiv = document.createElement('div');
 		contentDiv.classList.add('comment__content');
