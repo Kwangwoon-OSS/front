@@ -17,6 +17,16 @@ async function getData() {
 		console.log('로그인되었습니다!');
 	}
 
+	// 로그인 여부에 따라 새 글 작성 페이지로 이동 제한
+	const newPostBtn = document.getElementById('header__menu__new__btn');
+	newPostBtn.addEventListener('click', () => {
+		if (isLogin === 1) {
+			location.href = '../pages/post/new-post.html';
+		} else {
+			alert('로그인되지 않았습니다. 로그인해주세요😀');
+		}
+	});
+
 	const loginBtn = document.getElementById('header__menu__login__btn');
 	const profileImg = document.querySelector('.profile__img');
 	const profileName = document.getElementById('user__nickname');
