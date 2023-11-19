@@ -386,7 +386,7 @@ function displayComments(comments) {
 		deleteButton.textContent = '삭제';
 
 		// 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시
-		if (comments.username === currentUser.nickname) {
+		if (comments.username === currentUser) {
 			deleteButton.style.display = 'inline-block';
 		}
 
