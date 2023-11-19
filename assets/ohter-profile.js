@@ -1,3 +1,5 @@
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
 const host = window.location.hostname ==='127.0.0.1' ? baseURL:'/api';
 const access_token = window.localStorage.getItem('accessToken');
 const user_id = window.localStorage.getItem('writer_id');
