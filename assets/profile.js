@@ -1,11 +1,17 @@
 const host = window.location.hostname ==='127.0.0.1' ? baseURL:'/api';
+const access_token = window.localStorage.getItem('accessToken');
+
 function fetchData() {
     // API 엔드포인트와 userId를 조합
-    const apiUrl = host +'/users/profile/1';
+    const apiUrl = host+'/users/profile';
+
+    // 헤더 설정
+    const headers = new Headers();
+    headers.append('Authorization', 'Bearer ' + access_token); // 
     // const Token = Bearer토큰값 가져오기
     // fetch를 사용하여 서버로 데이터 요청
     // api 토큰 추가하기 url 뒤에
-    fetch(apiUrl)//
+    fetch(apiUrl,{ headers })
         .then(response => {
             // 응답이 성공적인지 확인
             if (!response.ok) {
