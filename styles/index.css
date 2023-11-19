@@ -182,6 +182,7 @@ button {
 	align-items: center;
 	font-size: 1em;
 	font-weight: 700;
+	cursor: pointer;
 }
 
 .pro_img {
