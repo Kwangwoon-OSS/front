@@ -459,8 +459,8 @@ function deleteComment(postId, commentId) {
                 throw new Error('댓글을 삭제할 수 없습니다.');
             }
             // 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
-            fetchComments(); // 댓글을 다시 로드하는 함수 호출
 	    alert('댓글이 삭제되었습니다!');
+	    fetchComments(); // 댓글을 다시 로드하는 함수 호출 	
         })
         .catch(error => {
             console.error('댓글 삭제 중 오류가 발생했습니다:', error);
