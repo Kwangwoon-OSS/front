@@ -362,6 +362,8 @@ function displayComments(comments) {
 		getConnectUser().then((userData) => {
 			const currentUser = userData; // 현재 사용자의 ID
 			const commentWriter = comments.username; // 댓글 작성자의 ID
+			console.log(currentUser);
+			console.log(commentWriter);
 
 			if (commentWriter !== currentUser) {
 				deleteButton.style.display = 'none'; // 숨기기
