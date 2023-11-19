@@ -388,9 +388,9 @@ function displayComments(comments) {
 		//}
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
-		//deleteButton.addEventListener('click', () => {
-			//deleteComment(comments.postId, comments.commentId);
-		//});
+		deleteButton.addEventListener('click', () => {
+			deleteComment(postID, comments.id);
+		});
 
 		const lineDiv = document.createElement('div');
 		lineDiv.classList.add('line');
@@ -448,7 +448,7 @@ function post_save() {
 
 // 댓글 삭제 함수
 function deleteComment(postId, commentId) {
-        fetch(`/api/posts/${postId}/${commentId}`, {
+        fetch(host+`/posts/${postId}/${commentId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: access_token,
@@ -460,6 +460,7 @@ function deleteComment(postId, commentId) {
             }
             // 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
             fetchComments(); // 댓글을 다시 로드하는 함수 호출
+	    alert('댓글이 삭제되었습니다!');
         })
         .catch(error => {
             console.error('댓글 삭제 중 오류가 발생했습니다:', error);
