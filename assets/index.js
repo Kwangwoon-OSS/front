@@ -7,11 +7,36 @@ const access_token = window.localStorage.getItem('accessToken');
 
 // const access_token =
 // 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
-
+// window.localStorage.clear();
 document.body.addEventListener('load', getData());
 
 async function getData() {
-	window.localStorage.setItem('access_token', access_token);
+	// 로그인 여부에 따라 로그인, 로그아웃 버튼 보이기
+	const isLogin = window.localStorage.getItem('isLogin');
+	console.log(isLogin);
+	if (isLogin == null) {
+		console.log('로그인되지 않았습니다!');
+	} else {
+		console.log('로그인되었습니다!');
+	}
+
+	const loginBtn = document.getElementById('header__menu__login__btn');
+	if (isLogin == 1) {
+		// alert('로그인!');
+
+		loginBtn.innerText = '로그아웃';
+		loginBtn.addEventListener('click', () => {
+			alert('로그아웃 되었습니다!');
+			window.localStorage.removeItem('isLogin');
+			window.location.href = '../index.html';
+		});
+	} else {
+		loginBtn.innerText = '로그인';
+		loginBtn.addEventListener('click', () => {
+			window.location.href = '../pages/Login.html';
+		});
+	}
+
 	getPost();
 	// getSubject();
 	getSemester();
@@ -22,25 +47,46 @@ async function getData() {
 	departmentFilter();
 }
 
+// 로그인 여부 확인에 따라 접근 제한
+async function checkLogin() {
+	const isLogin = window.localStorage.getItem('isLogin');
+	console.log(isLogin);
+	if (isLogin == null) {
+		console.log('로그인되지 않았습니다!');
+		// alert('로그인되지 않았습니다. 로그인해주세요😀');
+		// window.location.href = '../pages/Login.html';
+		return 0;
+	} else {
+		console.log('로그인되었습니다!');
+		return 1;
+	}
+}
+
 // 북마크
 const bookmarkBtn = document.querySelector('.category__item__myBookmark');
 
 bookmarkBtn.addEventListener('click', () => {
-	fetch(host + '/posts/interestin', {
-		method: 'GET',
-		headers: {
-			Authorization: access_token,
-			'Content-Type': 'application/json;charset=UTF-8',
-		},
-	})
-		.then((res) => res.json())
-		.then((data) => {
-			// console.log(data);
-			document.querySelector('.content__card__item').innerHTML = '';
-			for (let i = 0; i < data.length; i++) {
-				setTemplate(data[i], i);
-			}
-		});
+	checkLogin().then((data) => {
+		if (data === 1) {
+			fetch(host + '/posts/interestin', {
+				method: 'GET',
+				headers: {
+					Authorization: access_token,
+					'Content-Type': 'application/json;charset=UTF-8',
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					// console.log(data);
+					document.querySelector('.content__card__item').innerHTML = '';
+					for (let i = 0; i < data.length; i++) {
+						setTemplate(data[i], i);
+					}
+				});
+		} else {
+			alert('로그인되지 않았습니다. 로그인해주세요😀');
+		}
+	});
 });
 
 // 필터링
@@ -54,40 +100,47 @@ bookmarkBtn.addEventListener('click', () => {
 async function semesterFilter() {
 	const semesterBtn = document.querySelector('.semester__options');
 	semesterBtn.addEventListener('click', (e) => {
-		// 선택한 학기 알기
-		let semester;
-		const targetSemester = e.target.innerText;
-		let inputYear;
-		let inputSemester;
+		// 로그인 여부 확인
+		checkLogin().then((data) => {
+			if (data === 1) {
+				// 선택한 학기 알기
+				let semester;
+				const targetSemester = e.target.innerText;
+				let inputYear;
+				let inputSemester;
 
-		inputYear = targetSemester.substr(0, targetSemester.indexOf('년'));
-		inputSemester = targetSemester.substr(6, 1);
+				inputYear = targetSemester.substr(0, targetSemester.indexOf('년'));
+				inputSemester = targetSemester.substr(6, 1);
 
-		console.log(targetSemester);
+				console.log(targetSemester);
 
-		let semesterData;
-		getSemesterID().then((data) => {
-			semesterData = data;
+				let semesterData;
+				getSemesterID().then((data) => {
+					semesterData = data;
 
-			let semesterID;
-			for (let i = 0; i < semesterData.length; i++) {
-				if (
-					inputYear === semesterData[i].years &&
-					inputSemester === semesterData[i].semester
-				) {
-					semesterID = semesterData[i].id;
-				}
-			}
-			fetch(host + '/posts/filter/' + semesterID)
-				.then((res) => res.json())
-				.then((data) => {
-					let len = data.length;
-
-					for (let i = 0; i < len; i++) {
-						document.querySelector('.content__card__item').innerHTML = '';
-						setTemplate(data[i], i);
+					let semesterID;
+					for (let i = 0; i < semesterData.length; i++) {
+						if (
+							inputYear === semesterData[i].years &&
+							inputSemester === semesterData[i].semester
+						) {
+							semesterID = semesterData[i].id;
+						}
 					}
+					fetch(host + '/posts/filter/' + semesterID)
+						.then((res) => res.json())
+						.then((data) => {
+							let len = data.length;
+
+							for (let i = 0; i < len; i++) {
+								document.querySelector('.content__card__item').innerHTML = '';
+								setTemplate(data[i], i);
+							}
+						});
 				});
+			} else {
+				alert('로그인되지 않았습니다. 로그인해주세요😀');
+			}
 		});
 	});
 }
@@ -96,32 +149,39 @@ async function semesterFilter() {
 async function departmentFilter() {
 	const departmentBtn = document.querySelector('.department__options');
 	departmentBtn.addEventListener('click', (e) => {
-		// console.log(e.target.innerText);
+		// 로그인 여부 확인
+		checkLogin().then((data) => {
+			console.log(data);
+			if (data === 1) {
+				const selectDept = e.target.innerText;
 
-		const selectDept = e.target.innerText;
+				let deptData;
+				getDepartmentID().then((data) => {
+					deptData = data;
 
-		let deptData;
-		getDepartmentID().then((data) => {
-			deptData = data;
-
-			let targetDeptID;
-			for (let i = 0; i < deptData.length; i++) {
-				if (selectDept === data[i].name) {
-					targetDeptID = data[i].id;
-				}
-			}
-			fetch(host + '/posts/filter2/' + targetDeptID)
-				.then((res) => res.json())
-				.then((data) => {
-					let len = data.length;
-					// console.log(data);
-
-					for (let i = 0; i < len; i++) {
-						document.querySelector('.content__card__item').innerHTML = '';
-						setTemplate(data[i], i);
+					let targetDeptID;
+					for (let i = 0; i < deptData.length; i++) {
+						if (selectDept === data[i].name) {
+							targetDeptID = data[i].id;
+						}
 					}
+					fetch(host + '/posts/filter2/' + targetDeptID)
+						.then((res) => res.json())
+						.then((data) => {
+							let len = data.length;
+							// console.log(data);
+
+							for (let i = 0; i < len; i++) {
+								document.querySelector('.content__card__item').innerHTML = '';
+								setTemplate(data[i], i);
+							}
+						});
 				});
+			} else {
+				alert('로그인되지 않았습니다. 로그인해주세요😀');
+			}
 		});
+		// console.log(e.target.innerText);
 	});
 }
 
@@ -250,62 +310,61 @@ async function setTemplate(data, i) {
 async function typeFilter() {
 	const typeBtn = document.querySelector('.studyOrProject__category');
 	typeBtn.addEventListener('click', (e) => {
-		// 선택한 타입 알기
-		let type;
-		if (e.target.innerText === 'PROJECT') {
-			type = 'PROJECT';
-		} else if (e.target.innerText === 'STUDY') {
-			type = 'STUDY';
-		} else {
-			getPost();
-		}
-
-		let cardIDArr = [];
-		// for (let i = 0; i < 9; i++) {
-		// 	// 게시되어 있는 카드의 id 가져오기
-		// 	let postCardID = window.localStorage.getItem(`cardSubjectId__${i}`);
-
-		// 	// 각 카드 id를 배열에 저장
-		// 	cardIDArr.push(postCardID);
-		// }
-
-		fetch(host + '/posts')
-			.then((res) => res.json())
-			.then((data) => {
-				let len = data.length;
-				// console.log(data);
-				// console.log(len);
-
-				// 현재 등록되어 있는 게시글 수만큼 반복하며 해당 타입의 글 ID만 배열에 저장
-				let cardType;
-
-				for (let i = 0; i < len; i++) {
-					cardType = data[i].type;
-					if (type === cardType) {
-						cardIDArr.push(data[i].id);
-					}
+		// 로그인 여부 확인
+		checkLogin().then((data) => {
+			console.log(data);
+			if (data === 1) {
+				// 선택한 타입 알기
+				let type;
+				if (e.target.innerText === 'PROJECT') {
+					type = 'PROJECT';
+				} else if (e.target.innerText === 'STUDY') {
+					type = 'STUDY';
+				} else {
+					getPost();
 				}
-				return cardIDArr;
-			})
-			.then((arr) => {
-				// 새로운 템플릿 생성
 
-				let len = arr.length;
-				// let templateArr = [];
+				let cardIDArr = [];
 
-				document.querySelector('.content__card__item').innerHTML = '';
-				for (let i = 0; i < len; i++) {
-					let ID = arr[i];
-					fetch(host + '/posts/' + ID)
-						.then((res) => res.json())
-						.then((data) => {
-							setTemplate(data, i);
-						});
-				}
-			});
-		// console.log(cardIDArr);
-		// console.log('push');
-		console.log(e.target.innerText); // 선택된 type
+				fetch(host + '/posts')
+					.then((res) => res.json())
+					.then((data) => {
+						let len = data.length;
+
+						// 현재 등록되어 있는 게시글 수만큼 반복하며 해당 타입의 글 ID만 배열에 저장
+						let cardType;
+
+						for (let i = 0; i < len; i++) {
+							cardType = data[i].type;
+							if (type === cardType) {
+								cardIDArr.push(data[i].id);
+							}
+						}
+						return cardIDArr;
+					})
+					.then((arr) => {
+						// 새로운 템플릿 생성
+
+						let len = arr.length;
+						// let templateArr = [];
+
+						document.querySelector('.content__card__item').innerHTML = '';
+						for (let i = 0; i < len; i++) {
+							let ID = arr[i];
+							fetch(host + '/posts/' + ID)
+								.then((res) => res.json())
+								.then((data) => {
+									setTemplate(data, i);
+								});
+						}
+					});
+				// console.log(cardIDArr);
+				// console.log('push');
+				// console.log(e.target.innerText); // 선택된 type
+			} else {
+				alert('로그인되지 않았습니다. 로그인해주세요😀');
+			}
+		});
 	});
 }
 
@@ -632,13 +691,21 @@ async function setID(newPostCard) {
 	const newPostID = newPostCard.id; // 선택된 카드의 고유 ID
 	const getSubjectID = window.localStorage.getItem(newPostID); // 해당 카드의 subject ID 가져옴
 
-	// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
-	await fetch(host + '/posts/' + getSubjectID)
-		.then((res) => res.json())
-		.then((data) => {
-			window.localStorage.setItem('selectID', data.id);
-			window.location.href = '../pages/post_detail.html';
-		});
+	// 로그인 여부 확인
+	checkLogin().then((data) => {
+		if (data === 1) {
+			console.log(`로그인 여부 : ${data}`);
+			// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
+			fetch(host + '/posts/' + getSubjectID)
+				.then((res) => res.json())
+				.then((data) => {
+					window.localStorage.setItem('selectID', data.id);
+					window.location.href = '../pages/post_detail.html';
+				});
+		} else {
+			alert('로그인되지 않았습니다. 로그인해주세요😀');
+		}
+	});
 }
 
 // 선택한 card의 과목 ID 가져오기 (메인 카드 그리드뷰)
@@ -647,13 +714,21 @@ async function setCardID(card) {
 
 	const getSubjectID = window.localStorage.getItem(cardID); // 해당 카드의 subject ID 가져옴
 
-	// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
-	await fetch(host + '/posts/' + getSubjectID)
-		.then((res) => res.json())
-		.then((data) => {
-			window.localStorage.setItem('selectID', data.id);
-			window.location.href = '../pages/post_detail.html';
-		});
+	// 로그인 여부 확인
+	checkLogin().then((data) => {
+		if (data === 1) {
+			console.log(`로그인 여부 : ${data}`);
+			// 가져온 subject ID로 해당 카드의 정보 불러온 후 선택된 카드의 과목 ID를 로컬스토리지에 저장
+			fetch(host + '/posts/' + getSubjectID)
+				.then((res) => res.json())
+				.then((data) => {
+					window.localStorage.setItem('selectID', data.id);
+					window.location.href = '../pages/post_detail.html';
+				});
+		} else {
+			alert('로그인되지 않았습니다. 로그인해주세요😀');
+		}
+	});
 }
 
 //< ----- 밑에 포스트 카드 -------->
