@@ -37,6 +37,7 @@ async function getWriter(userID) {
 			}
 		})
 		.then((data) => {
+			// console.log(data);
 			return data;
 		});
 }
@@ -57,7 +58,7 @@ const getConnectUser = async function () {
 			}
 		})
 		.then((data) => {
-			return data.nickname;
+			return data;
 		});
 };
 
@@ -232,7 +233,7 @@ async function getPostData() {
 							});
 					});
 
-					if (connectUser === writer) {
+					if (connectUser.userId === writerData.userId) {
 						console.log('유저가 같습니다.');
 						// 유저가 같으면 수정하기, 삭제하기 버튼 보이기
 						document.getElementById('buttonSet').classList.toggle('active');
@@ -259,7 +260,7 @@ updateBtn.addEventListener('click', () => {
 deleteBtn.addEventListener('click', () => {
 	let isDelete = confirm('게시글을 정말 삭제하시겠습니까?');
 	const deleteID = window.localStorage.getItem('selectID');
-	console.log(deleteID);
+	// console.log(deleteID);
 
 	if (isDelete) {
 		fetch(host + '/posts/' + deleteID, {
@@ -272,7 +273,7 @@ deleteBtn.addEventListener('click', () => {
 				res.json();
 			})
 			.then((data) => {
-				console.log(data);
+				// console.log(data);
 				alert('정상적으로 게시글이 삭제되었습니다😀');
 				setInterval((window.location.href = '../index.html'), 1000);
 			});
@@ -313,7 +314,7 @@ async function fetchComments() {
 			throw new Error(`HTTP error! Status: ${response.status}`);
 		}
 		const comments = await response.json();
-		console.log(response.headers);
+		// console.log(response.headers);
 
 		// 댓글을 표시하는 부분 업데이트
 		displayComments(comments);
@@ -332,7 +333,7 @@ function displayComments(comments) {
 
 	const commentNumSpan = document.getElementById('commentNum');
 	commentNumSpan.textContent = comments.length; // 댓글 개수 업데이트
-	console.log(comments);
+	// console.log(comments);
 
 	comments.forEach((comments) => {
 		const commentShow = document.createElement('div');
