@@ -21,8 +21,12 @@ async function getData() {
 	}
 
 	const loginBtn = document.getElementById('header__menu__login__btn');
+	const profileImg = document.querySelector('.pro_img');
 	if (isLogin == 1) {
 		// alert('로그인!');
+
+		// 프로필 이미지 보이기
+		profileImg.classList.add('active');
 
 		loginBtn.innerText = '로그아웃';
 		loginBtn.addEventListener('click', () => {
@@ -31,6 +35,8 @@ async function getData() {
 			window.location.href = '../index.html';
 		});
 	} else {
+		// 프로필 이미지 숨기기
+		profileImg.classList.remove('active');
 		loginBtn.innerText = '로그인';
 		loginBtn.addEventListener('click', () => {
 			window.location.href = '../pages/Login.html';
