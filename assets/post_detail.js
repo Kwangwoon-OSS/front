@@ -383,16 +383,13 @@ function displayComments(comments) {
 		deleteButton.textContent = '삭제';
 
 		//삭제 버튼이 작성자만 보이게
-		await getConnectUser().then((userData) => {
+		getConnectUser().then((userData) => {
                 const currentUser = userData;  // 현재 사용자의 ID
                 const commentWriter = comments.username;  // 댓글 작성자의 ID
 
-		console.log(currentUser);
-		console.log(commentWriter);
-
-                if (commentWriter === currentUser) {
-                deleteButton.style.display = 'inline-block';
-                }
+                if (commentWriter !== currentUser) {
+                deleteButton.style.display = 'none'; // 숨기기
+            }
        });
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
