@@ -21,12 +21,25 @@ async function getData() {
 	}
 
 	const loginBtn = document.getElementById('header__menu__login__btn');
-	const profileImg = document.querySelector('.pro_img');
+	const profileImg = document.querySelector('.profile__img');
+	const profileName = document.getElementById('user__nickname');
 	if (isLogin == 1) {
 		// alert('로그인!');
 
 		// 프로필 이미지 보이기
 		profileImg.classList.add('active');
+
+		// 유저 이름 보이기
+		fetch(host + '/users/profile', {
+			method: 'GET',
+			headers: {
+				Authorization: access_token,
+			},
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				profileName.innerHTML = `&nbsp&nbsp ${data.nickname} 님`;
+			});
 
 		loginBtn.innerText = '로그아웃';
 		loginBtn.addEventListener('click', () => {

@@ -173,14 +173,21 @@ button {
 	border-radius: 4px;
 }
 
-.pro_img {
+.profile__img {
 	display: none;
 }
 
-.pro_img.active {
+.profile__img.active {
+	display: flex;
+	align-items: center;
+	font-size: 1em;
+	font-weight: 700;
+}
+
+.pro_img {
 	display: block;
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	align-items: center;
 }
 
