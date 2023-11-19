@@ -5,15 +5,12 @@ console.log(window.location.hostname);
 
 const access_token = window.localStorage.getItem('accessToken');
 
-// const access_token =
-// 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
-// window.localStorage.clear();
 document.body.addEventListener('load', getData());
 
 async function getData() {
 	// 로그인 여부에 따라 로그인, 로그아웃 버튼 보이기
 	const isLogin = window.localStorage.getItem('isLogin');
-	console.log(isLogin);
+	// console.log(isLogin);
 	if (isLogin == null) {
 		console.log('로그인되지 않았습니다!');
 	} else {
@@ -30,13 +27,19 @@ async function getData() {
 		profileImg.classList.add('active');
 
 		// 유저 이름 보이기
-		fetch(host + '/users/profile', {
+		await fetch(host + '/users/profile', {
 			method: 'GET',
 			headers: {
 				Authorization: access_token,
 			},
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (!res.ok) {
+					throw new Error(`HTTP error! Status: ${res.status}`);
+				} else {
+					return res.json();
+				}
+			})
 			.then((data) => {
 				profileName.innerHTML = `&nbsp&nbsp ${data.nickname} 님`;
 			});
@@ -243,83 +246,103 @@ async function setTemplate(data, i) {
 				// 유저 이름
 				userName = userData;
 
-				const template = [];
+				// 댓글 개수 가져오기
+				fetch(host + '/posts/' + data.id + '/comment', {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json;charset=UTF-8',
+						Authorization: access_token,
+					},
+				})
+					.then((res) => {
+						if (!res.ok) {
+							throw new Error(`HTTP error! Status: ${res.status}`);
+						} else {
+							return res.json();
+						}
+					})
+					.then((commentData) => {
+						// console.log(data.length);
+						const template = [];
 
-				const temp = data.deadline;
-				const deadline = moment(temp).format('YYYY-MM-DD');
+						const temp = data.deadline;
+						const deadline = moment(temp).format('YYYY-MM-DD');
 
-				template.push(
-					`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
-				);
-				// template.push(`<div class="item__save">`);
-				// template.push(`<i
-				// 						class="fa-regular fa-bookmark fa-2x"
-				// 						style="color: var(--color-pink)"
-				// 					></i>`);
-				// template.push(`</div>`);
-				template.push(`<div class="item__head">`);
+						template.push(
+							`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
+						);
+						// template.push(`<div class="item__save">`);
+						// template.push(`<i
+						// 						class="fa-regular fa-bookmark fa-2x"
+						// 						style="color: var(--color-pink)"
+						// 					></i>`);
+						// template.push(`</div>`);
+						template.push(`<div class="item__head">`);
 
-				let type = data.type;
-				// 타입별로 아이콘이 다름
-				if (type === 'PROJECT') {
-					template.push(
-						`<div class="item__head__category" id="type__${type}" >`,
-					);
-					template.push(`<i class="fa-regular fa-folder-open"></i>`);
-					template.push(`<span>&nbsp&nbsp</span>`);
-					template.push(`<span class="item__category__title" >${type}</span>`);
-				} else if (type === 'STUDY') {
-					template.push(
-						`<div class="item__head__category" id="type__${type}" >`,
-					);
-					template.push(`<i class="fa-solid fa-book"></i>`);
-					template.push(`<span>&nbsp&nbsp</span>`);
-					template.push(
-						`<span class="item__category__title" >${data.type}</span>`,
-					);
-				}
-				template.push(`</div>`);
-				template.push(`<div class="item__deadline">`);
-				template.push(`<span>모집마감 | ${deadline}</span>`);
-				template.push(`</div>`);
-				template.push(`</div>`);
-				template.push(`<div class="item__text">`);
-				template.push(`<h3>${data.content}</h3>`);
-				template.push(`</div>`);
-				template.push(`<div class="item__tag">`);
-				template.push(`<div class="tag__department">`);
-				template.push(`<i class="fa-solid fa-school-flag"></i>`);
-				template.push(`<span>&nbsp&nbsp</span>`);
-				template.push(`<span id="department__text">${deptRes}</span>`);
-				template.push(`</div>`);
-				template.push(`</div>`);
-				template.push(`<div class="item__line"></div>`);
-				template.push(`<div class="item__footer">`);
-				template.push(`<div class="item__footer__left">`);
-				template.push(`<div class="item__footer__profile">`);
-				template.push(`<i class="fa-regular fa-user"></i>`);
-				template.push(`<span>&nbsp&nbsp${userName}</span>`);
-				template.push(`</div>`);
-				template.push(`</div>`);
-				template.push(`<div class="item__footer__right">`);
-				template.push(`<div class="item__footer__view">`);
-				template.push(`<i class="fa-regular fa-eye"></i>`);
-				template.push(`<span>&nbsp&nbsp${data.views}</span>`);
-				template.push(`</div>`);
-				template.push(`<div class="item__footer__comment">`);
-				template.push(`<i class="fa-solid fa-comment-dots"></i>`);
-				template.push(`<span>&nbsp&nbsp0</span>`);
-				template.push(`</div>`);
-				template.push(`</div>`);
-				template.push(`</div>`);
-				template.push(`</li>`);
+						let type = data.type;
+						// 타입별로 아이콘이 다름
+						if (type === 'PROJECT') {
+							template.push(
+								`<div class="item__head__category" id="type__${type}" >`,
+							);
+							template.push(`<i class="fa-regular fa-folder-open"></i>`);
+							template.push(`<span>&nbsp&nbsp</span>`);
+							template.push(
+								`<span class="item__category__title" >${type}</span>`,
+							);
+						} else if (type === 'STUDY') {
+							template.push(
+								`<div class="item__head__category" id="type__${type}" >`,
+							);
+							template.push(`<i class="fa-solid fa-book"></i>`);
+							template.push(`<span>&nbsp&nbsp</span>`);
+							template.push(
+								`<span class="item__category__title" >${data.type}</span>`,
+							);
+						}
+						template.push(`</div>`);
+						template.push(`<div class="item__deadline">`);
+						template.push(`<span>모집마감 | ${deadline}</span>`);
+						template.push(`</div>`);
+						template.push(`</div>`);
+						template.push(`<div class="item__text">`);
+						template.push(`<h3>${data.content}</h3>`);
+						template.push(`</div>`);
+						template.push(`<div class="item__tag">`);
+						template.push(`<div class="tag__department">`);
+						template.push(`<i class="fa-solid fa-school-flag"></i>`);
+						template.push(`<span>&nbsp&nbsp</span>`);
+						template.push(`<span id="department__text">${deptRes}</span>`);
+						template.push(`</div>`);
+						template.push(`</div>`);
+						template.push(`<div class="item__line"></div>`);
+						template.push(`<div class="item__footer">`);
+						template.push(`<div class="item__footer__left">`);
+						template.push(`<div class="item__footer__profile">`);
+						template.push(`<i class="fa-regular fa-user"></i>`);
+						template.push(`<span>&nbsp&nbsp${userName}</span>`);
+						template.push(`</div>`);
+						template.push(`</div>`);
+						template.push(`<div class="item__footer__right">`);
+						template.push(`<div class="item__footer__view">`);
+						template.push(`<i class="fa-regular fa-eye"></i>`);
+						template.push(`<span>&nbsp&nbsp ${data.views}</span>`);
+						template.push(`</div>`);
+						template.push(`<div class="item__footer__comment">`);
+						template.push(`<i class="fa-solid fa-comment-dots"></i>`);
+						template.push(`<span>&nbsp&nbsp ${commentData.length}</span>`);
+						template.push(`</div>`);
+						template.push(`</div>`);
+						template.push(`</div>`);
+						template.push(`</li>`);
 
-				templateArr[i] = template.join('');
+						templateArr[i] = template.join('');
 
-				document.querySelector('.content__card__item').innerHTML +=
-					templateArr[i];
+						document.querySelector('.content__card__item').innerHTML +=
+							templateArr[i];
 
-				window.localStorage.setItem(`cardSubjectId__${i}`, data.id);
+						window.localStorage.setItem(`cardSubjectId__${i}`, data.id);
+					});
 			});
 		});
 	});
