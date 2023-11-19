@@ -376,6 +376,20 @@ function displayComments(comments) {
 		const dateDiv = document.createElement('div');
 		dateDiv.classList.add('comment__date');
 		dateDiv.innerHTML = `<span>${formattedDateTime}</span>`;
+		
+                //댓글 삭제 버튼 추가  
+		const deleteButton = document.createElement('button');
+		deleteButton.textContent = '삭제';
+
+		// 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시
+		if (comments.username === currentUser.nickname) {
+			deleteButton.style.display = 'inline-block';
+		}
+
+		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
+		deleteButton.addEventListener('click', () => {
+			deleteComment(comments.postId, comments.commentId);
+		});
 
 		const lineDiv = document.createElement('div');
 		lineDiv.classList.add('line');
@@ -392,17 +406,20 @@ function displayComments(comments) {
 //댓글 등록하기
 function post_save() {
 	var content = document.getElementById('comment__input').value;
-	var parentId = localStorage.getItem('selectId');
 	var used = 'Y';
-	//const token = localStorage.getItem('accessToken');
+	const access_token = localStorage.getItem('accessToken');
 
-	// 여기에서 서버로 데이터를 전송하거나 필요한 동작을 수행
-	const userData = {
-		content: content,
-		parentId: parentId,
-		used: used,
-		//bearer토큰 추가해야함
-	};
+	// 사용자 정보 가져오기
+    getConnectUser().then(userData => {
+        // 여기에서 userData.id를 사용하여 작업 수행
+        const userID = userData.id;
+
+        // 서버로 데이터를 전송하거나 필요한 동작을 수행
+        const commentData = {
+            content: content,
+            parentId: userID,
+            used: used,
+        };
 
 	const requestOptions = {
 		method: 'POST',
@@ -410,23 +427,45 @@ function post_save() {
 			Authorization: access_token,
 			'Content-Type': 'application/json; charset=UTF-8',
 		},
-		body: JSON.stringify(userData),
+		body: JSON.stringify(commentData),
 	};
 
-	fetch(host + `/posts/profile/${postID}/comment`, requestOptions)
+	fetch(host + `/posts/${postID}/comment`, requestOptions)
 		.then((response) => {
 			if (response.status === 200) {
 				//댓글 작성 완료
 				alert('댓글이 작성되었어요!');
 			} else {
-				// 회원가입 실패 또는 다른 상태 코드
+				// 댓글 작성 실패 또는 다른 상태 코드
 				console.error('댓글 실패. 상태 코드: ' + response.status);
 			}
 		})
 		.catch((error) => {
 			console.error('요청 실패:', error);
 		});
+	});
 }
+
+// 댓글 삭제 함수
+function deleteComment(postId, commentId) {
+        fetch(`/api/posts/${postId}/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: access_token,
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('댓글을 삭제할 수 없습니다.');
+            }
+            // 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
+            fetchComments(); // 댓글을 다시 로드하는 함수 호출
+        })
+        .catch(error => {
+            console.error('댓글 삭제 중 오류가 발생했습니다:', error);
+            // 오류 처리
+        });
+    }
 
 // 페이지 로드 시 댓글을 가져오도록 설정
 document.addEventListener('DOMContentLoaded', fetchComments);
