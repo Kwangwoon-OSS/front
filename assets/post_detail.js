@@ -350,7 +350,7 @@ async function fetchComments() {
 // 댓글을 화면에 표시하는 함수
 function displayComments(comments) {
 
-	const userData = await getConnectUser();
+	const userData = getConnectUser();
         const currentUser = userData.nickname;
 
 	const commentWrapper = document.querySelector('.comment__wrapper');
