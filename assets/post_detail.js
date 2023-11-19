@@ -65,7 +65,7 @@ const getWriter = function (userID) {
 };
 
 // 현재 접속한 유저의 프로필 가져오기
-const getConnectUser = function () {
+const getConnectUser = async function () {
 	return fetch(host + '/users/profile', {
 		method: 'GET',
 		headers: {
