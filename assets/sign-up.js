@@ -54,8 +54,8 @@ function signUpCheck() {
 			if (response.status === 204) {
 				// 회원가입 성공
 				console.log('회원가입 성공');
-				alert('회원가입이 성공했습니다!');
-				window.location.href = '../index.html';
+				alert('회원가입이 성공했습니다! 프로필 작성 페이지로 이동합니다!');
+				window.location.href = '../profile_modified.html';
 			} else {
 				// 회원가입 실패 또는 다른 상태 코드
 				alert('회원가입 실패. 다시 확인해주세요!');

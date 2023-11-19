@@ -382,15 +382,20 @@ function displayComments(comments) {
 		const deleteButton = document.createElement('button');
 		deleteButton.textContent = '삭제';
 
-		// 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시
-		//if (comments.username === currentUser) {
-			//deleteButton.style.display = 'inline-block';
-		//}
+		//삭제 버튼이 작성자만 보이게
+		getConnectUser().then((userData) => {
+                const currentUser = userData;  // 현재 사용자의 ID
+                const commentWriter = comments.username;  // 댓글 작성자의 ID
+
+                if (commentWriter !== currentUser) {
+                deleteButton.style.display = 'none'; // 숨기기
+            }
+       });
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
-		//deleteButton.addEventListener('click', () => {
-			//deleteComment(comments.postId, comments.commentId);
-		//});
+		deleteButton.addEventListener('click', () => {
+			deleteComment(postID, comments.id);
+		});
 
 		const lineDiv = document.createElement('div');
 		lineDiv.classList.add('line');
@@ -435,7 +440,7 @@ function post_save() {
 			if (response.status === 201) {
 				//댓글 작성 완료
 				alert('댓글이 작성되었어요!');
-				fetchComments();
+				location.reload();
 			} else {
 				// 댓글 작성 실패 또는 다른 상태 코드
 				console.error('댓글 실패. 상태 코드: ' + response.status);
@@ -448,7 +453,7 @@ function post_save() {
 
 // 댓글 삭제 함수
 function deleteComment(postId, commentId) {
-        fetch(`/api/posts/${postId}/${commentId}`, {
+        fetch(host+`/posts/${postId}/${commentId}`, {
             method: 'DELETE',
             headers: {
                 Authorization: access_token,
@@ -459,7 +464,8 @@ function deleteComment(postId, commentId) {
                 throw new Error('댓글을 삭제할 수 없습니다.');
             }
             // 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
-            fetchComments(); // 댓글을 다시 로드하는 함수 호출
+	    alert('댓글이 삭제되었습니다!');
+	    location.reload();
         })
         .catch(error => {
             console.error('댓글 삭제 중 오류가 발생했습니다:', error);
