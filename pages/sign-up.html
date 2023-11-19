@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-		<title>회원가입 페이지</title>
+		<title>회원가입</title>
 		<link href="../styles/sign-up.css" rel="stylesheet" />
 		<script src="../assets/sign-up.js"></script>
 	</head>
@@ -10,12 +10,12 @@
 		<div class="wrapper"></div>
 		<div class="title">
 			<h1>
-			<a href="../index.html" >
-			<img src="../public/img-Logo.png" alt="title" />
+				<a href="../index.html">
+					<img src="../public/img-Logo.png" alt="title" />
 				</a>
-		</h1>
-			<h2 style="font-size: 21px">회원가입</h1>
-			<h3>투게더와 함께 팀원을 구해보세요!</h2>
+			</h1>
+			<h2 style="font-size: 21px">회원가입</h2>
+			<h3>투게더와 함께 팀원을 구해보세요!</h3>
 		</div>
 		<div class="email">
 			<h1>이메일</h1>
@@ -34,8 +34,12 @@
 			<div id="passwordError" class="error"></div>
 		</div>
 		<div class="passwordConfirm">
-            <input id="passwordConfirm" type="password" placeholder="비밀번호를 다시 입력해 주세요.">
-            <div id="passwordConfirmError" class="error"></div>
+			<input
+				id="passwordConfirm"
+				type="password"
+				placeholder="비밀번호를 다시 입력해 주세요."
+			/>
+			<div id="passwordConfirmError" class="error"></div>
 		</div>
 		<div class="school_email">
 			<input
@@ -48,15 +52,17 @@
 		<div class="auth">
 			<button id="sendMessage" onclick="sendEmail()">인증메일 보내기</button>
 		</div>
-		<div class = "check_auth">
-			<input id = "code" type = "text" placeholder="인증번호">
-			<button id = "check_auth" onclick = "check_number()" > 번호확인 </button> 
+		<div class="check_auth">
+			<input id="code" type="text" placeholder="인증번호" />
+			<button id="check_auth" onclick="check_number()">번호확인</button>
 		</div>
 		<div class="line">
 			<hr />
 		</div>
 		<div class="signUp">
-			<button disabled id="signUpButton" onclick="signUpCheck()">가입하기</button>
+			<button disabled id="signUpButton" onclick="signUpCheck()">
+				가입하기
+			</button>
 		</div>
 
 		<!-- footer -->
