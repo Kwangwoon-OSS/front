@@ -398,6 +398,7 @@ function displayComments(comments) {
 		commentShow.appendChild(userDiv);
 		commentShow.appendChild(contentDiv);
 		commentShow.appendChild(dateDiv);
+		commentShow.appendChild(deleteButton); // 삭제 버튼 추가
 		commentShow.appendChild(lineDiv);
 
 		commentWrapper.appendChild(commentShow);
