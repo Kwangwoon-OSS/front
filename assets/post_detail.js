@@ -386,14 +386,14 @@ function displayComments(comments) {
 		deleteButton.textContent = '삭제';
 
 		// 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시
-		if (comments.username === currentUser) {
-			deleteButton.style.display = 'inline-block';
-		}
+		//if (comments.username === currentUser) {
+			//deleteButton.style.display = 'inline-block';
+		//}
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
-		deleteButton.addEventListener('click', () => {
-			deleteComment(comments.postId, comments.commentId);
-		});
+		//deleteButton.addEventListener('click', () => {
+			//deleteComment(comments.postId, comments.commentId);
+		//});
 
 		const lineDiv = document.createElement('div');
 		lineDiv.classList.add('line');
