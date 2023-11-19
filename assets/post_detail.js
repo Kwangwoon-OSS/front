@@ -4,18 +4,10 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
-// const access_token =
-// 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6NiwiZXhwIjoxNzAxMjc5MTE0fQ.L11n5VmUdHh0_YCYLDjcqupqJghPhhDje660foeRbOjM9GlHXU9nqNqqnXiUMaGzxR1-7-CXmUjM9TWrV_ZHQA';
-
 const access_token = window.localStorage.getItem('accessToken');
 
 const postID = window.localStorage.getItem('selectID');
 console.log(postID);
-
-// const style = () => {
-// 	console.log('style');
-// 	document.querySelector('.fa-bookmark').classList.add('fa-solid');
-// };
 
 document.body.addEventListener('load', getPostData());
 
@@ -31,26 +23,11 @@ async function getBook(selectID) {
 		.then((res) => res.json())
 		.then((data) => {
 			return data;
-			console.log(data);
-			console.log(selectID);
-			// 북마크 정보 중에 현재 게시글이 있는 지 확인하기
-			let bookDataLen = data.length;
-			for (let i = 0; i < bookDataLen; i++) {
-				if (selectID == data[i].id) {
-					// style();
-					// console.log('ok');
-					// document.querySelector('.fa-bookmark').classList.add('fa-solid');
-				}
-				// else {
-				// return 1;
-				// document.querySelector('.fa-bookmark').classList.remove('fa-solid');
-				// }
-			}
 		});
 }
 
 // 작성자 이름 가져오기
-const getWriter = function (userID) {
+async function getWriter(userID) {
 	return fetch(host + '/users/profile/' + userID)
 		.then((res) => {
 			if (res.ok) {
@@ -60,9 +37,9 @@ const getWriter = function (userID) {
 			}
 		})
 		.then((data) => {
-			return data.nickname;
+			return data;
 		});
-};
+}
 
 // 현재 접속한 유저의 프로필 가져오기
 const getConnectUser = async function () {
@@ -105,12 +82,11 @@ const getSubjectData = function (subjectID) {
 };
 
 async function getPostData() {
-	// window.localStorage.setItem('access_token', access_token);
+	const postID = window.localStorage.getItem('selectID');
+
 	fetch(host + '/posts/' + postID)
 		.then((res) => res.json())
 		.then((data) => {
-			// console.log(data);
-
 			const title = data.title;
 			const content = data.content;
 			const subjectID = data.subject_id;
@@ -119,7 +95,6 @@ async function getPostData() {
 			const contact = data.contact;
 
 			getSubjectData(subjectID).then((data) => {
-				// console.log(data);
 				const subjectName = data.name;
 				const semesterYear = data.semesters_years;
 				const semesterSemester = data.semesters_semester;
@@ -153,8 +128,8 @@ async function getPostData() {
 			document.getElementById('creatAt').innerText = creatDate;
 			document.getElementById('deadline').innerText = deadlineDate;
 
-			getWriter(data.user_id).then((data) => {
-				const writer = data;
+			getWriter(data.user_id).then((writerData) => {
+				const writer = writerData.nickname;
 				document.getElementById('writer').innerText = writer;
 
 				// 현재 접속한 유저와 작성자가 같은 지 확인하기
@@ -349,9 +324,8 @@ async function fetchComments() {
 
 // 댓글을 화면에 표시하는 함수
 function displayComments(comments) {
-
 	const userData = getConnectUser();
-        const currentUser = userData.nickname;
+	const currentUser = userData.nickname;
 
 	const commentWrapper = document.querySelector('.comment__wrapper');
 	//commentWrapper.innerHTML = ''; // 기존의 댓글 내용을 지웁니다.
@@ -366,8 +340,7 @@ function displayComments(comments) {
 
 		const userDiv = document.createElement('div');
 		userDiv.classList.add('comment__user');
-	        userDiv.innerHTML = `<span>${comments.username}</span>`;
-		
+		userDiv.innerHTML = `<span>${comments.username}</span>`;
 
 		const contentDiv = document.createElement('div');
 		contentDiv.classList.add('comment__content');
@@ -377,20 +350,20 @@ function displayComments(comments) {
 		const dateDiv = document.createElement('div');
 		dateDiv.classList.add('comment__date');
 		dateDiv.innerHTML = `<span>${formattedDateTime}</span>`;
-		
-                //댓글 삭제 버튼 추가  
+
+		//댓글 삭제 버튼 추가
 		const deleteButton = document.createElement('button');
 		deleteButton.textContent = '삭제';
 
 		//삭제 버튼이 작성자만 보이게
 		getConnectUser().then((userData) => {
-                const currentUser = userData;  // 현재 사용자의 ID
-                const commentWriter = comments.username;  // 댓글 작성자의 ID
+			const currentUser = userData; // 현재 사용자의 ID
+			const commentWriter = comments.username; // 댓글 작성자의 ID
 
-                if (commentWriter !== currentUser) {
-                deleteButton.style.display = 'none'; // 숨기기
-            }
-       });
+			if (commentWriter !== currentUser) {
+				deleteButton.style.display = 'none'; // 숨기기
+			}
+		});
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
 		deleteButton.addEventListener('click', () => {
@@ -417,14 +390,12 @@ function post_save() {
 	const access_token = localStorage.getItem('accessToken');
 	var parentId = '0';
 
-	
-
-        // 서버로 데이터를 전송하거나 필요한 동작을 수행
-        const commentData = {
-            content: content,
-            parentId: parentId,
-            used: used,
-        };
+	// 서버로 데이터를 전송하거나 필요한 동작을 수행
+	const commentData = {
+		content: content,
+		parentId: parentId,
+		used: used,
+	};
 
 	const requestOptions = {
 		method: 'POST',
@@ -449,29 +420,29 @@ function post_save() {
 		.catch((error) => {
 			console.error('요청 실패:', error);
 		});
-	}
+}
 
 // 댓글 삭제 함수
 function deleteComment(postId, commentId) {
-        fetch(host+`/posts/${postId}/${commentId}`, {
-            method: 'DELETE',
-            headers: {
-                Authorization: access_token,
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('댓글을 삭제할 수 없습니다.');
-            }
-            // 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
-	    alert('댓글이 삭제되었습니다!');
-	    location.reload();
-        })
-        .catch(error => {
-            console.error('댓글 삭제 중 오류가 발생했습니다:', error);
-            // 오류 처리
-        });
-    }
+	fetch(host + `/posts/${postId}/${commentId}`, {
+		method: 'DELETE',
+		headers: {
+			Authorization: access_token,
+		},
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('댓글을 삭제할 수 없습니다.');
+			}
+			// 삭제가 성공하면 댓글 목록을 다시 로드하여 업데이트
+			alert('댓글이 삭제되었습니다!');
+			location.reload();
+		})
+		.catch((error) => {
+			console.error('댓글 삭제 중 오류가 발생했습니다:', error);
+			// 오류 처리
+		});
+}
 
 // 페이지 로드 시 댓글을 가져오도록 설정
 document.addEventListener('DOMContentLoaded', fetchComments);
