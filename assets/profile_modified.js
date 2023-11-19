@@ -23,7 +23,7 @@ async function getDepartmentDropMenu() {
 	fetch(host+'/department')
 		.then((res) => res.json())
 		.then((data) => {
-			// console.log(data);
+			console.log(data);
 
 			const len = data.length;
 			const template = [];
@@ -112,7 +112,7 @@ function save() {
 const requestOptions = {
     method: "POST",
     headers: {
-        //"Authorization": token, Bearer 토큰 추가
+        "Authorization": access_token,
         "Content-Type": "application/json; charset=UTF-8"
     },
     body: JSON.stringify(userData)
