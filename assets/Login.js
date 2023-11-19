@@ -25,7 +25,6 @@ function login() {
 				return response.json();
 			} else {
 				// 로그인 실패 or 다른 코드
-				alert('아이디 or 비밀번호를 확인해보세요!);
 				console.error('로그인 실패. 상태 코드: ' + response.status);
 				throw new Error('로그인 실패');
 			}
