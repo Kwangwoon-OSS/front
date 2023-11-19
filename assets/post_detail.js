@@ -437,6 +437,7 @@ function post_save() {
 			if (response.status === 201) {
 				//댓글 작성 완료
 				alert('댓글이 작성되었어요!');
+				fetchComments();
 			} else {
 				// 댓글 작성 실패 또는 다른 상태 코드
 				console.error('댓글 실패. 상태 코드: ' + response.status);
