@@ -385,7 +385,7 @@ function displayComments(comments) {
 		//삭제 버튼이 작성자만 보이게
 		getConnectUser().then((userData) => {
                 const currentUser = userData;  // 현재 사용자의 ID
-                const commentWriter = comments.user_id;  // 댓글 작성자의 ID
+                const commentWriter = comments.username;  // 댓글 작성자의 ID
 
                 if (commentWriter === currentUser) {
                 deleteButton.style.display = 'inline-block';
