@@ -50,16 +50,131 @@
                     <div class = "up_wrapper">
                         <img src = "../public/profile_img.jpeg" alt = "my_profil_img">
                     </div>
-                    <h1>***님 환영해요!</h1>
+                    <h1>어서오세요!</h1>
                     <div class = "line"></div>
                       <div class = "nickname">
                         <h1>닉네임</h1>
                         <input id = "nickname" type = "text">
                       </div>
-                      <div class ="belong">
-                        <h1>소속</h1>
-                        <input id ="belong" type ="text">
+                      <div class="category__container">
+                        <div class="department__menu" id="department__list">
+                          <div class="department__btn">
+                            <span class="department__btn__text">학과↓</span>
+                          </div>
+                          <ul class="department__options" id="department__option__list">
+                            <p class="department__option__title">전자정보공과대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">전자공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">전자통신공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">전자융합공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">전기공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">전자재료공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">로봇학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">지능형로봇학과</span>
+                            </li>
+            
+                            <p class="department__option__title">소프트웨어융합대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">컴퓨터정보공학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">소프트웨어학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">정보융합학부</span>
+                            </li>
+                            <p class="department__option__title">공과대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">건축공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">건축학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">화학공학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">환경공학과</span>
+                            </li>
+            
+                            <p class="department__option__title">자연과학대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">수학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text"
+                                >전자바이오물리학과</span
+                              >
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text"
+                                >정보콘텐츠학과(야)</span
+                              >
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">스포츠융합과학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">화학과</span>
+                            </li>
+                            <p class="department__option__title">인문사회과학대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">국어국문학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text"
+                                >동북아문화산업학부</span
+                              >
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text"
+                                >미디어커뮤니케이션학부</span
+                              >
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">산업심리학과</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">영어산업학과</span>
+                            </li>
+                            <p class="department__option__title">정책법학대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">국제학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">법학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">자산관리학과(야)</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">행정학과</span>
+                            </li>
+                            <p class="department__option__title">경영대학</p>
+                            <li class="department__option">
+                              <span class="department__option__text">경영학부</span>
+                            </li>
+                            <li class="department__option">
+                              <span class="department__option__text">국제통상학부</span>
+                            </li>
+                            <p class="department__option__title">인제니움학부대학</p>
+                          </ul>
                       </div>
+                    </div>
+                
+                
                       <div class="introduction">
                         <h1>자기소개</h1>
                         <textarea id="introduction" placeholder="안녕하세요, 광운대학교 **입니다" rows="4" cols="50" oninput="limitText(this, 100)"></textarea>
