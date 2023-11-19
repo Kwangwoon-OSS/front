@@ -383,7 +383,7 @@ function displayComments(comments) {
 		deleteButton.textContent = '삭제';
 
 		//삭제 버튼이 작성자만 보이게
-		getConnectUser().then((userData) => {
+		await getConnectUser().then((userData) => {
                 const currentUser = userData;  // 현재 사용자의 ID
                 const commentWriter = comments.username;  // 댓글 작성자의 ID
 
