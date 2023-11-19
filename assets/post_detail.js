@@ -94,6 +94,8 @@ async function getPostData() {
 			const people = data.people;
 			const deadline = data.deadline;
 			const contact = data.contact;
+			const id = data.user_id;
+			localStorage.setItem('writer_id', id);
 
 			getSubjectData(subjectID).then((data) => {
 				const subjectName = data.name;
