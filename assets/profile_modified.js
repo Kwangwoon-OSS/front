@@ -1,4 +1,19 @@
-const host = window.location.hostname ==='127.0.0.1' ? baseURL:'/api';
+const baseURL =
+	'http://together-env.eba-idjepbda.ap-northeast-2.elasticbeanstalk.com';
+const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
+console.log(window.location.hostname);
+
+const access_token = window.localStorage.getItem('accessToken');
+
+// const access_token =
+// 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
+
+document.body.addEventListener('load', getData());
+
+async function getData() {
+	window.localStorage.setItem('access_token', access_token);
+	getDepartmentDropMenu();
+}
 
 // 과목 ID 가져오기
 async function getDepartmentID() {
