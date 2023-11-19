@@ -72,14 +72,14 @@ async function getData() {
 // 로그인 여부 확인에 따라 접근 제한
 async function checkLogin() {
 	const isLogin = window.localStorage.getItem('isLogin');
-	console.log(isLogin);
+	// console.log(isLogin);
 	if (isLogin == null) {
-		console.log('로그인되지 않았습니다!');
+		// console.log('로그인되지 않았습니다!');
 		// alert('로그인되지 않았습니다. 로그인해주세요😀');
 		// window.location.href = '../pages/Login.html';
 		return 0;
 	} else {
-		console.log('로그인되었습니다!');
+		// console.log('로그인되었습니다!');
 		return 1;
 	}
 }
@@ -134,7 +134,7 @@ async function semesterFilter() {
 				inputYear = targetSemester.substr(0, targetSemester.indexOf('년'));
 				inputSemester = targetSemester.substr(6, 1);
 
-				console.log(targetSemester);
+				// console.log(targetSemester);
 
 				let semesterData;
 				getSemesterID().then((data) => {
@@ -173,29 +173,28 @@ async function departmentFilter() {
 	departmentBtn.addEventListener('click', (e) => {
 		// 로그인 여부 확인
 		checkLogin().then((data) => {
-			console.log(data);
+			// console.log(data);
 			if (data === 1) {
 				const selectDept = e.target.innerText;
 
-				let deptData;
-				getDepartmentID().then((data) => {
-					deptData = data;
+				let targetDeptID;
+				getDeptID(selectDept).then((targetData) => {
+					targetDeptID = targetData;
 
-					let targetDeptID;
-					for (let i = 0; i < deptData.length; i++) {
-						if (selectDept === data[i].name) {
-							targetDeptID = data[i].id;
-						}
-					}
 					fetch(host + '/posts/filter2/' + targetDeptID)
 						.then((res) => res.json())
 						.then((data) => {
 							let len = data.length;
-							// console.log(data);
+							// console.log(len);
 
-							for (let i = 0; i < len; i++) {
+							if (len > 0) {
+								for (let i = 0; i < len; i++) {
+									document.querySelector('.content__card__item').innerHTML = '';
+									setTemplate(data[i], i);
+								}
+							} else {
 								document.querySelector('.content__card__item').innerHTML = '';
-								setTemplate(data[i], i);
+								alert('관련 게시글이 없습니다.');
 							}
 						});
 				});
@@ -203,8 +202,20 @@ async function departmentFilter() {
 				alert('로그인되지 않았습니다. 로그인해주세요😀');
 			}
 		});
-		// console.log(e.target.innerText);
 	});
+}
+
+// 과목명에 해당하는 학과 ID 가져오기
+async function getDeptID(subjectName) {
+	return fetch(host + '/department')
+		.then((res) => res.json())
+		.then((data) => {
+			for (let i = 0; i < data.length; i++) {
+				if (subjectName === data[i].name) {
+					return data[i].id;
+				}
+			}
+		});
 }
 
 // 학기 ID 가져오기
@@ -354,7 +365,7 @@ async function typeFilter() {
 	typeBtn.addEventListener('click', (e) => {
 		// 로그인 여부 확인
 		checkLogin().then((data) => {
-			console.log(data);
+			// console.log(data);
 			if (data === 1) {
 				// 선택한 타입 알기
 				let type;
