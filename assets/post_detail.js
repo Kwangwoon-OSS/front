@@ -412,7 +412,7 @@ function post_save() {
 	var content = document.getElementById('comment__input').value;
 	var used = 'Y';
 	const access_token = localStorage.getItem('accessToken');
-	var parentId : 0;
+	var parentId = '0';
 
 	
 
