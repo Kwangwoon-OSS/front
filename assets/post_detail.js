@@ -417,6 +417,7 @@ function post_save() {
     getConnectUser().then(userData => {
         // 여기에서 userData.id를 사용하여 작업 수행
         const userID = userData.id;
+	console.log(userID);
 
         // 서버로 데이터를 전송하거나 필요한 동작을 수행
         const commentData = {
