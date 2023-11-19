@@ -59,8 +59,7 @@ async function getData() {
 		});
 	}
 
-	getPost();
-	// getSubject();
+	getPost(9);
 	getSemester();
 	getDepartmentDropMenu();
 	getCardSlide();
@@ -75,8 +74,6 @@ async function checkLogin() {
 	// console.log(isLogin);
 	if (isLogin == null) {
 		// console.log('로그인되지 않았습니다!');
-		// alert('로그인되지 않았습니다. 로그인해주세요😀');
-		// window.location.href = '../pages/Login.html';
 		return 0;
 	} else {
 		// console.log('로그인되었습니다!');
@@ -112,11 +109,6 @@ bookmarkBtn.addEventListener('click', () => {
 });
 
 // 필터링
-// 1. 과목
-// 과목에 있는 옵션 선택 시 이벤트 함수 호출
-// /post로 현재 목록 다 불러옴
-// 지금 띄워져있는 거랑 비교 (cardSubjectId__i 값으로 로컬에 저장되어 있음)
-// 띄울 내용에 대한 id 값을 객체로 로컬에 저장
 
 // 학기 필터링
 async function semesterFilter() {
@@ -367,22 +359,22 @@ async function typeFilter() {
 		checkLogin().then((data) => {
 			// console.log(data);
 			if (data === 1) {
-				// 선택한 타입 알기
-				let type;
-				if (e.target.innerText === 'PROJECT') {
-					type = 'PROJECT';
-				} else if (e.target.innerText === 'STUDY') {
-					type = 'STUDY';
-				} else {
-					getPost();
-				}
-
 				let cardIDArr = [];
 
 				fetch(host + '/posts')
 					.then((res) => res.json())
 					.then((data) => {
 						let len = data.length;
+
+						// 선택한 타입 알기
+						let type;
+						if (e.target.innerText === 'PROJECT') {
+							type = 'PROJECT';
+						} else if (e.target.innerText === 'STUDY') {
+							type = 'STUDY';
+						} else {
+							getPost(len);
+						}
 
 						// 현재 등록되어 있는 게시글 수만큼 반복하며 해당 타입의 글 ID만 배열에 저장
 						let cardType;
@@ -411,9 +403,6 @@ async function typeFilter() {
 								});
 						}
 					});
-				// console.log(cardIDArr);
-				// console.log('push');
-				// console.log(e.target.innerText); // 선택된 type
 			} else {
 				alert('로그인되지 않았습니다. 로그인해주세요😀');
 			}
@@ -440,7 +429,6 @@ async function getSubjectToDept(subjectID) {
 
 // 학과 id로 학과 이름 가져오기
 async function getDepartment(deptID) {
-	// console.log(`input dept ID = ${deptID}`);
 	return fetch(host + '/department')
 		.then((res) => res.json())
 		.then((data) => {
@@ -448,7 +436,6 @@ async function getDepartment(deptID) {
 			for (let i = 0; i < data.length; i++) {
 				if (deptID === data[i].id) {
 					departmentName = data[i].name;
-					// console.log(departmentName);
 					return departmentName;
 				}
 			}
@@ -457,7 +444,6 @@ async function getDepartment(deptID) {
 
 // 유저 정보 가져오기
 async function getUser(userID) {
-	// console.log(`input user ID = ${userID}`);
 	return fetch(host + '/users/profile/' + userID)
 		.then((res) => res.json())
 		.then((data) => {
@@ -469,19 +455,11 @@ async function getUser(userID) {
 }
 
 // 등록된 모든 게시글 가져오기
-async function getPost() {
+async function getPost(len) {
 	fetch(host + '/posts')
 		.then((res) => res.json())
 		.then((data) => {
-			const len = data.length;
-			let templateArr = [];
-			// console.log(data);
-
-			let subRes;
-			let deptRes;
-			let userName;
-
-			for (let i = 0; i < 9; i++) {
+			for (let i = 0; i < len; i++) {
 				document.querySelector('.content__card__item').innerHTML = '';
 				setTemplate(data[i], i);
 			}
@@ -489,59 +467,6 @@ async function getPost() {
 			return data;
 		});
 }
-
-// 과목 정보로 드롭메뉴 옵션 만들기
-// async function getSubject() {
-// 	fetch(host + '/subject')
-// 		.then((response) => response.json())
-// 		.then((data) => {
-// 			const len = data.length;
-// 			const template = [];
-
-// 			// 과목명 드롭메뉴 옵션으로 추가
-// 			for (let i = 0; i < len; i++) {
-// 				const subjectName = data[i].name;
-// 				template.push(`<li class="subject__option" data-type="subject">`);
-// 				template.push(
-// 					`<span class="subject__option__text">${subjectName}</span>`,
-// 				);
-// 				template.push(`</li>`);
-// 			}
-// 			document.getElementById('subject__option__list').innerHTML =
-// 				template.join('');
-
-// 			// 선택 시 과목명 보이게
-// 			const subjectBtn = document.getElementById('subject__list');
-// 			const subjectMenu = document.querySelector('.subject__menu');
-// 			const subjectOptionList = document.getElementById(
-// 				'subject__option__list',
-// 			);
-// 			const subjectBtnText = document.querySelector('.subject__btn__text');
-
-// 			subjectBtn.addEventListener('click', () => {
-// 				subjectMenu.classList.toggle('active');
-// 			});
-// 			subjectOptionList.addEventListener('click', () => {
-// 				subjectOptionList.classList.toggle('click');
-// 			});
-
-// 			let subjectOption =
-// 				subjectMenu.querySelector('.subject__options').children;
-// 			let subjectOptions = Array.from(subjectOption);
-
-// 			subjectOptions.forEach((subjectOption) => {
-// 				subjectOption.addEventListener('click', () => {
-// 					let selectedSubjectOption = subjectOption.querySelector(
-// 						'.subject__option__text',
-// 					).innerText;
-
-// 					subjectBtnText.innerText = selectedSubjectOption;
-// 					subjectMenu.classList.remove('active');
-// 					subjectOptionList.classList.remove('click');
-// 				});
-// 			});
-// 		});
-// }
 
 // 학기 정보 가져오기
 async function getSemester() {
@@ -600,59 +525,34 @@ async function getSemester() {
 }
 
 async function getDepartmentDropMenu() {
-	fetch(host + '/department')
-		.then((res) => res.json())
-		.then((data) => {
-			// console.log(data);
+	const departmentMenu = document.querySelector('.department__menu');
+	const departmentBtn = document.getElementById('department__list');
+	const departmentBtnText = document.querySelector('.department__btn__text');
+	const departmentOptionList = document.getElementById(
+		'department__option__list',
+	);
+	departmentBtn.addEventListener('click', () => {
+		departmentMenu.classList.toggle('active');
+	});
+	departmentOptionList.addEventListener('click', () => {
+		departmentOptionList.classList.toggle('click');
+	});
 
-			const len = data.length;
-			const template = [];
+	let departmentOption = departmentMenu.querySelector(
+		'.department__options',
+	).children;
+	let departmentOptions = Array.from(departmentOption);
 
-			// 과목명 드롭메뉴 옵션으로 추가
-			for (let i = 0; i < len; i++) {
-				const deptName = data[i].name;
-
-				template.push(`<li class="department__option">`);
-				template.push(
-					`<span class="department__option__text">${deptName}</span>`,
-				);
-				template.push(`</li>`);
-			}
-			document.getElementById('department__option__list').innerHTML =
-				template.join('');
-
-			const departmentMenu = document.querySelector('.department__menu');
-			const departmentBtn = document.getElementById('department__list');
-			const departmentBtnText = document.querySelector(
-				'.department__btn__text',
-			);
-			const departmentOptionList = document.getElementById(
-				'department__option__list',
-			);
-
-			departmentBtn.addEventListener('click', () => {
-				departmentMenu.classList.toggle('active');
-			});
-			departmentOptionList.addEventListener('click', () => {
-				departmentOptionList.classList.toggle('click');
-			});
-
-			let departmentOption = departmentMenu.querySelector(
-				'.department__options',
-			).children;
-			let departmentOptions = Array.from(departmentOption);
-
-			departmentOptions.forEach((departmentOption) => {
-				departmentOption.addEventListener('click', () => {
-					let selectedDepartmentOption = departmentOption.querySelector(
-						'.department__option__text',
-					).innerText;
-					departmentBtnText.innerText = selectedDepartmentOption;
-					departmentMenu.classList.remove('active');
-					departmentOptionList.classList.remove('click');
-				});
-			});
+	departmentOptions.forEach((departmentOption) => {
+		departmentOption.addEventListener('click', () => {
+			let selectedDepartmentOption = departmentOption.querySelector(
+				'.department__option__text',
+			).innerText;
+			departmentBtnText.innerText = selectedDepartmentOption;
+			departmentMenu.classList.remove('active');
+			departmentOptionList.classList.remove('click');
 		});
+	});
 }
 
 // 카드 슬라이드 정보 가져오기
