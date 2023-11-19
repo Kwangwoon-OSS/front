@@ -197,3 +197,79 @@ input{
 	margin-top: 10px;
 }
 
+
+/* department drop menu */
+.department__menu {
+	width: 10.2rem;
+	margin: 15px 15px;
+}
+
+.department__menu .department__btn {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	height: 35px;
+	background: #fff;
+	padding: 8px;
+	font-size: 1rem;
+	font-weight: 400;
+	border: 3px solid var(--color-gray);
+	border-radius: 8px;
+	align-items: center;
+}
+
+.department__btn i {
+	font-size: 1rem;
+	transition: 0.3s;
+}
+
+.department__menu.active .department__btn i {
+	transform: rotate(-180deg);
+}
+
+.department__menu .department__options {
+	position: relative;
+	padding: 4px;
+	margin-top: 10px;
+	border-radius: 8px;
+	background: #fff;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	display: none;
+
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.department__menu .department__options.click {
+	display: block;
+}
+
+.department__menu.active .department__options {
+	display: block;
+}
+
+.department__menu.active .department__options.click {
+	display: none;
+}
+
+.department__options .department__option {
+	display: flex;
+	height: 55px;
+	cursor: pointer;
+	padding: 0 16px;
+	border-radius: 8px;
+	align-items: center;
+	background: #fff;
+}
+
+.department__option i {
+	font-size: 1rem;
+	margin-right: 5px;
+}
+
+.department__option .department__option__text {
+	font-size: 0.8rem;
+	font-weight: 400;
+	color: #333;
+}
+
