@@ -6,7 +6,7 @@ const user_id = window.localStorage.getItem('writer_id');
 
 function fetchData() {
     // API 엔드포인트와 userId를 조합
-    const apiUrl = host+'/users/profile'+user_id;
+    const apiUrl = host+'/users/profile/'+user_id;
 
     
     // fetch를 사용하여 서버로 데이터 요청
