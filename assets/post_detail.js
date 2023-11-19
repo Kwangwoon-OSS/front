@@ -419,7 +419,7 @@ function post_save() {
         // 서버로 데이터를 전송하거나 필요한 동작을 수행
         const commentData = {
             content: content,
-            parentId: parentID,
+            parentId: parentId,
             used: used,
         };
 
