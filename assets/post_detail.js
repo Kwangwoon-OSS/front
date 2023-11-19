@@ -412,16 +412,14 @@ function post_save() {
 	var content = document.getElementById('comment__input').value;
 	var used = 'Y';
 	const access_token = localStorage.getItem('accessToken');
+	var parentId : 0;
 
-	// 사용자 정보 가져오기
-    getConnectUser().then(userData => {
-        // 여기에서 userData.id를 사용하여 작업 수행
-        const userID = userData;
+	
 
         // 서버로 데이터를 전송하거나 필요한 동작을 수행
         const commentData = {
             content: content,
-            parentId: userID,
+            parentId: parentID,
             used: used,
         };
 
@@ -447,8 +445,7 @@ function post_save() {
 		.catch((error) => {
 			console.error('요청 실패:', error);
 		});
-	});
-}
+	}
 
 // 댓글 삭제 함수
 function deleteComment(postId, commentId) {
