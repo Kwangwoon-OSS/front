@@ -19,6 +19,8 @@ async function getDepartmentID() {
 		});
 }
 
+let selectedDepartmentId;
+
 async function getDepartmentDropMenu() {
 	fetch(host+'/department')
 		.then((res) => res.json())
@@ -67,6 +69,7 @@ async function getDepartmentDropMenu() {
 					let selectedDepartmentOption = departmentOption.querySelector(
 						'.department__option__text',
 					).innerText;
+					selectedDepartmentId = data.find(dep => dep.name === selectedDepartmentOption)?.id;
 					departmentBtnText.innerText = selectedDepartmentOption;
 					departmentMenu.classList.remove('active');
 					departmentOptionList.classList.remove('click');
@@ -96,7 +99,7 @@ async function getDepartment(deptID) {
 
 //저장기능 
 function save() {
-    var departmentId = 1;
+    var departmentId = selectedDepartmentId;
     var nickname = document.getElementById("nickname").value;
     var introduction = document.getElementById("introduction").value;
     //const token = localStorage.getItem('accessToken');
