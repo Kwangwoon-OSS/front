@@ -349,6 +349,10 @@ async function fetchComments() {
 
 // 댓글을 화면에 표시하는 함수
 function displayComments(comments) {
+
+	const userData = await getConnectUser();
+        const currentUser = userData.nickname;
+
 	const commentWrapper = document.querySelector('.comment__wrapper');
 	//commentWrapper.innerHTML = ''; // 기존의 댓글 내용을 지웁니다.
 
