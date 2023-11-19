@@ -382,10 +382,15 @@ function displayComments(comments) {
 		const deleteButton = document.createElement('button');
 		deleteButton.textContent = '삭제';
 
-		// 댓글 작성자와 현재 사용자가 동일한 경우에만 삭제 버튼 표시
-		if (comments.username === getConnectUser()) {
-			deleteButton.style.display = 'inline-block';
-		}
+		//삭제 버튼이 작성자만 보이게
+		getConnectUser().then((userData) => {
+                const currentUser = userData.id;  // 현재 사용자의 ID
+                const commentWriter = comments.user_id;  // 댓글 작성자의 ID
+
+                if (commentWriter === currentUser) {
+                deleteButton.style.display = 'inline-block';
+                }
+       });
 
 		// 삭제 버튼을 눌렀을 때 댓글 삭제 함수 호출
 		deleteButton.addEventListener('click', () => {
