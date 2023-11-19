@@ -434,7 +434,7 @@ function post_save() {
 
 	fetch(host + `/posts/${postID}/comment`, requestOptions)
 		.then((response) => {
-			if (response.status === 200) {
+			if (response.status === 201) {
 				//댓글 작성 완료
 				alert('댓글이 작성되었어요!');
 			} else {
