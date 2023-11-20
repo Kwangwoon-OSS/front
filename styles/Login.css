@@ -1,62 +1,91 @@
-:root {
-	/* App Colors */
-	--color-primary: var(#2d4059);
-	--color-accent: var(#ffd460);
-	--color-accent-variant: var(#f07b3f);
-	--color-text: var(--color-primary);
+/* 로그인.css */
 
-	/* Colors */
-	--color-white: #fff;
-	--color-black: #050a13;
-	--color-pink: #ea5455;
-	--color-gray: #d9d9d9;
-	--color-dark-gray: #8f8d8d;
-	--color-gray-text: #989898;
-	--color-yellow: #ffd460;
-
-	/* Size */
-	--size-max-width: 1200px;
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-#login {width:600px; margin:0 auto;}
-#login h1 {text-align:center;}
-#login h1{margin-top:50px;}
-#login h1{margin:20px 0;}
-#login h1 img {width:100px;}
-
-#login #login_frm fieldset ul li{
-  border:1px solid #aaa; width:100%;
-  padding:15px 10px;
-  border-radius:5px; margin-bottom:10px;
+#login {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-
-
-#login #login_frm fieldset .bottom #membership_btn{
-  background:green; color:#fff;
-  padding:10px 20px; border-radius:5px;
+#login h1 {
+    font-size: 24px;
+    color: #333;
 }
 
-#membership_btn:hover {
-  background-color: var(--color-yellow);
-	border: 1px solid var(--color-yellow);
+#login img {
+    max-width: 100%;
+    height: auto;
 }
 
-#login #login_frm fieldset .bottom #next_btn{
-  background:green; color:#fff;
-  padding:10px 20px; border-radius:5px;
+form {
+    margin-top: 20px;
 }
 
-#next_btn:hover {
-  background-color: var(--color-yellow);
-	border: 1px solid var(--color-yellow);
+fieldset {
+    border: none;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .bottom {
-  text-align: center; /* 중앙 정렬을 위해 text-align 사용 */
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
 }
 
 .navyBtn {
-  display: inline-block; /* 인라인 블록 요소로 배치 */
-  margin-right: 10px; /* 각 버튼 사이에 간격을 조절하려면 마진을 사용 */
+    background-color: #001f3f;
+    color: #fff;
+    margin-right: 10px;
 }
+
+#membership_btn {
+    background-color: #337ab7;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 추가적으로 원하는 스타일을 적용하세요 */
