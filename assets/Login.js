@@ -31,7 +31,7 @@ function login() {
 		})
 		.then((data) => {
 			// Authorization 값을 가져와서 로컬 스토리지에 저장
-			const authorization = data.accessToken; // assuming the token is in the 'accessToken' field
+			const authorization = data.accessToken;
 			console.log('이메일:', email);
 			console.log('액세스 토큰:', authorization);
 			localStorage.setItem('email', email);

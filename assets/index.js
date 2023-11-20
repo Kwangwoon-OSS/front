@@ -10,7 +10,7 @@ document.body.addEventListener('load', getData());
 async function getData() {
 	// 로그인 여부에 따라 로그인, 로그아웃 버튼 보이기
 	const isLogin = window.localStorage.getItem('isLogin');
-	// console.log(isLogin);
+
 	if (isLogin == null) {
 		console.log('로그인되지 않았습니다!');
 	} else {
@@ -284,12 +284,6 @@ async function setTemplate(data, i) {
 						template.push(
 							`<li class="content__item" id="cardSubjectId__${i}" onclick="setCardID(this)">`,
 						);
-						// template.push(`<div class="item__save">`);
-						// template.push(`<i
-						// 						class="fa-regular fa-bookmark fa-2x"
-						// 						style="color: var(--color-pink)"
-						// 					></i>`);
-						// template.push(`</div>`);
 						template.push(`<div class="item__head">`);
 
 						let type = data.type;

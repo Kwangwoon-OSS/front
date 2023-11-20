@@ -3,9 +3,6 @@ const baseURL =
 const host = window.location.hostname === '127.0.0.1' ? baseURL : '/api';
 console.log(window.location.hostname);
 
-// const access_token =
-// 	'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3QiLCJpZCI6MSwiZXhwIjoxNzAxMjc3NTYyfQ.gKXtLZzZSP4I0Thm9ufn00tp-CmzSVh-kA-Gz1Nk5nsknjiiWQ6LdMhdPpeEIQetmOkBYXZmaOkhJJB-FkRmqg';
-
 function signUpCheck() {
 	// 이메일, 이름, 비밀번호 등을 가져옴
 	var email = document.getElementById('email').value;
