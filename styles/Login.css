@@ -78,7 +78,6 @@ button {
 
 body {
     font-family: 'Arial', sans-serif;
-    background-image: url('../public/forest.jpg'); /* 숲 배경 이미지 경로 지정 */
     background-size: cover;
     background-position: center;
     margin: 0;
