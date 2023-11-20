@@ -177,15 +177,14 @@
                 
                       <div class="introduction">
                         <h1>자기소개</h1>
-                        <textarea id="introduction" placeholder="안녕하세요, 광운대학교 **입니다" rows="4" cols="50" oninput="limitText(this, 100)"></textarea>
+                        <textarea id="introduction" placeholder="안녕하세요, 광운대학교 **입니다" rows="4" cols="50" oninput="fixSize(this)"></textarea>
                       </div>
                       
                       <script>
-                        function limitText(element, maxLength) {
-                          if (element.value.length > maxLength) {
-                            element.value = element.value.substring(0, maxLength);
-                          }
-                        }
+                        function fixSize(element) {
+                         // 텍스트 영역의 크기를 고정
+                         element.style.resize = "none";
+    }      
                       </script>
                       <div class="profileSubmit">
                         <a href="#" class="submit__button" onclick="save()">저장하기</a>
