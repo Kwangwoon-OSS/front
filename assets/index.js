@@ -20,7 +20,7 @@ async function getData() {
 	// 로그인 여부에 따라 새 글 작성 페이지로 이동 제한
 	const newPostBtn = document.getElementById('header__menu__new__btn');
 	newPostBtn.addEventListener('click', () => {
-		if (isLogin === 1) {
+		if (isLogin == 1) {
 			location.href = '../pages/post/new-post.html';
 		} else {
 			alert('로그인되지 않았습니다. 로그인해주세요😀');
@@ -58,6 +58,7 @@ async function getData() {
 		loginBtn.addEventListener('click', () => {
 			alert('로그아웃 되었습니다!');
 			window.localStorage.removeItem('isLogin');
+			window.localStorage.removeItem('accessToken');
 			window.location.href = '../index.html';
 		});
 	} else {
